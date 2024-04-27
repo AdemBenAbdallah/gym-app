@@ -2,10 +2,9 @@ import Head from "next/head"
 import React, { FC, Suspense } from "react"
 import { BlitzLayout } from "@blitzjs/next"
 
-const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
-  title,
-  children,
-}) => {
+type Props = { title?: string; children?: React.ReactNode; maxWidth?: number }
+
+const Layout: BlitzLayout<Props> = ({ title, maxWidth = 800, children }) => {
   return (
     <>
       <Head>
@@ -13,7 +12,14 @@ const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Suspense fallback="loading...">{children}</Suspense>
+      <div
+        style={{
+          width: "100%",
+          maxWidth,
+        }}
+      >
+        <Suspense fallback="loading...">{children}</Suspense>
+      </div>
     </>
   )
 }
