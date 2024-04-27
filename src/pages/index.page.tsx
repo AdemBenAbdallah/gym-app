@@ -2,10 +2,10 @@ import { Suspense } from "react"
 import Link from "next/link"
 import Layout from "src/core/layouts/Layout"
 import { useCurrentUser } from "src/features/users/hooks/useCurrentUser"
-import logout from "src/auth/mutations/logout"
 import { useMutation } from "@blitzjs/rpc"
 import { Routes, BlitzPage } from "@blitzjs/next"
 import styles from "src/styles/Home.module.css"
+import logout from "src/features/auth/mutations/logout"
 
 /*
  * This file is just for a pleasant getting started page for your new app.
