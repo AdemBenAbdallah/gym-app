@@ -1,15 +1,13 @@
-import Head from "next/head"
-import React, { FC, Suspense } from "react"
-import { BlitzLayout } from "@blitzjs/next"
-import { AppShell, Burger, Group, Stack, Text } from "@mantine/core"
-import { useDisclosure } from "@mantine/hooks"
-import { Horizontal } from "../components/MantineLayout"
+import Head from "next/head";
+import React, { Suspense } from "react";
+import { BlitzLayout, Routes } from "@blitzjs/next";
+import { Anchor, AppShell, Stack, Text } from "@mantine/core";
+import { Horizontal, Vertical } from "../components/MantineLayout";
+import Link from "next/link";
 
-type Props = { title?: string; children?: React.ReactNode; maxWidth?: number }
+type Props = { title?: string; children?: React.ReactNode };
 
-const Layout: BlitzLayout<Props> = ({ title, maxWidth = 800, children }) => {
-  const [opened, { toggle }] = useDisclosure()
-
+const Layout: BlitzLayout<Props> = ({ title, children }) => {
   return (
     <>
       <Head>
@@ -17,41 +15,25 @@ const Layout: BlitzLayout<Props> = ({ title, maxWidth = 800, children }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div
-        style={{
-          width: "100%",
-          maxWidth,
-        }}
-      >
-        <AppShell
-          header={{ height: 60 }}
-          navbar={{
-            width: 300,
-            breakpoint: "sm",
-            collapsed: { mobile: !opened },
-          }}
-          padding="md"
-        >
-          <AppShell.Header>
-            <Horizontal debug fullH align="center" p={"sm"}>
-              <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+      <AppShell header={{ height: 60 }} padding="md" h={"100%"}>
+        <AppShell.Header>
+          <Horizontal fullH align="center" p={"md"}>
+            <Anchor component={Link} underline="never" href={Routes.Home()}>
               <Text fz={"h3"} fw={500}>
                 Hajem
               </Text>
-            </Horizontal>
-          </AppShell.Header>
+            </Anchor>
+          </Horizontal>
+        </AppShell.Header>
 
-          <AppShell.Navbar p="md">Navbar</AppShell.Navbar>
-
-          <AppShell.Main>
-            <Stack>
-              <Suspense fallback="loading...">{children}</Suspense>
-            </Stack>
-          </AppShell.Main>
-        </AppShell>
-      </div>
+        <AppShell.Main h={"100%"}>
+          <Vertical fullH fullW>
+            <Suspense fallback="loading...">{children}</Suspense>
+          </Vertical>
+        </AppShell.Main>
+      </AppShell>
     </>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;
