@@ -17,9 +17,16 @@ import {
 import { GoogleButton } from "./Icons/GoogleButton";
 import { TwitterButton } from "./Icons/TwitterButton";
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
+import login from "@/features/auth/mutations/login";
+import { useMutation } from "@blitzjs/rpc";
+import { AuthenticationError } from "blitz";
+import signup from "@/features/auth/mutations/signup";
 
 export function AuthenticationForm(props: PaperProps) {
   const [type, toggle] = useToggle(["login", "register"]);
+  const [loginMutation] = useMutation(login);
+  const [signupMutation] = useMutation(signup);
+
   const currentUser = useCurrentUser();
 
   const form = useForm({
@@ -36,6 +43,42 @@ export function AuthenticationForm(props: PaperProps) {
     },
   });
 
+  const onLogin = async (values) => {
+    try {
+      const user = await loginMutation(values);
+    } catch (error: any) {
+      if (error instanceof AuthenticationError) {
+        return { msg: "Sorry, those credentials are invalid" };
+      } else {
+        return {
+          msg: "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
+        };
+      }
+    }
+  };
+
+  const onSingUp = async (values) => {
+    try {
+      await signupMutation(values);
+    } catch (error: any) {
+      if (error.code === "P2002" && error.meta?.target?.includes("email")) {
+        // This error comes from Prisma
+        return { email: "This email is already being used" };
+      } else {
+        return { msg: error.toString() };
+      }
+    }
+  };
+
+  const onSubmit = async (values) => {
+    if (type === "login") {
+      await onLogin(values);
+    } else {
+      await onSingUp(values);
+    }
+  };
+
+  console.log(currentUser);
   if (currentUser) return;
   return (
     <Paper radius="md" p="xl" withBorder {...props} w={{ base: rem(400), md: rem(500) }}>
@@ -50,14 +93,13 @@ export function AuthenticationForm(props: PaperProps) {
 
       <Divider label="Or continue with email" labelPosition="center" my="lg" />
 
-      <form onSubmit={form.onSubmit(() => {})}>
+      <form onSubmit={form.onSubmit(onSubmit)}>
         <Stack>
           {type === "register" && (
             <TextInput
               label="Name"
               placeholder="Your name"
-              value={form.values.name}
-              onChange={(event) => form.setFieldValue("name", event.currentTarget.value)}
+              {...form.getInputProps("name")}
               radius="md"
             />
           )}
@@ -66,9 +108,7 @@ export function AuthenticationForm(props: PaperProps) {
             required
             label="Email"
             placeholder="hello@mantine.dev"
-            value={form.values.email}
-            onChange={(event) => form.setFieldValue("email", event.currentTarget.value)}
-            error={form.errors.email && "Invalid email"}
+            {...form.getInputProps("email")}
             radius="md"
           />
 
@@ -76,9 +116,7 @@ export function AuthenticationForm(props: PaperProps) {
             required
             label="Password"
             placeholder="Your password"
-            value={form.values.password}
-            onChange={(event) => form.setFieldValue("password", event.currentTarget.value)}
-            error={form.errors.password && "Password should include at least 6 characters"}
+            {...form.getInputProps("password")}
             radius="md"
           />
 
