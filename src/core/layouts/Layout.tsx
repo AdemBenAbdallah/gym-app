@@ -12,7 +12,7 @@ const Layout: BlitzLayout<Props> = ({ title, children }) => {
     <>
       <Head>
         <title>{title || "barber"}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/barber.svg" />
       </Head>
 
       <AppShell header={{ height: 60 }} padding="md" h={"100%"}>
