@@ -11,8 +11,8 @@ export const Vertical = ({ debug, fullH, fullW, children, ...props }: VerticalPr
   return (
     <Stack
       {...props}
-      w={fullW ? "100%" : ""}
-      h={fullH ? "100%" : ""}
+      w={fullW ? "100%" : "auto"}
+      h={fullH ? "100%" : "auto"}
       style={{ border: debug ? "2px solid red" : "" }}
     >
       {children}
@@ -30,8 +30,8 @@ export const Horizontal = ({ debug, fullH, fullW, children, ...props }: Horizont
   return (
     <Group
       {...props}
-      w={fullW ? "100%" : ""}
-      h={fullH ? "100%" : ""}
+      w={fullW ? "100%" : "auto"}
+      h={fullH ? "100%" : "auto"}
       style={{ border: debug ? "2px solid yellow" : "" }}
     >
       {children}

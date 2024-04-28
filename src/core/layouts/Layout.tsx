@@ -1,8 +1,9 @@
 import Head from "next/head"
 import React, { FC, Suspense } from "react"
 import { BlitzLayout } from "@blitzjs/next"
-import { AppShell, Burger, Group, Stack } from "@mantine/core"
+import { AppShell, Burger, Group, Stack, Text } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
+import { Horizontal } from "../components/MantineLayout"
 
 type Props = { title?: string; children?: React.ReactNode; maxWidth?: number }
 
@@ -32,8 +33,12 @@ const Layout: BlitzLayout<Props> = ({ title, maxWidth = 800, children }) => {
           padding="md"
         >
           <AppShell.Header>
-            <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-            <div>Logo</div>
+            <Horizontal debug fullH align="center" p={"sm"}>
+              <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+              <Text fz={"h3"} fw={500}>
+                Hajem
+              </Text>
+            </Horizontal>
           </AppShell.Header>
 
           <AppShell.Navbar p="md">Navbar</AppShell.Navbar>

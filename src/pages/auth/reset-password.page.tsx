@@ -9,11 +9,39 @@ import Link from "next/link"
 import { assert } from "blitz"
 import { ResetPassword } from "src/features/auth/schemas"
 import resetPassword from "src/features/auth/mutations/resetPassword"
+import { Button, PasswordInput } from "@mantine/core"
+import { useForm } from "@mantine/form"
 
 const ResetPasswordPage: BlitzPage = () => {
   const router = useRouter()
   const token = router.query.token?.toString()
   const [resetPasswordMutation, { isSuccess }] = useMutation(resetPassword)
+
+  const form = useForm({
+    mode: "uncontrolled",
+    initialValues: {
+      password: "",
+      ConfirmPassword: "",
+    },
+  })
+
+  const onSubmit = async (values) => {
+    try {
+      assert(token, "Token is required.")
+      await resetPasswordMutation({ ...values, token })
+      return null
+    } catch (error: any) {
+      if (error.name === "ResetPasswordError") {
+        return {
+          [FORM_ERROR]: error.message,
+        }
+      } else {
+        return {
+          [FORM_ERROR]: "Sorry, we encountered an unexpected error. Please try again.",
+        }
+      }
+    }
+  }
 
   return (
     <Layout title="Reset Your Password">
@@ -27,38 +55,23 @@ const ResetPasswordPage: BlitzPage = () => {
           </p>
         </div>
       ) : (
-        <Form
-          submitText="Reset Password"
-          schema={ResetPassword}
-          initialValues={{
-            password: "",
-            passwordConfirmation: "",
-            token,
-          }}
-          onSubmit={async (values) => {
-            try {
-              assert(token, "token is required.")
-              await resetPasswordMutation({ ...values, token })
-            } catch (error: any) {
-              if (error.name === "ResetPasswordError") {
-                return {
-                  [FORM_ERROR]: error.message,
-                }
-              } else {
-                return {
-                  [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again.",
-                }
-              }
-            }
-          }}
-        >
-          <LabeledTextField name="password" label="New Password" type="password" />
-          <LabeledTextField
-            name="passwordConfirmation"
-            label="Confirm New Password"
-            type="password"
+        <form onSubmit={form.onSubmit(onSubmit)}>
+          <PasswordInput
+            withAsterisk
+            label="Password"
+            key={form.key("password")}
+            {...form.getInputProps("password")}
           />
-        </Form>
+
+          <PasswordInput
+            withAsterisk
+            label="Confirm Password"
+            key={form.key("ConfirmPassword")}
+            {...form.getInputProps("ConfirmPassword")}
+          />
+
+          <Button type="submit">Submit</Button>
+        </form>
       )}
     </Layout>
   )

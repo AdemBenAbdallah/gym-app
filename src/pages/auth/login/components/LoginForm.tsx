@@ -6,6 +6,9 @@ import { Login } from "@/features/auth/schemas"
 import { Form, FORM_ERROR } from "@/core/components/Form"
 import { useMutation } from "@blitzjs/rpc"
 import { Routes } from "@blitzjs/next"
+import { useForm } from "@mantine/form"
+import { Button, PasswordInput, TextInput } from "@mantine/core"
+import { Vertical } from "@/core/components/MantineLayout"
 
 type LoginFormProps = {
   onSuccess?: (user: PromiseReturnType<typeof login>) => void
@@ -13,41 +16,64 @@ type LoginFormProps = {
 
 export const LoginForm = (props: LoginFormProps) => {
   const [loginMutation] = useMutation(login)
+
+  const form = useForm({
+    mode: "uncontrolled",
+    initialValues: {
+      email: "",
+      password: "",
+    },
+
+    validate: {
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+    },
+  })
+
+  const onSubmit = async (values) => {
+    try {
+      const user = await loginMutation(values)
+      props.onSuccess?.(user)
+    } catch (error: any) {
+      if (error instanceof AuthenticationError) {
+        return { [FORM_ERROR]: "Sorry, those credentials are invalid" }
+      } else {
+        return {
+          [FORM_ERROR]:
+            "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
+        }
+      }
+    }
+  }
+
   return (
-    <div>
+    <Vertical>
       <h1>Login</h1>
 
-      <Form
-        submitText="Login"
-        schema={Login}
-        initialValues={{ email: "", password: "" }}
-        onSubmit={async (values) => {
-          try {
-            const user = await loginMutation(values)
-            props.onSuccess?.(user)
-          } catch (error: any) {
-            if (error instanceof AuthenticationError) {
-              return { [FORM_ERROR]: "Sorry, those credentials are invalid" }
-            } else {
-              return {
-                [FORM_ERROR]:
-                  "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
-              }
-            }
-          }
-        }}
-      >
-        <LabeledTextField name="email" label="Email" placeholder="Email" />
-        <LabeledTextField name="password" label="Password" placeholder="Password" type="password" />
-        <div>
-          <Link href={Routes.ForgotPasswordPage()}>Forgot your password?</Link>
-        </div>
-      </Form>
+      <form onSubmit={form.onSubmit(onSubmit)}>
+        <TextInput
+          withAsterisk
+          label="Email"
+          placeholder="your@email.com"
+          key={form.key("email")}
+          {...form.getInputProps("email")}
+        />
+
+        <PasswordInput
+          withAsterisk
+          label="Password"
+          key={form.key("password")}
+          {...form.getInputProps("password")}
+        />
+
+        <Button type="submit">Submit</Button>
+      </form>
+
+      <Link href={Routes.ForgotPasswordPage()}>Forgot your password?</Link>
 
       <div style={{ marginTop: "1rem" }}>
         Or <Link href={Routes.SignupPage()}>Sign Up</Link>
       </div>
-    </div>
+    </Vertical>
   )
 }
 
