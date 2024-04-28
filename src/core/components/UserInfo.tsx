@@ -2,23 +2,29 @@ import fetchTodos from "@/features/todos/queries/fetchTodos";
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
 import { useQuery } from "@blitzjs/rpc";
 import { List, Loader } from "@mantine/core";
+import { Suspense } from "react";
 
+const Todos = () => {
+  const [todos] = useQuery(fetchTodos, {});
+  return (
+    <List>
+      {todos.map((item, idx) => (
+        <div key={idx}>
+          <List.Item key={idx}>{item.title}</List.Item>
+        </div>
+      ))}
+    </List>
+  );
+};
 const UserInfo = () => {
   const currentUser = useCurrentUser();
-  const [todos, { isLoading }] = useQuery(fetchTodos, {}, { suspense: false });
 
   if (!currentUser) return;
   return (
     <>
-      <List>
-        {isLoading && <Loader />}
-        {todos &&
-          todos.map((item, idx) => (
-            <div key={idx}>
-              <List.Item key={idx}>{item.title}</List.Item>
-            </div>
-          ))}
-      </List>
+      <Suspense fallback={<Loader />}>
+        <Todos />
+      </Suspense>
       <div>
         User id: <code>{currentUser.id}</code>
         <br />
