@@ -78,7 +78,6 @@ export function AuthenticationForm(props: PaperProps) {
     }
   };
 
-  console.log(currentUser);
   if (currentUser) return;
   return (
     <Paper radius="md" p="xl" withBorder {...props} w={{ base: rem(400), md: rem(500) }}>
