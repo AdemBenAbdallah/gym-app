@@ -1,11 +1,12 @@
 import Head from "next/head";
 import React, { Suspense } from "react";
 import { BlitzLayout, Routes } from "@blitzjs/next";
-import { Anchor, AppShell, Button, Stack, Text } from "@mantine/core";
+import { Anchor, AppShell, Button, Text } from "@mantine/core";
 import { Horizontal, Vertical } from "../components/MantineLayout";
 import Link from "next/link";
 import logout from "@/features/auth/mutations/logout";
 import { useMutation } from "@blitzjs/rpc";
+import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
 
 type Props = { title?: string; children?: React.ReactNode };
 

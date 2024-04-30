@@ -24,8 +24,8 @@ import signup from "@/features/auth/mutations/signup";
 
 export function AuthenticationForm(props: PaperProps) {
   const [type, toggle] = useToggle(["login", "register"]);
-  const [loginMutation] = useMutation(login);
-  const [signupMutation] = useMutation(signup);
+  const [$login] = useMutation(login);
+  const [$signup] = useMutation(signup);
 
   const currentUser = useCurrentUser();
 
@@ -45,7 +45,7 @@ export function AuthenticationForm(props: PaperProps) {
 
   const onLogin = async (values) => {
     try {
-      const user = await loginMutation(values);
+      const user = await $login(values);
     } catch (error: any) {
       if (error instanceof AuthenticationError) {
         return { msg: "Sorry, those credentials are invalid" };
@@ -59,7 +59,7 @@ export function AuthenticationForm(props: PaperProps) {
 
   const onSingUp = async (values) => {
     try {
-      await signupMutation(values);
+      await $signup(values);
     } catch (error: any) {
       if (error.code === "P2002" && error.meta?.target?.includes("email")) {
         // This error comes from Prisma
@@ -80,7 +80,7 @@ export function AuthenticationForm(props: PaperProps) {
 
   if (currentUser) return;
   return (
-    <Paper radius="md" p="xl" withBorder {...props} w={{ base: rem(400), md: rem(500) }}>
+    <Paper radius="md" p="xl" withBorder {...props} w={{ base: rem(400) }}>
       <Text size="lg" fw={500}>
         Welcome to Hajem, {type} with
       </Text>
