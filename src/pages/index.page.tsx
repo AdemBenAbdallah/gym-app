@@ -6,6 +6,7 @@ import { Vertical } from "@/core/components/MantineLayout";
 import { AuthenticationForm } from "@/core/components/MantineAuthForm";
 
 const Home: BlitzPage = () => {
+  console.log("home");
   return (
     <Layout title="Home">
       <UserInfo />
