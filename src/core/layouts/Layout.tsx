@@ -1,13 +1,14 @@
 import Head from "next/head";
 import React, { Suspense } from "react";
 import { BlitzLayout, Routes } from "@blitzjs/next";
-import { Anchor, AppShell, Button, Text } from "@mantine/core";
+import { Anchor, AppShell, Button, Text, Tooltip } from "@mantine/core";
 import { Horizontal, Vertical } from "../components/MantineLayout";
 import Link from "next/link";
 import logout from "@/features/auth/mutations/logout";
 import { useMutation } from "@blitzjs/rpc";
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
 import { ReactFC } from "~/types";
+import { IconUserPlus } from "@tabler/icons-react";
 
 type Props = { title?: string };
 
@@ -33,7 +34,16 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
               </Text>
             </Anchor>
             <Horizontal>
-              {currentUser && currentUser.name}
+              {currentUser && (
+                <Horizontal gap={5} align="center">
+                  <Text>{currentUser.name}</Text>
+                  {currentUser.role === "ADMIN" && (
+                    <Tooltip label="ADMIN">
+                      <IconUserPlus />
+                    </Tooltip>
+                  )}
+                </Horizontal>
+              )}
               {currentUser && (
                 <Button
                   size="xs"
