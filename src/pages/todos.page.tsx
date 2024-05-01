@@ -12,11 +12,13 @@ import { Vertical } from "@/core/components/MantineLayout";
 const Todos = () => {
   const [todoTitle, setTodoTitle] = useState("");
   const [todos] = useQuery(getTodos, {});
+
   const [$addTodo] = useMutation(addTodo, {
     onSuccess: (result) => {
       <Notification title="We notify you that">{result}</Notification>;
     },
   });
+
   return (
     <Vertical>
       <Input
