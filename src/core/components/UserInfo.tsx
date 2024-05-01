@@ -2,13 +2,14 @@ import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
 import { Routes } from "@blitzjs/next";
 import { Button } from "@mantine/core";
 import Link from "next/link";
+import { Vertical } from "./MantineLayout";
 
 const UserInfo = () => {
   const currentUser = useCurrentUser();
 
   if (!currentUser) return;
   return (
-    <>
+    <Vertical mx={"auto"}>
       <div>
         User id: <code>{currentUser.id}</code>
         <br />
@@ -17,7 +18,7 @@ const UserInfo = () => {
       <Button component={Link} href={Routes.TodosPage()}>
         todos
       </Button>
-    </>
+    </Vertical>
   );
 };
 
