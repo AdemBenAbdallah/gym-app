@@ -7,12 +7,13 @@ import Link from "next/link";
 import logout from "@/features/auth/mutations/logout";
 import { useMutation } from "@blitzjs/rpc";
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
+import { ReactFC } from "~/types";
 
-type Props = { title?: string; children?: React.ReactNode };
+type Props = { title?: string };
 
 export const dynamic = "force-dynamic";
 
-const Layout: BlitzLayout<Props> = ({ title, children }) => {
+const Layout: ReactFC<Props> = ({ title, children }) => {
   const [logoutMutation] = useMutation(logout);
   const currentUser = useCurrentUser();
 

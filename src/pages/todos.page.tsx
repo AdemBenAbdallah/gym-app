@@ -10,9 +10,12 @@ import { Horizontal, Vertical } from "@/core/components/MantineLayout";
 import toggleTodo from "@/features/todos/mutations/toggleTodo";
 import clearCompleted from "@/features/todos/mutations/clearCompleted";
 
+// type TodosType = PromiseReturnType<typeof getTodos>;
+// type TodoType = TodoType[number];
+
 const Todos = () => {
   const [todoTitle, setTodoTitle] = useState("");
-  const [todos, { refetch }] = useQuery(getTodos, {});
+  const [todos] = useQuery(getTodos, {});
 
   const [$addTodo] = useMutation(addTodo, {});
   const [$toggleTodo] = useMutation(toggleTodo, {});
