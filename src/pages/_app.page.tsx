@@ -1,7 +1,7 @@
 import { ErrorBoundary, AppProps } from "@blitzjs/next";
 import { MantineProvider, createTheme } from "@mantine/core";
 import "@mantine/core/styles.css";
-import React from "react";
+import React, { Suspense } from "react";
 import { withBlitz } from "src/blitz-client";
 import { RootErrorFallback } from "src/core/components/RootErrorFallback";
 import "src/styles/globals.css";
@@ -14,7 +14,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ErrorBoundary FallbackComponent={RootErrorFallback}>
       <MantineProvider theme={theme} defaultColorScheme="dark">
-        <Component {...pageProps} />
+        <Suspense fallback="Loading...">
+          <Component {...pageProps} />
+        </Suspense>
       </MantineProvider>
     </ErrorBoundary>
   );

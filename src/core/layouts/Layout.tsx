@@ -10,8 +10,11 @@ import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
 
 type Props = { title?: string; children?: React.ReactNode };
 
+export const dynamic = "force-dynamic";
+
 const Layout: BlitzLayout<Props> = ({ title, children }) => {
   const [logoutMutation] = useMutation(logout);
+  const currentUser = useCurrentUser();
 
   return (
     <>
@@ -28,15 +31,20 @@ const Layout: BlitzLayout<Props> = ({ title, children }) => {
                 Hajem
               </Text>
             </Anchor>
-            <Button
-              size="xs"
-              variant="light"
-              onClick={async () => {
-                await logoutMutation();
-              }}
-            >
-              Logout
-            </Button>
+            <Horizontal>
+              {currentUser && currentUser.name}
+              {currentUser && (
+                <Button
+                  size="xs"
+                  variant="light"
+                  onClick={async () => {
+                    await logoutMutation();
+                  }}
+                >
+                  Logout
+                </Button>
+              )}
+            </Horizontal>
           </Horizontal>
         </AppShell.Header>
 

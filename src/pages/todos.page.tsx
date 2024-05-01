@@ -1,26 +1,27 @@
 import { BlitzPage } from "@blitzjs/next";
 import React, { useState } from "react";
 import { useMutation, useQuery } from "@blitzjs/rpc";
-import { Button, Input, List, Loader } from "@mantine/core";
-import { Notification } from "@mantine/core";
+import { Button, Checkbox, Input, List, Loader } from "@mantine/core";
 import { Suspense } from "react";
 import getTodos from "@/features/todos/queries/getTodos";
 import Layout from "@/core/layouts/Layout";
 import addTodo from "@/features/todos/mutations/addTodo";
 import { Vertical } from "@/core/components/MantineLayout";
+import toggleTodo from "@/features/todos/mutations/toggleTodo";
 
 const Todos = () => {
   const [todoTitle, setTodoTitle] = useState("");
-  const [todos] = useQuery(getTodos, {});
+  const [todos, { refetch }] = useQuery(getTodos, {});
 
   const [$addTodo] = useMutation(addTodo, {
-    onSuccess: (result) => {
-      <Notification title="We notify you that">{result}</Notification>;
+    onSuccess: async () => {
+      await refetch();
     },
   });
+  const [$toggleTodo] = useMutation(toggleTodo, {});
 
   return (
-    <Vertical>
+    <Vertical maw={800}>
       <Input
         placeholder="Enter your todo"
         value={todoTitle}
@@ -34,11 +35,16 @@ const Todos = () => {
         Create a todo
       </Button>
       <List>
-        {todos.map((item, idx) => (
-          <div key={idx}>
-            <List.Item key={idx}>{item.title}</List.Item>
-          </div>
-        ))}
+        <Vertical gap={10}>
+          {todos.map((item, idx) => (
+            <Checkbox
+              key={idx}
+              checked={item.done}
+              label={item.title}
+              onClick={() => $toggleTodo({ id: item.id })}
+            />
+          ))}
+        </Vertical>
       </List>
     </Vertical>
   );

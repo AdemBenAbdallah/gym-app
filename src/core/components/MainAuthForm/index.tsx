@@ -27,8 +27,6 @@ export function AuthenticationForm(props: PaperProps) {
   const [$login] = useMutation(login);
   const [$signup] = useMutation(signup);
 
-  const currentUser = useCurrentUser();
-
   const form = useForm({
     initialValues: {
       email: "",
@@ -78,7 +76,6 @@ export function AuthenticationForm(props: PaperProps) {
     }
   };
 
-  if (currentUser) return;
   return (
     <Paper radius="md" p="xl" withBorder {...props} w={{ base: rem(400) }}>
       <Text size="lg" fw={500}>
@@ -96,6 +93,7 @@ export function AuthenticationForm(props: PaperProps) {
         <Stack>
           {type === "register" && (
             <TextInput
+              required
               label="Name"
               placeholder="Your name"
               {...form.getInputProps("name")}
