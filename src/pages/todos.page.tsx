@@ -1,7 +1,7 @@
 import { BlitzPage } from "@blitzjs/next";
-import React from "react";
+import React, { useState } from "react";
 import { useMutation, useQuery } from "@blitzjs/rpc";
-import { Button, List, Loader } from "@mantine/core";
+import { Button, Input, List, Loader } from "@mantine/core";
 import { Notification } from "@mantine/core";
 import { Suspense } from "react";
 import getTodos from "@/features/todos/queries/getTodos";
@@ -10,18 +10,23 @@ import addTodo from "@/features/todos/mutations/addTodo";
 import { Vertical } from "@/core/components/MantineLayout";
 
 const Todos = () => {
-  const [todos] = useQuery(getTodos, { search: "212115" });
+  const [todoTitle, setTodoTitle] = useState("");
+  const [todos] = useQuery(getTodos, {});
   const [$addTodo] = useMutation(addTodo, {
     onSuccess: (result) => {
       <Notification title="We notify you that">{result}</Notification>;
     },
   });
-
   return (
     <Vertical>
+      <Input
+        placeholder="Enter your todo"
+        value={todoTitle}
+        onChange={(e) => setTodoTitle(e.currentTarget.value)}
+      />
       <Button
         onClick={async () => {
-          await $addTodo({ todoTitle: "drink watter" });
+          await $addTodo({ todoTitle });
         }}
       >
         Create a todo

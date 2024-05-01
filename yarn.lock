@@ -1275,6 +1275,11 @@
   resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-7.8.1.tgz#cc1e9c2e2acc07aac8f8d963c963d6993dd092bb"
   integrity sha512-zCLqnxTUR2N6Awbt4rv/26UKTc75dXTVmCPsWUb6wdQExuC28fucG6kMoNYHVmOBDq9f3KP9zWOGDelHM2ogZA==
 
+"@mantinex/dev-icons@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@mantinex/dev-icons/-/dev-icons-1.0.2.tgz#9af8ab6a75b2f245b78299c7c934aa22be98d03d"
+  integrity sha512-wKSOvjqLTQbSf+XAq3BojhkaEwjR1C3L5ShlgE2lN6JnxGcIZeFcwphMf4xqBp9Gl45XhIyKxNGfmija/u/a7A==
+
 "@mrleebo/prisma-ast@0.2.6":
   version "0.2.6"
   resolved "https://registry.yarnpkg.com/@mrleebo/prisma-ast/-/prisma-ast-0.2.6.tgz#654129c51fd0bcde4ab9be687e373bf8c3dd5a59"
@@ -9161,3 +9166,8 @@ zod@3.20.2:
   version "3.20.2"
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.20.2.tgz#068606642c8f51b3333981f91c0a8ab37dfc2807"
   integrity sha512-1MzNQdAvO+54H+EaK5YpyEy0T+Ejo/7YLHS93G3RnYWh5gaotGHwGeN/ZO687qEDU2y4CdStQYXVHIgrUl5UVQ==
+
+zod@3.23.5:
+  version "3.23.5"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.23.5.tgz#c7b7617d017d4a2f21852f533258d26a9a5ae09f"
+  integrity sha512-fkwiq0VIQTksNNA131rDOsVJcns0pfVUjHzLrNBiF/O/Xxb5lQyEXkhZWcJ7npWsYlvs+h0jFWXXy4X46Em1JA==
