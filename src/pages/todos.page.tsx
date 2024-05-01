@@ -6,19 +6,17 @@ import { Suspense } from "react";
 import getTodos from "@/features/todos/queries/getTodos";
 import Layout from "@/core/layouts/Layout";
 import addTodo from "@/features/todos/mutations/addTodo";
-import { Vertical } from "@/core/components/MantineLayout";
+import { Horizontal, Vertical } from "@/core/components/MantineLayout";
 import toggleTodo from "@/features/todos/mutations/toggleTodo";
+import clearCompleted from "@/features/todos/mutations/clearCompleted";
 
 const Todos = () => {
   const [todoTitle, setTodoTitle] = useState("");
   const [todos, { refetch }] = useQuery(getTodos, {});
 
-  const [$addTodo] = useMutation(addTodo, {
-    onSuccess: async () => {
-      await refetch();
-    },
-  });
+  const [$addTodo] = useMutation(addTodo, {});
   const [$toggleTodo] = useMutation(toggleTodo, {});
+  const [$clearCompleted] = useMutation(clearCompleted, {});
 
   return (
     <Vertical maw={800}>
@@ -27,13 +25,23 @@ const Todos = () => {
         value={todoTitle}
         onChange={(e) => setTodoTitle(e.currentTarget.value)}
       />
-      <Button
-        onClick={async () => {
-          await $addTodo({ todoTitle });
-        }}
-      >
-        Create a todo
-      </Button>
+      <Horizontal gap={20}>
+        <Button
+          onClick={async () => {
+            await $addTodo({ todoTitle });
+          }}
+        >
+          Create A Todo
+        </Button>
+        <Button
+          onClick={async () => {
+            await $clearCompleted({});
+          }}
+        >
+          Clear Todo
+        </Button>
+      </Horizontal>
+
       <List>
         <Vertical gap={10}>
           {todos.map((item, idx) => (
@@ -41,7 +49,7 @@ const Todos = () => {
               key={idx}
               checked={item.done}
               label={item.title}
-              onClick={() => $toggleTodo({ id: item.id })}
+              onChange={() => $toggleTodo({ id: item.id })}
             />
           ))}
         </Vertical>
