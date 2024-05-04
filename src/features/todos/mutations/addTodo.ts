@@ -1,13 +1,9 @@
 import { resolver } from "@blitzjs/rpc";
-import { z } from "zod";
+import { InputAddTodo } from "../schemas";
 import db from "db";
 
-const Input = z.object({
-  todoTitle: z.string().optional(),
-});
-
 export default resolver.pipe(
-  resolver.zod(Input),
+  resolver.zod(InputAddTodo),
   resolver.authorize(),
   async ({ todoTitle }, { session: { userId } }) => {
     if (!todoTitle || !userId) return;

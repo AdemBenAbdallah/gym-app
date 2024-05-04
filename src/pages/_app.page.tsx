@@ -1,9 +1,12 @@
+import FullPageLoader from "@/core/components/FulllPageLoader";
 import { ErrorBoundary, AppProps } from "@blitzjs/next";
 import { MantineProvider, createTheme } from "@mantine/core";
 import "@mantine/core/styles.css";
+import { Notifications } from "@mantine/notifications";
 import React, { Suspense } from "react";
 import { withBlitz } from "src/blitz-client";
 import { RootErrorFallback } from "src/core/components/RootErrorFallback";
+import "@mantine/notifications/styles.css";
 import "src/styles/globals.css";
 
 const theme = createTheme({
@@ -12,13 +15,14 @@ const theme = createTheme({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ErrorBoundary FallbackComponent={RootErrorFallback}>
-      <MantineProvider theme={theme} defaultColorScheme="dark">
-        <Suspense fallback="Loading...">
+    <MantineProvider theme={theme} defaultColorScheme="dark">
+      <Notifications position="top-right" zIndex={1000} />
+      <ErrorBoundary FallbackComponent={RootErrorFallback}>
+        <Suspense fallback={<FullPageLoader />}>
           <Component {...pageProps} />
         </Suspense>
-      </MantineProvider>
-    </ErrorBoundary>
+      </ErrorBoundary>
+    </MantineProvider>
   );
 }
 

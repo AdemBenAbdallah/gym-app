@@ -1,8 +1,5 @@
-import {
-  useToggle,
-  upperFirst,
-} from "@mantine/hooks";
-import { useForm } from "@mantine/form";
+import { useToggle, upperFirst } from "@mantine/hooks";
+import { useForm, zodResolver } from "@mantine/form";
 import {
   TextInput,
   PasswordInput,
@@ -19,266 +16,135 @@ import {
 } from "@mantine/core";
 import { GoogleButton } from "./Icons/GoogleButton";
 import { TwitterButton } from "./Icons/TwitterButton";
-import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
 import login from "@/features/auth/mutations/login";
 import { useMutation } from "@blitzjs/rpc";
-import { AuthenticationError } from "blitz";
 import signup from "@/features/auth/mutations/signup";
+import { Vertical } from "../MantineLayout";
+import { InputSginUp } from "@/features/auth/schemas";
+import { z } from "zod";
 
-export function AuthenticationForm(
-  props: PaperProps
-) {
-  const [
-    type,
-    toggle,
-  ] = useToggle([
-    "login",
-    "register",
-  ]);
-  const [$login] =
-    useMutation(
-      login
-    );
-  const [$signup] =
-    useMutation(
-      signup
-    );
+type SignupFormType = z.infer<typeof InputSginUp>;
 
-  const form =
-    useForm({
-      initialValues:
-        {
-          email: "",
-          name: "",
-          password:
-            "",
-          terms:
-            true,
-        },
+export const bindCheckboxToForm = (form: any, key: string) => {
+  const inputProps = form.getInputProps(key);
+  return {
+    checked: form.values[key],
+    ...inputProps,
+  };
+};
 
-      validate: {
-        email: (
-          val
-        ) =>
-          /^\S+@\S+$/.test(
-            val
-          )
-            ? null
-            : "Invalid email",
-        password: (
-          val
-        ) =>
-          val.length <=
-          6
-            ? "Password should include at least 6 characters"
-            : null,
-      },
-    });
+export function AuthenticationForm(props: PaperProps) {
+  const [type, toggle] = useToggle(["login", "register"]);
+  const [$login, { isLoading: isLogginIn }] = useMutation(login);
+  const [$signup, { isLoading: isSigningUp }] = useMutation(signup);
 
-  const onLogin =
-    async (
-      values
-    ) => {
-      try {
-        const user =
-          await $login(
-            values
-          );
-      } catch (error: any) {
-        if (
-          error instanceof
-          AuthenticationError
-        ) {
-          return {
-            msg: "Sorry, those credentials are invalid",
-          };
-        } else {
-          return {
-            msg:
-              "Sorry, we had an unexpected error. Please try again. - " +
-              error.toString(),
-          };
-        }
-      }
-    };
+  const form = useForm<SignupFormType>({
+    initialValues: {
+      email: "",
+      name: "",
+      password: "",
+      terms: true,
+    },
 
-  const onSingUp =
-    async (
-      values
-    ) => {
-      try {
-        await $signup(
-          values
-        );
-      } catch (error: any) {
-        if (
-          error.code ===
-            "P2002" &&
-          error.meta?.target?.includes(
-            "email"
-          )
-        ) {
-          // This error comes from Prisma
-          return {
-            email:
-              "This email is already being used",
-          };
-        } else {
-          return {
-            msg: error.toString(),
-          };
-        }
-      }
-    };
+    validate: zodResolver(InputSginUp),
+    validateInputOnBlur: true,
+    validateInputOnChange: ["email", "password", "terms"],
+  });
 
-  const onSubmit =
-    async (
-      values
-    ) => {
-      if (
-        type ===
-        "login"
-      ) {
-        await onLogin(
-          values
-        );
-      } else {
-        await onSingUp(
-          values
-        );
-      }
-    };
+  const onSubmit = async (values) => {
+    if (type === "login") {
+      await $login(values);
+    } else {
+      await $signup(values);
+    }
+  };
 
+  const isLoading = isLogginIn || isSigningUp;
   return (
-    <Paper
-      radius="md"
-      p="xl"
-      withBorder
-      {...props}
-      w={{
-        base: rem(
-          400
-        ),
-      }}
-    >
-      <Text
-        size="lg"
-        fw={500}
+    <Vertical fullW fullH align="center" justify="center">
+      <Paper
+        radius="md"
+        p="xl"
+        withBorder
+        {...props}
+        w={{
+          base: rem(400),
+        }}
       >
-        Welcome to
-        Hajem,{" "}
-        {type} with
-      </Text>
+        <Text size="lg" fw={500}>
+          Welcome to Hajem, {type} with
+        </Text>
 
-      <Group
-        grow
-        mb="md"
-        mt="md"
-      >
-        <GoogleButton radius="xl">
-          Google
-        </GoogleButton>
-        <TwitterButton radius="xl">
-          Twitter
-        </TwitterButton>
-      </Group>
+        <Group grow mb="md" mt="md">
+          <GoogleButton radius="xl">Google</GoogleButton>
+          <TwitterButton radius="xl">Twitter</TwitterButton>
+        </Group>
 
-      <Divider
-        label="Or continue with email"
-        labelPosition="center"
-        my="lg"
-      />
+        <Divider
+          label="Or continue with email"
+          labelPosition="center"
+          my="lg"
+        />
 
-      <form
-        onSubmit={form.onSubmit(
-          onSubmit
-        )}
-      >
-        <Stack>
-          {type ===
-            "register" && (
+        <form onSubmit={form.onSubmit(onSubmit)}>
+          <Stack>
+            {type === "register" && (
+              <TextInput
+                required
+                label="Name"
+                placeholder="Your name"
+                {...form.getInputProps("name")}
+                radius="md"
+              />
+            )}
+
             <TextInput
               required
-              label="Name"
-              placeholder="Your name"
-              {...form.getInputProps(
-                "name"
-              )}
+              label="Email"
+              placeholder="hello@mantine.dev"
+              {...form.getInputProps("email")}
               radius="md"
             />
-          )}
 
-          <TextInput
-            required
-            label="Email"
-            placeholder="hello@mantine.dev"
-            {...form.getInputProps(
-              "email"
-            )}
-            radius="md"
-          />
-
-          <PasswordInput
-            required
-            label="Password"
-            placeholder="Your password"
-            {...form.getInputProps(
-              "password"
-            )}
-            radius="md"
-          />
-
-          {type ===
-            "register" && (
-            <Checkbox
-              label="I accept terms and conditions"
-              checked={
-                form
-                  .values
-                  .terms
-              }
-              onChange={(
-                event
-              ) =>
-                form.setFieldValue(
-                  "terms",
-                  event
-                    .currentTarget
-                    .checked
-                )
-              }
+            <PasswordInput
+              required
+              label="Password"
+              placeholder="Your password"
+              {...form.getInputProps("password")}
+              radius="md"
             />
-          )}
-        </Stack>
 
-        <Group
-          justify="space-between"
-          mt="xl"
-        >
-          <Anchor
-            component="button"
-            type="button"
-            c="dimmed"
-            onClick={() =>
-              toggle()
-            }
-            size="xs"
-          >
-            {type ===
-            "register"
-              ? "Already have an account? Login"
-              : "Don't have an account? Register"}
-          </Anchor>
-          <Button
-            type="submit"
-            radius="xl"
-          >
-            {upperFirst(
-              type
+            {type === "register" && (
+              <Checkbox
+                label="I accept terms and conditions"
+                {...bindCheckboxToForm(form, "terms")}
+              />
             )}
-          </Button>
-        </Group>
-      </form>
-    </Paper>
+          </Stack>
+
+          <Group justify="space-between" mt="xl">
+            <Anchor
+              component="button"
+              type="button"
+              c="dimmed"
+              onClick={() => toggle()}
+              size="xs"
+            >
+              {type === "register"
+                ? "Already have an account? Login"
+                : "Don't have an account? Register"}
+            </Anchor>
+            <Button
+              disabled={!form.isValid()}
+              loading={isLoading}
+              type="submit"
+              radius="xl"
+            >
+              {upperFirst(type)}
+            </Button>
+          </Group>
+        </form>
+      </Paper>
+    </Vertical>
   );
 }

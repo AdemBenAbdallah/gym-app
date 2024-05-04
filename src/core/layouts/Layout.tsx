@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React, { Suspense } from "react";
-import { BlitzLayout, Routes } from "@blitzjs/next";
+import { ErrorBoundary, Routes } from "@blitzjs/next";
 import { Anchor, AppShell, Button, Text, Tooltip } from "@mantine/core";
 import { Horizontal, Vertical } from "../components/MantineLayout";
 import Link from "next/link";
@@ -9,6 +9,9 @@ import { useMutation } from "@blitzjs/rpc";
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
 import { ReactFC } from "~/types";
 import { IconUserPlus } from "@tabler/icons-react";
+import { RootErrorFallback } from "../components/RootErrorFallback";
+import { useRouter } from "next/router";
+import FullPageLoader from "../components/FulllPageLoader";
 
 type Props = { title?: string };
 
@@ -17,6 +20,7 @@ export const dynamic = "force-dynamic";
 const Layout: ReactFC<Props> = ({ title, children }) => {
   const [logoutMutation] = useMutation(logout);
   const currentUser = useCurrentUser();
+  const router = useRouter();
 
   return (
     <>
@@ -50,6 +54,7 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
                   variant="light"
                   onClick={async () => {
                     await logoutMutation();
+                    await router.push("/");
                   }}
                 >
                   Logout
@@ -61,7 +66,12 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
 
         <AppShell.Main h={"100%"}>
           <Vertical fullH fullW>
-            <Suspense fallback="loading...">{children}</Suspense>
+            <ErrorBoundary
+              resetKeys={[currentUser]}
+              FallbackComponent={RootErrorFallback}
+            >
+              <Suspense fallback={<FullPageLoader />}>{children}</Suspense>
+            </ErrorBoundary>
           </Vertical>
         </AppShell.Main>
       </AppShell>

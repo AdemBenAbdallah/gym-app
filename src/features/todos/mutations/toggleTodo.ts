@@ -1,5 +1,5 @@
 import { resolver } from "@blitzjs/rpc";
-import { date, z } from "zod";
+import { z } from "zod";
 import db from "db";
 
 const Input = z.object({

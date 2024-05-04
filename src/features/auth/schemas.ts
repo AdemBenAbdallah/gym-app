@@ -11,6 +11,13 @@ export const password = z
   .max(100)
   .transform((str) => str.trim());
 
+export const InputSginUp = z.object({
+  email,
+  password,
+  name: z.string(),
+  terms: z.boolean().refine((val) => val === true),
+});
+
 export const ForgotPassword = z.object({
   email,
 });
