@@ -19,9 +19,6 @@ type TodoFormType = z.infer<typeof InputAddTodo>;
 
 const Todos = () => {
   const form = useForm<TodoFormType>({
-    initialValues: {
-      todoTitle: "",
-    },
     validate: zodResolver(InputAddTodo),
   });
 
@@ -37,8 +34,7 @@ const Todos = () => {
       <form onSubmit={form.onSubmit(async (values) => await $addTodo(values))}>
         <TextInput
           placeholder="Enter your todo"
-          value={todoTitle}
-          onChange={(e) => setTodoTitle(e.currentTarget.value)}
+          {...form.getInputProps("todoTitle")}
         />
         <Horizontal gap={20}>
           <Button type="submit">Create A Todo</Button>
