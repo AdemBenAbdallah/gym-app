@@ -1,6 +1,19 @@
-import { ErrorComponent, ErrorFallbackProps } from "@blitzjs/next";
+import { ErrorFallbackProps } from "@blitzjs/next";
 import { AuthenticationError, AuthorizationError } from "blitz";
 import { AuthenticationForm } from "./MainAuthForm";
+import { Vertical } from "./MantineLayout";
+import { Text, Title, rem } from "@mantine/core";
+
+export const ErrorComponent = ({ statusCode, title }) => {
+  return (
+    <Vertical align="center" fullH fullW>
+      <Vertical align="center" p={rem(80)}>
+        <Title>{statusCode} ❌</Title>
+        <Text>{title} 😔</Text>
+      </Vertical>
+    </Vertical>
+  );
+};
 
 export function RootErrorFallback({ error }: ErrorFallbackProps) {
   if (error instanceof AuthenticationError) {

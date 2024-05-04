@@ -19,12 +19,12 @@ type TodoFormType = z.infer<typeof InputAddTodo>;
 
 const Todos = () => {
   const form = useForm<TodoFormType>({
+    initialValues: {
+      todoTitle: "",
+    },
     validate: zodResolver(InputAddTodo),
   });
-
-  const [todoTitle, setTodoTitle] = useState("");
   const [todos] = useQuery(getTodos, {});
-
   const [$addTodo] = useMutation(addTodo, {});
   const [$toggleTodo] = useMutation(toggleTodo, {});
   const [$clearCompleted] = useMutation(clearCompleted, {});
