@@ -1,25 +1,18 @@
+import { Vertical } from "@/core/components/MantineLayout";
 import Layout from "@/core/layouts/Layout";
 import EditProfileForm from "@/features/users/form/EditProfileForm";
-import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
 import updateUser from "@/features/users/mutations/updateUser";
 import getUserForProfile from "@/features/users/queries/getUserForProfile";
-import { InputUpdateUserType } from "@/features/users/schemas";
-import { useStringParam } from "@/utils/utils";
-import { BlitzPage } from "@blitzjs/auth";
-import { Routes } from "@blitzjs/next";
+import { InputUpdateUser, InputUpdateUserType } from "@/features/users/schemas";
+import { BlitzPage, Routes } from "@blitzjs/next";
 import { useMutation, useQuery } from "@blitzjs/rpc";
-import { Button, Modal, Text, TextInput, rem } from "@mantine/core";
-import { Form, useForm } from "@mantine/form";
-import { useDisclosure } from "@mantine/hooks";
+import { rem } from "@mantine/core";
+import { useForm, zodResolver } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
 import { useRouter } from "next/router";
-import React from "react";
 
-const ProfilePage: BlitzPage = () => {
-  const [opened, { open, close }] = useDisclosure(false);
-  const currentUser = useCurrentUser();
-  const username = useStringParam("username");
-  const [user] = useQuery(getUserForProfile, { username });
+const EditProfilePage: BlitzPage = () => {
+  const [user] = useQuery(getUserForProfile, {});
   const [$updateUser, { isLoading }] = useMutation(updateUser, {});
 
   const router = useRouter();
@@ -29,6 +22,8 @@ const ProfilePage: BlitzPage = () => {
       name: user?.name || "",
       bio: user?.bio || "",
     },
+    validate: zodResolver(InputUpdateUser),
+    validateInputOnBlur: true,
   });
 
   const onSubmit = async (values: InputUpdateUserType) => {
@@ -46,27 +41,17 @@ const ProfilePage: BlitzPage = () => {
     close();
   };
 
-  const isOwner = currentUser?.id === user.id;
   return (
     <Layout>
-      ProfilePage
-      {isOwner && (
-        <Button onClick={open} w={"fit-content"}>
-          Edit Profile
-        </Button>
-      )}
-      <Text>{user.username}</Text>
-      <Text>{user.name}</Text>
-      <Text>{user.bio}</Text>
-      <Modal opened={opened} onClose={close} title="Authentication">
+      <Vertical maw={rem(500)}>
         <EditProfileForm
           form={form}
           onSubmit={onSubmit}
           isLoading={isLoading}
         />
-      </Modal>
+      </Vertical>
     </Layout>
   );
 };
 
-export default ProfilePage;
+export default EditProfilePage;

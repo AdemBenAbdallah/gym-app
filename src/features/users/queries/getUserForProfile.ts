@@ -1,7 +1,9 @@
 import { resolver } from "@blitzjs/rpc";
 import { z } from "zod";
 import db from "db";
-import { NotFoundError } from "blitz";
+import { NotFoundError, PromiseReturnType } from "blitz";
+import getCurrentUser from "./getCurrentUser";
+import { UserType } from "@/features/auth/schemas";
 
 const Input = z.object({
   username: z.string().optional(),
@@ -10,10 +12,12 @@ const Input = z.object({
 export default resolver.pipe(
   resolver.zod(Input),
   resolver.authorize(),
-  async ({ username }, { session: {} }) => {
-    if (!username) throw new Error("You should have a username");
+  async ({ username }, { session: { userId } }) => {
+    let user: UserType = null;
 
-    const user = await db.user.findUnique({ where: { username } });
+    if (!username) user = await db.user.findUnique({ where: { id: userId } });
+
+    if (username) user = await db.user.findUnique({ where: { username } });
 
     if (!user) throw new NotFoundError();
     return user;
