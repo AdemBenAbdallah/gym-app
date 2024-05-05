@@ -2,6 +2,7 @@
   "name": "barber",
   "version": "1.0.0",
   "scripts": {
+    "email": "cd email/react-email && yarn dev --port 3009",
     "dev": "blitz dev",
     "build": "blitz build",
     "start": "blitz start",
