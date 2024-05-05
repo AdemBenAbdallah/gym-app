@@ -1,20 +1,19 @@
+// import { render } from "@react-email/render";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KAY);
 
-type Props = {
-  from: string;
-  to: string;
-  subject: string;
-  html: string;
-};
+const sendEmail = async ({ to, subject, react }) => {
+  const message = { from: "onboarding@resend.dev", to, subject };
 
-const sendEmail = async ({ from, to, subject, html }: Props) => {
+  // if (isDev) {
+  //   const html = render(react);
+  //   return nodmailerLocalAppTransport.sendMail({ ...message, html: html });
+  // }
+
   await resend.emails.send({
-    from,
-    to,
-    subject,
-    html,
+    ...message,
+    react,
   });
 };
 export default sendEmail;

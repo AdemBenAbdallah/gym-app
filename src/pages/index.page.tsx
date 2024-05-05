@@ -6,31 +6,17 @@ import { Vertical } from "@/core/components/MantineLayout";
 import { AuthenticationForm } from "@/core/components/MainAuthForm";
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
 import { useMutation } from "@blitzjs/rpc";
-import testEmailSend from "@/features/users/mutations/testEmailSend";
 import { Button } from "@mantine/core";
 
 const Home: BlitzPage = () => {
   const currentUser = useCurrentUser();
-  const [$testEmailSend] = useMutation(testEmailSend);
 
   return (
     <Layout title="Home">
       {currentUser && (
         <Vertical align="center">
           <UserInfo />
-          <Button
-            w={"fit-content"}
-            onClick={async () =>
-              await $testEmailSend({
-                from: "onboarding@resend.dev",
-                to: "adem123azertyuiop@gmail.com",
-                subject: "Hello World",
-                html: "<p>Congrats on sending your <strong>first email</strong>!</p>",
-              })
-            }
-          >
-            send test email
-          </Button>
+          <Button w={"fit-content"}>send test email</Button>
         </Vertical>
       )}
 

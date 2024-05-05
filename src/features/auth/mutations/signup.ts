@@ -3,6 +3,9 @@ import { resolver } from "@blitzjs/rpc";
 import db from "db";
 import { Role } from "types";
 import { InputSginUp } from "../schemas";
+import sendEmail from "~/email/sendEmail";
+import React from "react";
+import EmailTemplateWelcome from "~/email/react-email/emails/welcome";
 
 export default resolver.pipe(
   resolver.zod(InputSginUp),
@@ -16,6 +19,14 @@ export default resolver.pipe(
         role: "USER",
       },
       select: { id: true, name: true, email: true, role: true },
+    });
+
+    await sendEmail({
+      to: user.email,
+      subject: "Welcome to hajem",
+      react: React.createElement(EmailTemplateWelcome, {
+        props: { name: user.name },
+      }),
     });
 
     await ctx.session.$create({ userId: user.id, role: user.role as Role });
