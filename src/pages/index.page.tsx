@@ -7,16 +7,23 @@ import { AuthenticationForm } from "@/core/components/MainAuthForm";
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
 import { useMutation } from "@blitzjs/rpc";
 import { Button } from "@mantine/core";
+import testEmailSend from "@/features/users/mutations/testEmailSend";
 
 const Home: BlitzPage = () => {
   const currentUser = useCurrentUser();
+  const [$testEmailSend] = useMutation(testEmailSend);
 
   return (
     <Layout title="Home">
       {currentUser && (
         <Vertical align="center">
           <UserInfo />
-          <Button w={"fit-content"}>send test email</Button>
+          <Button
+            onClick={async () => await $testEmailSend({})}
+            w={"fit-content"}
+          >
+            send test email
+          </Button>
         </Vertical>
       )}
 

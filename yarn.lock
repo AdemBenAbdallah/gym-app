@@ -1594,6 +1594,18 @@
   dependencies:
     defer-to-connect "^2.0.0"
 
+"@t3-oss/env-core@0.10.1":
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/@t3-oss/env-core/-/env-core-0.10.1.tgz#388da647053063f7d9a7b6830537939daf697fa2"
+  integrity sha512-GcKZiCfWks5CTxhezn9k5zWX3sMDIYf6Kaxy2Gx9YEQftFcz8hDRN56hcbylyAO3t4jQnQ5ifLawINsNgCDpOg==
+
+"@t3-oss/env-nextjs@0.10.1":
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/@t3-oss/env-nextjs/-/env-nextjs-0.10.1.tgz#abe50e7063fcfdecb7da4371172480c99e9c6dc0"
+  integrity sha512-iy2qqJLnFh1RjEWno2ZeyTu0ufomkXruUsOZludzDIroUabVvHsrSjtkHqwHp1/pgPUzN3yBRHMILW162X7x2Q==
+  dependencies:
+    "@t3-oss/env-core" "0.10.1"
+
 "@tabler/icons-react@3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@tabler/icons-react/-/icons-react-3.3.0.tgz#ca38c131aa43145c24198a6656e2aac2a4954222"
@@ -9200,6 +9212,7 @@ with@^7.0.0:
     babel-walk "3.0.0-canary-5"
 
 "wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
+  name wrap-ansi-cjs
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==

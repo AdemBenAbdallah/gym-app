@@ -13,7 +13,7 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-const baseUrl = process.env.VERCEL_URL ? `http://localhost:3000` : "";
+const baseUrl = `http://localhost:3000`;
 
 type Props = {
   props: { name?: string | null };
@@ -24,6 +24,7 @@ export const EmailTemplateWelcome = ({
 }: Props) => {
   const { name } = props;
   const welcomMsg = name ? `Hello, ${name}` : "Hello";
+
   return (
     <Html>
       <Head />
