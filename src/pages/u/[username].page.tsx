@@ -1,4 +1,6 @@
+import { Vertical } from "@/core/components/MantineLayout";
 import Layout from "@/core/layouts/Layout";
+import requestVerificationEmail from "@/features/auth/mutations/requestVerificationEmail";
 import EditProfileForm from "@/features/users/form/EditProfileForm";
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
 import updateUser from "@/features/users/mutations/updateUser";
@@ -8,10 +10,11 @@ import { useStringParam } from "@/utils/utils";
 import { BlitzPage } from "@blitzjs/auth";
 import { Routes } from "@blitzjs/next";
 import { useMutation, useQuery } from "@blitzjs/rpc";
-import { Button, Modal, Text, TextInput, rem } from "@mantine/core";
+import { Alert, Button, Modal, Text, TextInput, rem } from "@mantine/core";
 import { Form, useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
-import { showNotification } from "@mantine/notifications";
+import { notifications, showNotification } from "@mantine/notifications";
+import { IconAlertCircle } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -21,6 +24,9 @@ const ProfilePage: BlitzPage = () => {
   const username = useStringParam("username");
   const [user] = useQuery(getUserForProfile, { username });
   const [$updateUser, { isLoading }] = useMutation(updateUser, {});
+  const [$requestVerificationEmail, { isLoading: loading }] = useMutation(
+    requestVerificationEmail
+  );
 
   const router = useRouter();
   const form = useForm<InputUpdateUserType>({
@@ -50,14 +56,50 @@ const ProfilePage: BlitzPage = () => {
   return (
     <Layout>
       ProfilePage
-      {isOwner && (
-        <Button onClick={open} w={"fit-content"}>
-          Edit Profile
-        </Button>
-      )}
-      <Text>{user.username}</Text>
-      <Text>{user.name}</Text>
-      <Text>{user.bio}</Text>
+      <Vertical>
+        {isOwner && !currentUser.emailVerification && (
+          <Alert
+            icon={<IconAlertCircle size={"1rem"} />}
+            variant="outline"
+            title="Warning!"
+            color="red"
+            maw={"30rem"}
+          >
+            <Vertical>
+              <Text fz={14}>
+                Your email has not been verified yet. Verifying your email
+                ensures account security and enables access to all features.
+                Please verify your email to fully experience our platform.
+              </Text>
+              <Button
+                onClick={async () => {
+                  await $requestVerificationEmail({});
+                  notifications.show({
+                    color: "green",
+                    title: "Email sended",
+                    message: "Go to your Email",
+                  });
+                }}
+                w={"fit-content"}
+                size="xs"
+                color="red"
+                variant="light"
+                loading={loading}
+              >
+                Resend Email
+              </Button>
+            </Vertical>
+          </Alert>
+        )}
+        {isOwner && (
+          <Button onClick={open} w={"fit-content"}>
+            Edit Profile
+          </Button>
+        )}
+        <Text>{user.username}</Text>
+        <Text>{user.name}</Text>
+        <Text>{user.bio}</Text>
+      </Vertical>
       <Modal opened={opened} onClose={close} title="Authentication">
         <EditProfileForm
           form={form}

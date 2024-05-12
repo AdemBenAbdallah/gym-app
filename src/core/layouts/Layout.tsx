@@ -3,7 +3,6 @@ import React, { Suspense } from "react";
 import { ErrorBoundary, Routes } from "@blitzjs/next";
 import { Anchor, AppShell, Button, Text, Tooltip } from "@mantine/core";
 import { Horizontal, Vertical } from "../components/MantineLayout";
-import Link from "next/link";
 import logout from "@/features/auth/mutations/logout";
 import { useMutation } from "@blitzjs/rpc";
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
@@ -12,6 +11,7 @@ import { IconUserPlus } from "@tabler/icons-react";
 import { RootErrorFallback } from "../components/RootErrorFallback";
 import { useRouter } from "next/router";
 import FullPageLoader from "../components/FulllPageLoader";
+import Link from "next/link";
 
 type Props = { title?: string };
 
@@ -40,7 +40,13 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
             <Horizontal>
               {currentUser && (
                 <Horizontal gap={5} align="center">
-                  <Text>{currentUser.name}</Text>
+                  <Link
+                    href={Routes.ProfilePage({
+                      username: currentUser.username || "",
+                    })}
+                  >
+                    <Text>{currentUser.name}</Text>
+                  </Link>
                   {currentUser.role === "ADMIN" && (
                     <Tooltip label="ADMIN">
                       <IconUserPlus />

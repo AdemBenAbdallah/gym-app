@@ -17,6 +17,6 @@ export default resolver.pipe(
       react: React.createElement(EmailTemplateWelcome, {
         props: { name: "adem" },
       }),
-    }).catch((err) => console.log(err));
+    });
   }
 );
