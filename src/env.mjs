@@ -7,6 +7,8 @@ export const env = createEnv({
     RESEND_API_KAY: z.string().min(1),
     NODEMAILER_LOCAL_USER: z.string().min(1),
     NODEMAILER_LOCAL_PASS: z.string().min(1),
+    UPLOADTHING_SECRET: z.string().min(1),
+    UPLOADTHING_APP_ID: z.string().min(1),
   },
 
   client: {},
@@ -16,5 +18,7 @@ export const env = createEnv({
     RESEND_API_KAY: process.env.RESEND_API_KAY,
     NODEMAILER_LOCAL_USER: process.env.NODEMAILER_LOCAL_USER,
     NODEMAILER_LOCAL_PASS: process.env.NODEMAILER_LOCAL_PASS,
+    UPLOADTHING_SECRET: process.env.UPLOADTHING_SECRET,
+    UPLOADTHING_APP_ID: process.env.UPLOADTHING_APP_ID,
   },
 });

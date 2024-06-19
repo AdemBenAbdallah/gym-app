@@ -11,11 +11,12 @@ import { BlitzPage } from "@blitzjs/auth";
 import { Routes } from "@blitzjs/next";
 import { useMutation, useQuery } from "@blitzjs/rpc";
 import { Alert, Button, Modal, Text, TextInput, rem } from "@mantine/core";
-import { Form, useForm } from "@mantine/form";
+import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications, showNotification } from "@mantine/notifications";
 import { IconAlertCircle } from "@tabler/icons-react";
 import { useRouter } from "next/router";
+import { UploadButton } from "@/core/components/Uploadthing";
 import React from "react";
 
 const ProfilePage: BlitzPage = () => {
@@ -99,6 +100,26 @@ const ProfilePage: BlitzPage = () => {
         <Text>{user.username}</Text>
         <Text>{user.name}</Text>
         <Text>{user.bio}</Text>
+
+        <UploadButton
+          endpoint="imageUploader"
+          onClientUploadComplete={(res) => {
+            notifications.show({
+              color: "green",
+              title: "Succes",
+              message: "File uploaded!",
+            });
+          }}
+          onUploadError={(error: Error) => {
+            // Do something with the error.
+            console.log(`ERROR! ${error.message}`);
+            notifications.show({
+              color: "red",
+              title: "Error",
+              message: error.message,
+            });
+          }}
+        />
       </Vertical>
       <Modal opened={opened} onClose={close} title="Authentication">
         <EditProfileForm
