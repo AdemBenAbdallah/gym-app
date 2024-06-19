@@ -12,6 +12,7 @@ import { RootErrorFallback } from "../components/RootErrorFallback";
 import { useRouter } from "next/router";
 import FullPageLoader from "../components/FulllPageLoader";
 import Link from "next/link";
+import Conditional from "../components/Conditional";
 
 type Props = { title?: string };
 
@@ -40,13 +41,22 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
             <Horizontal>
               {currentUser && (
                 <Horizontal gap={5} align="center">
-                  <Link
-                    href={Routes.ProfilePage({
-                      username: currentUser.username || "",
-                    })}
+                  <Conditional
+                    condition={!!currentUser.username}
+                    wrap={(children) => {
+                      return (
+                        <Link
+                          href={Routes.ProfilePage({
+                            username: currentUser.username as string,
+                          })}
+                        >
+                          {children}
+                        </Link>
+                      );
+                    }}
                   >
                     <Text>{currentUser.name}</Text>
-                  </Link>
+                  </Conditional>
                   {currentUser.role === "ADMIN" && (
                     <Tooltip label="ADMIN">
                       <IconUserPlus />

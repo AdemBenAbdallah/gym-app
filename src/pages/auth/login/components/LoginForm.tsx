@@ -1,21 +1,20 @@
-import { AuthenticationError, PromiseReturnType } from "blitz"
-import Link from "next/link"
-import { LabeledTextField } from "src/core/components/LabeledTextField"
-import login from "@/features/auth/mutations/login"
-import { Login } from "@/features/auth/schemas"
-import { Form, FORM_ERROR } from "@/core/components/Form"
-import { useMutation } from "@blitzjs/rpc"
-import { Routes } from "@blitzjs/next"
-import { useForm } from "@mantine/form"
-import { Button, PasswordInput, TextInput } from "@mantine/core"
-import { Vertical } from "@/core/components/MantineLayout"
+import { AuthenticationError, PromiseReturnType } from "blitz";
+import Link from "next/link";
+import { LabeledTextField } from "src/core/components/LabeledTextField";
+import login from "@/features/auth/mutations/login";
+import { FORM_ERROR } from "@/core/components/Form";
+import { useMutation } from "@blitzjs/rpc";
+import { Routes } from "@blitzjs/next";
+import { useForm } from "@mantine/form";
+import { Button, PasswordInput, TextInput } from "@mantine/core";
+import { Vertical } from "@/core/components/MantineLayout";
 
 type LoginFormProps = {
-  onSuccess?: (user: PromiseReturnType<typeof login>) => void
-}
+  onSuccess?: (user: PromiseReturnType<typeof login>) => void;
+};
 
 export const LoginForm = (props: LoginFormProps) => {
-  const [loginMutation] = useMutation(login)
+  const [loginMutation] = useMutation(login);
 
   const form = useForm({
     mode: "uncontrolled",
@@ -27,23 +26,24 @@ export const LoginForm = (props: LoginFormProps) => {
     validate: {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
     },
-  })
+  });
 
   const onSubmit = async (values) => {
     try {
-      const user = await loginMutation(values)
-      props.onSuccess?.(user)
+      const user = await loginMutation(values);
+      props.onSuccess?.(user);
     } catch (error: any) {
       if (error instanceof AuthenticationError) {
-        return { [FORM_ERROR]: "Sorry, those credentials are invalid" }
+        return { [FORM_ERROR]: "Sorry, those credentials are invalid" };
       } else {
         return {
           [FORM_ERROR]:
-            "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
-        }
+            "Sorry, we had an unexpected error. Please try again. - " +
+            error.toString(),
+        };
       }
     }
-  }
+  };
 
   return (
     <Vertical>
@@ -74,7 +74,7 @@ export const LoginForm = (props: LoginFormProps) => {
         Or <Link href={Routes.SignupPage()}>Sign Up</Link>
       </div>
     </Vertical>
-  )
-}
+  );
+};
 
-export default LoginForm
+export default LoginForm;

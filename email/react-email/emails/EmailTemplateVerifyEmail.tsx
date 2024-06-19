@@ -13,7 +13,9 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-const baseUrl = `http://localhost:3000`;
+const baseUrl = process.env.VERCEL_URL
+  ? process.env.VERCEL_URL
+  : `http://localhost:3000`;
 
 type Props = {
   props: { name?: string | null; EmailVerifyLink: string };
@@ -33,35 +35,20 @@ export const EmailTemplateVerifyEmail = ({
         <Container style={container}>
           <Section style={box}>
             <Img
-              src={`${baseUrl}/logo.png`}
+              src={`${baseUrl}/images/logo.png`}
               width="49"
               height="21"
-              alt="Stripe"
+              alt="hajem"
             />
             <Hr style={hr} />
             <Text style={paragraph}>{welcomMsg} welcome to our platform</Text>
-            <Text style={paragraph}>You can verify you email here:</Text>
+            <Text style={paragraph}>You can verify your email here:</Text>
             <Button style={button} href={EmailVerifyLink}>
-              View your Stripe Dashboard
+              Click here to verify your account
             </Button>
             <Hr style={hr} />
-            <Text style={paragraph}>
-              Finally, we&apos;ve put together a to ensure your website conforms
-              to verify email.
-            </Text>
-            <Text style={paragraph}>
-              We&apos;ll be here to help you with any step along the way. You
-              can find answers to most questions and get in touch with us on our{" "}
-              <Link style={anchor} href="https://support.stripe.com/">
-                support site
-              </Link>
-              .
-            </Text>
-            <Text style={paragraph}>— The Stripe team</Text>
+            <Text style={paragraph}>— The Hajem team</Text>
             <Hr style={hr} />
-            <Text style={footer}>
-              Stripe, 354 Oyster Point Blvd, South San Francisco, CA 94080
-            </Text>
           </Section>
         </Container>
       </Body>

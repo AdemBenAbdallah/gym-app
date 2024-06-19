@@ -24,7 +24,8 @@ export default resolver.pipe(
     });
 
     await sendEmail({
-      to: "adem123azertyuiop@gmail.com",
+      // to: "adem123azertyuiop@gmail.com",
+      to: user.email,
       subject: "Welcome to hajem",
       react: React.createElement(EmailTemplateVerifyEmail, {
         props: { EmailVerifyLink },

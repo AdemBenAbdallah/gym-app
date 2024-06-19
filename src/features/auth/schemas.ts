@@ -13,12 +13,21 @@ export const password = z
   .max(100)
   .transform((str) => str.trim());
 
+export const InputLogin = z.object({
+  email,
+  password: z.string(),
+});
+
+export type LoginFormType = z.infer<typeof InputLogin>;
+
 export const InputSginUp = z.object({
   email,
   password,
   name: z.string(),
   terms: z.boolean().refine((val) => val === true),
 });
+
+export type SignupFormType = z.infer<typeof InputSginUp>;
 
 export const ForgotPassword = z.object({
   email,
