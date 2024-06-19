@@ -34,8 +34,9 @@ model User {
   role              String    @default("USER")
   emailVerification DateTime?
 
-  username String? @unique
-  bio      String?
+  avatarImageKey String?
+  username       String? @unique
+  bio            String?
 
   tokens   Token[]
   sessions Session[]

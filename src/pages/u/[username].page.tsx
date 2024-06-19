@@ -100,33 +100,36 @@ const ProfilePage: BlitzPage = () => {
         <Text>{user.username}</Text>
         <Text>{user.name}</Text>
         <Text>{user.bio}</Text>
-
-        <UploadButton
-          endpoint="imageUploader"
-          onClientUploadComplete={(res) => {
-            notifications.show({
-              color: "green",
-              title: "Succes",
-              message: "File uploaded!",
-            });
-          }}
-          onUploadError={(error: Error) => {
-            // Do something with the error.
-            console.log(`ERROR! ${error.message}`);
-            notifications.show({
-              color: "red",
-              title: "Error",
-              message: error.message,
-            });
-          }}
-        />
       </Vertical>
       <Modal opened={opened} onClose={close} title="Authentication">
-        <EditProfileForm
-          form={form}
-          onSubmit={onSubmit}
-          isLoading={isLoading}
-        />
+        <Vertical>
+          <EditProfileForm
+            form={form}
+            onSubmit={onSubmit}
+            isLoading={isLoading}
+          />
+
+          <UploadButton
+            endpoint="imageUploader"
+            onClientUploadComplete={(res) => {
+              const fileKey = res?.[0]?.key;
+              notifications.show({
+                color: "green",
+                title: "Succes",
+                message: "File uploaded!",
+              });
+              form.setFieldValue("avatarImageKey", fileKey);
+            }}
+            onUploadError={(error: Error) => {
+              console.log(`ERROR! ${error.message}`);
+              notifications.show({
+                color: "red",
+                title: "Error",
+                message: error.message,
+              });
+            }}
+          />
+        </Vertical>
       </Modal>
     </Layout>
   );
