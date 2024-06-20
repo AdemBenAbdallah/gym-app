@@ -10,14 +10,13 @@ import { useStringParam } from "@/utils/utils";
 import { BlitzPage } from "@blitzjs/auth";
 import { Routes } from "@blitzjs/next";
 import { useMutation, useQuery } from "@blitzjs/rpc";
-import { Alert, Button, Modal, Text, TextInput, rem } from "@mantine/core";
+import { Alert, Button, Modal, Text } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications, showNotification } from "@mantine/notifications";
 import { IconAlertCircle } from "@tabler/icons-react";
 import { useRouter } from "next/router";
-import { UploadButton } from "@/core/components/Uploadthing";
-import React from "react";
+import React, { useState } from "react";
 
 const ProfilePage: BlitzPage = () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -35,11 +34,11 @@ const ProfilePage: BlitzPage = () => {
       username: user?.username || "",
       name: user?.name || "",
       bio: user?.bio || "",
+      avatarImageKey: user?.avatarImageKey || "",
     },
   });
 
   const onSubmit = async (values: InputUpdateUserType) => {
-    console.log(values);
     await $updateUser(values);
     const { username } = values;
     if (user.username !== username) {
@@ -108,28 +107,6 @@ const ProfilePage: BlitzPage = () => {
             form={form}
             onSubmit={onSubmit}
             isLoading={isLoading}
-          />
-
-          <UploadButton
-            endpoint="imageUploader"
-            onClientUploadComplete={(res) => {
-              const fileKey = res?.[0]?.key;
-              console.log(res);
-              notifications.show({
-                color: "green",
-                title: "Succes",
-                message: "File uploaded!",
-              });
-              form.setFieldValue("avatarImageKey", fileKey);
-            }}
-            onUploadError={(error: Error) => {
-              console.log(`ERROR! ${error.message}`);
-              notifications.show({
-                color: "red",
-                title: "Error",
-                message: error.message,
-              });
-            }}
           />
         </Vertical>
       </Modal>
