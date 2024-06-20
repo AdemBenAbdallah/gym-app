@@ -2,7 +2,6 @@ import { resolver } from "@blitzjs/rpc";
 import { z } from "zod";
 import db from "db";
 import { NotFoundError, PromiseReturnType } from "blitz";
-import getCurrentUser from "./getCurrentUser";
 import { UserType } from "@/features/auth/schemas";
 
 const Input = z.object({

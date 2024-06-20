@@ -39,6 +39,7 @@ const ProfilePage: BlitzPage = () => {
   });
 
   const onSubmit = async (values: InputUpdateUserType) => {
+    console.log(values);
     await $updateUser(values);
     const { username } = values;
     if (user.username !== username) {
@@ -113,6 +114,7 @@ const ProfilePage: BlitzPage = () => {
             endpoint="imageUploader"
             onClientUploadComplete={(res) => {
               const fileKey = res?.[0]?.key;
+              console.log(res);
               notifications.show({
                 color: "green",
                 title: "Succes",

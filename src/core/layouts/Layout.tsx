@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React, { Suspense } from "react";
 import { ErrorBoundary, Routes } from "@blitzjs/next";
-import { Anchor, AppShell, Button, Text, Tooltip } from "@mantine/core";
+import { Anchor, AppShell, Avatar, Button, Text, Tooltip } from "@mantine/core";
 import { Horizontal, Vertical } from "../components/MantineLayout";
 import logout from "@/features/auth/mutations/logout";
 import { useMutation } from "@blitzjs/rpc";
@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import FullPageLoader from "../components/FulllPageLoader";
 import Link from "next/link";
 import Conditional from "../components/Conditional";
+import UserAvatar from "../components/UserAvatar";
 
 type Props = { title?: string };
 
@@ -55,7 +56,10 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
                       );
                     }}
                   >
-                    <Text>{currentUser.name}</Text>
+                    <Horizontal>
+                      <UserAvatar user={currentUser} />
+                      <Text>{currentUser.name}</Text>
+                    </Horizontal>
                   </Conditional>
                   {currentUser.role === "ADMIN" && (
                     <Tooltip label="ADMIN">
