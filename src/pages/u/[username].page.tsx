@@ -6,11 +6,12 @@ import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
 import updateUser from "@/features/users/mutations/updateUser";
 import getUserForProfile from "@/features/users/queries/getUserForProfile";
 import { InputUpdateUserType } from "@/features/users/schemas";
+import { getUploadThingUrl } from "@/utils/image-utils";
 import { useStringParam } from "@/utils/utils";
 import { BlitzPage } from "@blitzjs/auth";
 import { Routes } from "@blitzjs/next";
 import { useMutation, useQuery } from "@blitzjs/rpc";
-import { Alert, Button, Modal, Text } from "@mantine/core";
+import { Alert, Button, Image, Modal, Text } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications, showNotification } from "@mantine/notifications";
@@ -35,6 +36,7 @@ const ProfilePage: BlitzPage = () => {
       name: user?.name || "",
       bio: user?.bio || "",
       avatarImageKey: user?.avatarImageKey || "",
+      coverImageKey: user?.coverImageKey || "",
     },
   });
 
@@ -100,15 +102,18 @@ const ProfilePage: BlitzPage = () => {
         <Text>{user.username}</Text>
         <Text>{user.name}</Text>
         <Text>{user.bio}</Text>
+        <Image
+          w={300}
+          src={getUploadThingUrl(user?.coverImageKey)}
+          alt="cover picture"
+        />
       </Vertical>
       <Modal opened={opened} onClose={close} title="Authentication">
-        <Vertical>
-          <EditProfileForm
-            form={form}
-            onSubmit={onSubmit}
-            isLoading={isLoading}
-          />
-        </Vertical>
+        <EditProfileForm
+          form={form}
+          onSubmit={onSubmit}
+          isLoading={isLoading}
+        />
       </Modal>
     </Layout>
   );

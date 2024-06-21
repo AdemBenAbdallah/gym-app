@@ -22,6 +22,7 @@ const EditProfilePage: BlitzPage = () => {
       name: user?.name || "",
       bio: user?.bio || "",
       avatarImageKey: user?.avatarImageKey || "",
+      coverImageKey: user?.coverImageKey || "",
     },
     validate: zodResolver(InputUpdateUser),
     validateInputOnBlur: true,
