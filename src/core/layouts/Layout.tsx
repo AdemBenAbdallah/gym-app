@@ -123,16 +123,18 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
               FallbackComponent={RootErrorFallback}
             >
               <Suspense fallback={<FullPageLoader />}>
-                <Modal
-                  closeOnClickOutside={false}
-                  withCloseButton={false}
-                  size={"xl"}
-                  centered
-                  opened={!currentUser?.onboarded}
-                  onClose={() => {}}
-                >
-                  <OnboardingWizard />
-                </Modal>
+                {currentUser && (
+                  <Modal
+                    closeOnClickOutside={false}
+                    withCloseButton={false}
+                    size={"xl"}
+                    centered
+                    opened={!currentUser?.onboarded}
+                    onClose={() => {}}
+                  >
+                    <OnboardingWizard />
+                  </Modal>
+                )}
                 {children}
               </Suspense>
             </ErrorBoundary>
