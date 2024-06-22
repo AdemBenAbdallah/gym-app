@@ -17,6 +17,7 @@ export default resolver.pipe(
         email: email.toLowerCase().trim(),
         hashedPassword,
         role: "USER",
+        onboarded: false,
       },
       select: { id: true, name: true, email: true, role: true },
     });

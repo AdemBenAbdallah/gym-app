@@ -31,21 +31,28 @@ const Todos = () => {
 
   return (
     <Vertical maw={800}>
-      <form onSubmit={form.onSubmit(async (values) => await $addTodo(values))}>
-        <TextInput
-          placeholder="Enter your todo"
-          {...form.getInputProps("todoTitle")}
-        />
-        <Horizontal gap={20}>
-          <Button type="submit">Create A Todo</Button>
-          <Button
-            onClick={async () => {
-              await $clearCompleted({});
-            }}
-          >
-            Clear Todo
-          </Button>
-        </Horizontal>
+      <form
+        onSubmit={form.onSubmit(async (values) => {
+          await $addTodo(values);
+          form.setFieldValue("todoTitle", "");
+        })}
+      >
+        <Vertical>
+          <TextInput
+            placeholder="Enter your todo"
+            {...form.getInputProps("todoTitle")}
+          />
+          <Horizontal gap={10}>
+            <Button type="submit">Create A Todo</Button>
+            <Button
+              onClick={async () => {
+                await $clearCompleted({});
+              }}
+            >
+              Clear Todo
+            </Button>
+          </Horizontal>
+        </Vertical>
       </form>
       <List>
         <Vertical gap={10}>

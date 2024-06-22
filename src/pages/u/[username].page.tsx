@@ -17,7 +17,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { notifications, showNotification } from "@mantine/notifications";
 import { IconAlertCircle } from "@tabler/icons-react";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React from "react";
 
 const ProfilePage: BlitzPage = () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -102,11 +102,13 @@ const ProfilePage: BlitzPage = () => {
         <Text>{user.username}</Text>
         <Text>{user.name}</Text>
         <Text>{user.bio}</Text>
-        <Image
-          w={300}
-          src={getUploadThingUrl(user?.coverImageKey)}
-          alt="cover picture"
-        />
+        {user?.coverImageKey && (
+          <Image
+            w={300}
+            src={getUploadThingUrl(user.coverImageKey)}
+            alt="cover picture"
+          />
+        )}
       </Vertical>
       <Modal opened={opened} onClose={close} title="Authentication">
         <EditProfileForm

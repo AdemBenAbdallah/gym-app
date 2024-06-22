@@ -38,6 +38,7 @@ model User {
   coverImageKey  String?
   username       String? @unique
   bio            String?
+  onboarded      Boolean @default(true)
 
   tokens   Token[]
   sessions Session[]

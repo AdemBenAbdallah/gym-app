@@ -7,6 +7,7 @@ import {
   Box,
   Button,
   Indicator,
+  Modal,
   RingProgress,
   Text,
   Tooltip,
@@ -23,6 +24,8 @@ import FullPageLoader from "../components/FulllPageLoader";
 import Link from "next/link";
 import Conditional from "../components/Conditional";
 import UserAvatar from "../components/UserAvatar";
+import UserProfileProgress from "../components/Header/UserProfileProgress";
+import OnboardingWizard from "../components/OnboardingWzard";
 
 type Props = { title?: string };
 
@@ -85,20 +88,11 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
                         )}
                       >
                         <UserAvatar user={currentUser} />
+                        <Text>{currentUser.name}</Text>
                       </Conditional>
-                      <Text>{currentUser.name}</Text>
-                      <Link href={Routes.EditProfilePage()}>
-                        <Tooltip label="Profile progress">
-                          <RingProgress
-                            size={25}
-                            thickness={4}
-                            roundCaps
-                            sections={[{ value: 40, color: "red" }]}
-                          />
-                        </Tooltip>
-                      </Link>
                     </Horizontal>
                   </Conditional>
+                  <UserProfileProgress />
                   {currentUser.role === "ADMIN" && (
                     <Tooltip label="ADMIN">
                       <IconUserPlus />
@@ -128,7 +122,19 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
               resetKeys={[currentUser]}
               FallbackComponent={RootErrorFallback}
             >
-              <Suspense fallback={<FullPageLoader />}>{children}</Suspense>
+              <Suspense fallback={<FullPageLoader />}>
+                <Modal
+                  closeOnClickOutside={false}
+                  withCloseButton={false}
+                  size={"xl"}
+                  centered
+                  opened={!currentUser?.onboarded}
+                  onClose={() => {}}
+                >
+                  <OnboardingWizard />
+                </Modal>
+                {children}
+              </Suspense>
             </ErrorBoundary>
           </Vertical>
         </AppShell.Main>
