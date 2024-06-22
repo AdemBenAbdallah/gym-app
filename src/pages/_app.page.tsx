@@ -1,6 +1,6 @@
 import FullPageLoader from "@/core/components/FulllPageLoader";
 import { ErrorBoundary, AppProps } from "@blitzjs/next";
-import { MantineProvider, createTheme } from "@mantine/core";
+import { MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { Notifications } from "@mantine/notifications";
 import React, { Suspense } from "react";
@@ -10,10 +10,7 @@ import "@mantine/notifications/styles.css";
 import "src/styles/globals.css";
 import { ModalsProvider } from "@mantine/modals";
 import { globalModals } from "@/modals";
-
-const theme = createTheme({
-  /** Put your mantine theme override here */
-});
+import { theme } from "@/styles/mantine-theme";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
