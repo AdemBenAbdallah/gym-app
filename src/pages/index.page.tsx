@@ -8,6 +8,8 @@ import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
 import { useMutation } from "@blitzjs/rpc";
 import { Button } from "@mantine/core";
 import testEmailSend from "@/features/users/mutations/testEmailSend";
+import { openContextModal } from "@mantine/modals";
+import { GlobalModal } from "@/modals";
 
 const Home: BlitzPage = () => {
   const currentUser = useCurrentUser();
@@ -15,6 +17,22 @@ const Home: BlitzPage = () => {
 
   return (
     <Layout title="Home">
+      <Vertical align="center">
+        <Button
+          w={"fit-content"}
+          onClick={() => {
+            openContextModal({
+              modal: GlobalModal.becomeBro,
+              title: "Become a pro",
+              innerProps: {
+                price: 48,
+              },
+            });
+          }}
+        >
+          Become a pro modal
+        </Button>
+      </Vertical>
       {currentUser && (
         <Vertical align="center">
           <UserInfo />

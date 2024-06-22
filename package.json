@@ -34,6 +34,7 @@
     "@mantine/core": "7.8.1",
     "@mantine/form": "7.8.1",
     "@mantine/hooks": "7.8.1",
+    "@mantine/modals": "7.10.2",
     "@mantine/notifications": "7.9.0",
     "@mantinex/dev-icons": "1.0.2",
     "@prisma/client": "4.6.1",

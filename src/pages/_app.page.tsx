@@ -8,6 +8,8 @@ import { withBlitz } from "src/blitz-client";
 import { RootErrorFallback } from "src/core/components/RootErrorFallback";
 import "@mantine/notifications/styles.css";
 import "src/styles/globals.css";
+import { ModalsProvider } from "@mantine/modals";
+import { globalModals } from "@/modals";
 
 const theme = createTheme({
   /** Put your mantine theme override here */
@@ -17,11 +19,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <MantineProvider theme={theme} defaultColorScheme="dark">
       <Notifications position="top-right" zIndex={1000} />
-      <ErrorBoundary FallbackComponent={RootErrorFallback}>
-        <Suspense fallback={<FullPageLoader />}>
-          <Component {...pageProps} />
-        </Suspense>
-      </ErrorBoundary>
+      <ModalsProvider modals={globalModals}>
+        <ErrorBoundary FallbackComponent={RootErrorFallback}>
+          <Suspense fallback={<FullPageLoader />}>
+            <Component {...pageProps} />
+          </Suspense>
+        </ErrorBoundary>
+      </ModalsProvider>
     </MantineProvider>
   );
 }

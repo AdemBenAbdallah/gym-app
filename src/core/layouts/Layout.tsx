@@ -4,6 +4,7 @@ import { ErrorBoundary, Routes } from "@blitzjs/next";
 import {
   Anchor,
   AppShell,
+  Badge,
   Box,
   Button,
   Indicator,
@@ -26,6 +27,8 @@ import Conditional from "../components/Conditional";
 import UserAvatar from "../components/UserAvatar";
 import UserProfileProgress from "../components/Header/UserProfileProgress";
 import OnboardingWizard from "../components/OnboardingWzard";
+import { openContextModal } from "@mantine/modals";
+import { GlobalModal } from "@/modals";
 
 type Props = { title?: string };
 
@@ -92,6 +95,20 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
                       </Conditional>
                     </Horizontal>
                   </Conditional>
+                  <Badge
+                    onClick={() =>
+                      openContextModal({
+                        modal: GlobalModal.becomeBro,
+                        title: "Become a pro member",
+                        innerProps: {
+                          price: 28,
+                        },
+                      })
+                    }
+                    color="red"
+                  >
+                    Pro
+                  </Badge>
                   <UserProfileProgress />
                   {currentUser.role === "ADMIN" && (
                     <Tooltip label="ADMIN">

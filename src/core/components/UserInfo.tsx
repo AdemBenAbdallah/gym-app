@@ -11,7 +11,7 @@ const UserInfo = () => {
   return (
     <Vertical mx={"auto"}>
       <div>
-        User id: <code>{currentUser.id}</code>
+        User name: <code>{currentUser.name}</code>
         <br />
         User role: <code>{currentUser.role}</code>
       </div>
