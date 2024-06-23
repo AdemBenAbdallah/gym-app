@@ -31,13 +31,12 @@ const Home: BlitzPage = () => {
                     deleteAccountMutation();
                   });
                 }}
-                w={"fit-content"}
                 color="red"
+                variant="filled"
               >
                 Delete Profiel
               </Button>
               <Button
-                w={"fit-content"}
                 onClick={() => {
                   openContextModal({
                     modal: GlobalModal.becomeBro,

@@ -2,23 +2,31 @@ import Head from "next/head";
 import React, { Suspense } from "react";
 import { ErrorBoundary, Routes } from "@blitzjs/next";
 import {
+  ActionIcon,
   Anchor,
   AppShell,
   Badge,
   Box,
   Button,
+  Center,
   Indicator,
   Modal,
   RingProgress,
   Text,
   Tooltip,
+  useMantineColorScheme,
 } from "@mantine/core";
 import { Horizontal, Vertical } from "../components/MantineLayout";
 import logout from "@/features/auth/mutations/logout";
 import { useMutation } from "@blitzjs/rpc";
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
 import { ReactFC } from "~/types";
-import { IconUserPlus, IconUserShield } from "@tabler/icons-react";
+import {
+  IconMoonStars,
+  IconSun,
+  IconUserPlus,
+  IconUserShield,
+} from "@tabler/icons-react";
 import { RootErrorFallback } from "../components/RootErrorFallback";
 import { useRouter } from "next/router";
 import FullPageLoader from "../components/FulllPageLoader";
@@ -39,6 +47,12 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
   const currentUser = useCurrentUser();
   const router = useRouter();
 
+  const { colorScheme, setColorScheme } = useMantineColorScheme();
+  const toggleColorSchemeHandler = () => {
+    setColorScheme(colorScheme === "dark" ? "light" : "dark");
+  };
+  const isDark = colorScheme === "dark";
+
   return (
     <>
       <Head>
@@ -49,11 +63,22 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
       <AppShell header={{ height: 60 }} padding="md" h={"100%"}>
         <AppShell.Header>
           <Horizontal fullH align="center" justify="space-between" p={"md"}>
-            <Anchor component={Link} underline="never" href={Routes.Home()}>
-              <Text fz={"h3"} fw={500}>
-                Hajem
-              </Text>
-            </Anchor>
+            <Horizontal>
+              <Anchor component={Link} underline="never" href={Routes.Home()}>
+                <Text fz={"h3"} fw={500}>
+                  Hajem
+                </Text>
+              </Anchor>
+              <ActionIcon
+                variant="outline"
+                color={isDark ? "yellow" : "blue"}
+                title="toogle color scheme"
+                onClick={toggleColorSchemeHandler}
+                style={{ cursor: "pointer" }}
+              >
+                {isDark ? <IconSun size={24} /> : <IconMoonStars size={24} />}
+              </ActionIcon>
+            </Horizontal>
             <Horizontal>
               {currentUser && (
                 <Horizontal gap={5} align="center">
