@@ -34,9 +34,7 @@ type Props = { title?: string };
 export const dynamic = "force-dynamic";
 
 const Layout: ReactFC<Props> = ({ title, children }) => {
-  const [logoutMutation] = useMutation(logout);
   const currentUser = useCurrentUser();
-  const router = useRouter();
 
   const { colorScheme, setColorScheme } = useMantineColorScheme();
   const toggleColorSchemeHandler = () => {
@@ -96,18 +94,6 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
                     </Tooltip>
                   )}
                 </Horizontal>
-              )}
-              {currentUser && (
-                <Button
-                  size="xs"
-                  variant="light"
-                  onClick={async () => {
-                    await logoutMutation();
-                    await router.push("/");
-                  }}
-                >
-                  Logout
-                </Button>
               )}
             </Horizontal>
           </Horizontal>

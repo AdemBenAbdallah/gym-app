@@ -44,9 +44,16 @@ export const ResetPassword = z
     path: ["passwordConfirmation"],
   });
 
-export const ChangePassword = z.object({
-  currentPassword: z.string(),
-  newPassword: password,
-});
+export const ChangePasswordInput = z
+  .object({
+    currentPassword: z.string(),
+    newPassword: password,
+    newConfirmPassword: password,
+  })
+  .refine((data) => data.newPassword === data.newConfirmPassword, {
+    message: "Passwords don't match",
+    path: ["passwordConfirmation"],
+  });
 
 export type UserType = PromiseReturnType<typeof getCurrentUser>;
+export type ChangePasswordInputType = z.infer<typeof ChangePasswordInput>;
