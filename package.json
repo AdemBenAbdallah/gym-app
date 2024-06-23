@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "email": "cd email/react-email && yarn dev --port 3009",
+    "email-install-dependencies": "cd email/react-email && yarn install",
     "dev": "blitz dev",
-    "build": "blitz build",
+    "build": "blitz build migrate deploy && yarn blitz prisma generate && yarn email-install-dependencies && yarn blitz build",
     "start": "blitz start",
     "migrate": "yarn blitz prisma migrate dev",
     "studio": "blitz prisma studio",
