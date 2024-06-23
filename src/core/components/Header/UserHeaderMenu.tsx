@@ -1,4 +1,4 @@
-import { Menu, Button, Text, rem } from "@mantine/core";
+import { Menu, Text, rem, Indicator, Tooltip, Box } from "@mantine/core";
 import {
   IconSettings,
   IconSearch,
@@ -6,50 +6,65 @@ import {
   IconMessageCircle,
   IconTrash,
   IconArrowsLeftRight,
+  IconUserShield,
+  IconHome,
+  IconUserCircle,
 } from "@tabler/icons-react";
+import Conditional from "../Conditional";
+import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
+import UserAvatar from "../UserAvatar";
+import Link from "next/link";
+import { Routes } from "@blitzjs/next";
+import { RouteUrlObject } from "blitz";
 
-const UserHeaderMeny = () => {
+const UserHeaderMenu = () => {
+  const currentUser = useCurrentUser();
   return (
     <Menu shadow="md" width={200}>
       <Menu.Target>
-        <Button>Toggle menu</Button>
+        <div style={{ cursor: "pointer" }}>
+          <Conditional
+            condition={currentUser?.role === "ADMIN"}
+            wrap={(children) => (
+              <Indicator
+                color="none"
+                position="bottom-end"
+                label={
+                  <Tooltip label="Admin" color="dark">
+                    <Box>
+                      <IconUserShield size={13} />
+                    </Box>
+                  </Tooltip>
+                }
+              >
+                {children}
+              </Indicator>
+            )}
+          >
+            <UserAvatar user={currentUser} />
+          </Conditional>
+        </div>
       </Menu.Target>
 
       <Menu.Dropdown>
         <Menu.Label>Application</Menu.Label>
-        <Menu.Item
-          leftSection={
-            <IconSettings style={{ width: rem(14), height: rem(14) }} />
-          }
-        >
-          Settings
-        </Menu.Item>
-        <Menu.Item
-          leftSection={
-            <IconMessageCircle style={{ width: rem(14), height: rem(14) }} />
-          }
-        >
-          Messages
-        </Menu.Item>
-        <Menu.Item
-          leftSection={
-            <IconPhoto style={{ width: rem(14), height: rem(14) }} />
-          }
-        >
-          Gallery
-        </Menu.Item>
-        <Menu.Item
-          leftSection={
-            <IconSearch style={{ width: rem(14), height: rem(14) }} />
-          }
-          rightSection={
-            <Text size="xs" c="dimmed">
-              ⌘K
-            </Text>
-          }
-        >
-          Search
-        </Menu.Item>
+        <MenuItemLink
+          text="Home"
+          href={Routes.Home()}
+          icon={<IconHome style={{ width: rem(14), height: rem(14) }} />}
+        />
+
+        <MenuItemLink
+          text="Go to profile"
+          href={Routes.EditProfilePage()}
+          icon={<IconUserCircle style={{ width: rem(14), height: rem(14) }} />}
+        />
+
+        <MenuItemLink
+          text="Settings"
+          href={Routes.AboutPage()}
+          icon={<IconSettings style={{ width: rem(14), height: rem(14) }} />}
+        />
 
         <Menu.Divider />
 
@@ -74,4 +89,17 @@ const UserHeaderMeny = () => {
   );
 };
 
-export default UserHeaderMeny;
+type MenuItemLinkProps = {
+  text: string;
+  icon: React.ReactElement;
+  href: RouteUrlObject;
+};
+
+const MenuItemLink: React.FC<MenuItemLinkProps> = ({ text, icon, href }) => {
+  return (
+    <Link href={href}>
+      <Menu.Item leftSection={icon}>{text}</Menu.Item>
+    </Link>
+  );
+};
+export default UserHeaderMenu;

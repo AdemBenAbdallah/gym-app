@@ -6,12 +6,8 @@ import {
   Anchor,
   AppShell,
   Badge,
-  Box,
   Button,
-  Center,
-  Indicator,
   Modal,
-  RingProgress,
   Text,
   Tooltip,
   useMantineColorScheme,
@@ -21,22 +17,17 @@ import logout from "@/features/auth/mutations/logout";
 import { useMutation } from "@blitzjs/rpc";
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
 import { ReactFC } from "~/types";
-import {
-  IconMoonStars,
-  IconSun,
-  IconUserPlus,
-  IconUserShield,
-} from "@tabler/icons-react";
+import { IconMoonStars, IconSun, IconUserPlus } from "@tabler/icons-react";
 import { RootErrorFallback } from "../components/RootErrorFallback";
 import { useRouter } from "next/router";
 import FullPageLoader from "../components/FulllPageLoader";
 import Link from "next/link";
 import Conditional from "../components/Conditional";
-import UserAvatar from "../components/UserAvatar";
 import UserProfileProgress from "../components/Header/UserProfileProgress";
 import OnboardingWizard from "../components/OnboardingWzard";
 import { openContextModal } from "@mantine/modals";
 import { GlobalModal } from "@/modals";
+import UserHeaderMenu from "../components/Header/UserHeaderMenu";
 
 type Props = { title?: string };
 
@@ -81,46 +72,10 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
             </Horizontal>
             <Horizontal>
               {currentUser && (
-                <Horizontal gap={5} align="center">
-                  <Conditional
-                    condition={!!currentUser.username}
-                    wrap={(children) => {
-                      return (
-                        <Link
-                          href={Routes.ProfilePage({
-                            username: currentUser.username as string,
-                          })}
-                        >
-                          {children}
-                        </Link>
-                      );
-                    }}
-                  >
-                    <Horizontal>
-                      <Conditional
-                        condition={currentUser?.role === "ADMIN"}
-                        wrap={(children) => (
-                          <Indicator
-                            color="none"
-                            position="bottom-end"
-                            label={
-                              <Tooltip label="Admin" color="dark">
-                                <Box>
-                                  <IconUserShield size={13} />
-                                </Box>
-                              </Tooltip>
-                            }
-                          >
-                            {children}
-                          </Indicator>
-                        )}
-                      >
-                        <UserAvatar user={currentUser} />
-                        <Text>{currentUser.name}</Text>
-                      </Conditional>
-                    </Horizontal>
-                  </Conditional>
+                <Horizontal gap={15} align="center">
+                  <UserHeaderMenu />
                   <Badge
+                    style={{ cursor: "pointer" }}
                     onClick={() =>
                       openContextModal({
                         modal: GlobalModal.becomeBro,
