@@ -1,16 +1,15 @@
-import Layout from "src/core/layouts/Layout";
-import { BlitzPage, Routes } from "@blitzjs/next";
-import React from "react";
-import { Horizontal, Vertical } from "@/core/components/MantineLayout";
 import { AuthenticationForm } from "@/core/components/MainAuthForm";
+import { Horizontal, Vertical } from "@/core/components/MantineLayout";
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
-import { useMutation } from "@blitzjs/rpc";
-import { Button } from "@mantine/core";
 import testEmailSend from "@/features/users/mutations/testEmailSend";
-import { openContextModal } from "@mantine/modals";
 import { GlobalModal } from "@/modals";
 import { ConfirmDelete } from "@/utils/mantine-utils";
+import { BlitzPage, Routes } from "@blitzjs/next";
+import { useMutation } from "@blitzjs/rpc";
+import { Button } from "@mantine/core";
+import { openContextModal } from "@mantine/modals";
 import Link from "next/link";
+import Layout from "src/core/layouts/Layout";
 
 const Home: BlitzPage = () => {
   const currentUser = useCurrentUser();

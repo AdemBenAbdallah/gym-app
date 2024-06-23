@@ -1,4 +1,4 @@
-import { Button, Loader, createTheme } from "@mantine/core";
+import { Loader, createTheme } from "@mantine/core";
 import { CssLoader } from "./cssLoader/CssLoader";
 
 export const theme = createTheme({

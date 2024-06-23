@@ -1,16 +1,17 @@
 import FullPageLoader from "@/core/components/FulllPageLoader";
-import { ErrorBoundary, AppProps } from "@blitzjs/next";
-import { MantineProvider } from "@mantine/core";
-import "@mantine/core/styles.css";
-import { Notifications } from "@mantine/notifications";
-import React, { Suspense } from "react";
-import { withBlitz } from "src/blitz-client";
-import { RootErrorFallback } from "src/core/components/RootErrorFallback";
-import "@mantine/notifications/styles.css";
-import "src/styles/globals.css";
-import { ModalsProvider } from "@mantine/modals";
 import { globalModals } from "@/modals";
 import { theme } from "@/styles/mantine-theme";
+import { AppProps, ErrorBoundary } from "@blitzjs/next";
+import { MantineProvider } from "@mantine/core";
+import "@mantine/core/styles.css";
+import { ModalsProvider } from "@mantine/modals";
+import { Notifications } from "@mantine/notifications";
+import "@mantine/notifications/styles.css";
+import { Suspense } from "react";
+import { withBlitz } from "src/blitz-client";
+import { RootErrorFallback } from "src/core/components/RootErrorFallback";
+import "src/styles/globals.css";
+import { builtinModules } from "module";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
