@@ -14,7 +14,7 @@
     ".editorconfig": true,
     ".npmrc": true,
     "next-env.d.ts": true,
-    "README.md": true,
-    "yarn.lock": true
+    "README.md": true
+    // "yarn.lock": true
   }
 }
