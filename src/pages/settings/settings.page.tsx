@@ -3,6 +3,7 @@ import { BlitzPage } from "@blitzjs/next";
 import { Tabs, rem } from "@mantine/core";
 import { IconSettings, IconUserCog, IconMail } from "@tabler/icons-react";
 import { ChangePassword } from "./components/ChangePassword";
+import UserEmailSettings from "./components/UserEmailSettings";
 
 const SettingsPage: BlitzPage = () => {
   const iconStyle = { width: rem(12), height: rem(12) };
@@ -36,7 +37,7 @@ const SettingsPage: BlitzPage = () => {
         </Tabs.Panel>
 
         <Tabs.Panel pl={"xs"} value="messages">
-          Messages tab content
+          <UserEmailSettings />
         </Tabs.Panel>
 
         <Tabs.Panel pl={"xs"} value="settings">

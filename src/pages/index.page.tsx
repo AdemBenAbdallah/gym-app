@@ -1,6 +1,5 @@
 import Layout from "src/core/layouts/Layout";
-import { BlitzPage } from "@blitzjs/next";
-import UserInfo from "@/core/components/UserInfo";
+import { BlitzPage, Routes } from "@blitzjs/next";
 import React from "react";
 import { Horizontal, Vertical } from "@/core/components/MantineLayout";
 import { AuthenticationForm } from "@/core/components/MainAuthForm";
@@ -11,6 +10,7 @@ import testEmailSend from "@/features/users/mutations/testEmailSend";
 import { openContextModal } from "@mantine/modals";
 import { GlobalModal } from "@/modals";
 import { ConfirmDelete } from "@/utils/mantine-utils";
+import Link from "next/link";
 
 const Home: BlitzPage = () => {
   const currentUser = useCurrentUser();
@@ -51,15 +51,18 @@ const Home: BlitzPage = () => {
               </Button>
             </Horizontal>
           </Vertical>
-          {/* <Vertical align="center">
-            <UserInfo />
+          <Vertical align="center">
+            {/* <UserInfo />
             <Button
               onClick={async () => await $testEmailSend({})}
               w={"fit-content"}
             >
               send test email
-            </Button>
-          </Vertical> */}
+            </Button> */}
+            <Link href={Routes.TodosPage()}>
+              <Button>Go Ta Todo</Button>
+            </Link>
+          </Vertical>
         </>
       )}
 

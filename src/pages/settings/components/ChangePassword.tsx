@@ -29,13 +29,13 @@ export const ChangePassword = () => {
   };
 
   return (
-    <Card w={500}>
+    <Card w={{ base: "100%", md: 500 }}>
       {isSuccess && (
         <Text>Your current password has been successfully updated! 🎉</Text>
       )}
       {!isSuccess && (
         <Vertical>
-          <Title>Change Password</Title>
+          <Title fz={{ base: 24, md: 28 }}>Change Password</Title>
           <Vertical>
             <form onSubmit={form.onSubmit(handleSubmit)}>
               <Vertical>

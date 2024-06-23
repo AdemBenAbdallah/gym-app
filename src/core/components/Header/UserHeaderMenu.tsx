@@ -6,6 +6,7 @@ import {
   IconHome,
   IconPencil,
   IconLogout,
+  IconFileCheck,
 } from "@tabler/icons-react";
 import Conditional from "../Conditional";
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
@@ -55,7 +56,13 @@ const UserHeaderMenu = () => {
         <MenuItemLink text="Home" href={Routes.Home()} Icon={IconHome} />
 
         <MenuItemLink
-          text="Go to profile"
+          text="Todo"
+          href={Routes.TodosPage()}
+          Icon={IconFileCheck}
+        />
+
+        <MenuItemLink
+          text="Edit profile"
           href={Routes.EditProfilePage()}
           Icon={IconPencil}
         />
@@ -69,13 +76,6 @@ const UserHeaderMenu = () => {
         <Menu.Divider />
 
         <Menu.Label>Danger zone</Menu.Label>
-        <Menu.Item
-          leftSection={
-            <IconArrowsLeftRight style={{ width: rem(14), height: rem(14) }} />
-          }
-        >
-          Transfer my data
-        </Menu.Item>
 
         <Menu.Item
           color="red"
