@@ -1,4 +1,6 @@
 import { z } from "zod";
+import getCurrentUser from "../users/queries/getCurrentUser";
+import { PromiseReturnType } from "blitz";
 
 export const email = z
   .string()
@@ -11,15 +13,21 @@ export const password = z
   .max(100)
   .transform((str) => str.trim());
 
-export const Signup = z.object({
-  email,
-  password,
-});
-
-export const Login = z.object({
+export const InputLogin = z.object({
   email,
   password: z.string(),
 });
+
+export type LoginFormType = z.infer<typeof InputLogin>;
+
+export const InputSginUp = z.object({
+  email,
+  password,
+  name: z.string(),
+  terms: z.boolean().refine((val) => val === true),
+});
+
+export type SignupFormType = z.infer<typeof InputSginUp>;
 
 export const ForgotPassword = z.object({
   email,
@@ -36,7 +44,16 @@ export const ResetPassword = z
     path: ["passwordConfirmation"],
   });
 
-export const ChangePassword = z.object({
-  currentPassword: z.string(),
-  newPassword: password,
-});
+export const ChangePasswordInput = z
+  .object({
+    currentPassword: z.string(),
+    newPassword: password,
+    newConfirmPassword: password,
+  })
+  .refine((data) => data.newPassword === data.newConfirmPassword, {
+    message: "Passwords don't match",
+    path: ["passwordConfirmation"],
+  });
+
+export type UserType = PromiseReturnType<typeof getCurrentUser>;
+export type ChangePasswordInputType = z.infer<typeof ChangePasswordInput>;

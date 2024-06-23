@@ -1,22 +1,30 @@
-import { ErrorBoundary, AppProps } from "@blitzjs/next";
-import { MantineProvider, createTheme } from "@mantine/core";
+import FullPageLoader from "@/core/components/FulllPageLoader";
+import { globalModals } from "@/modals";
+import { theme } from "@/styles/mantine-theme";
+import { AppProps, ErrorBoundary } from "@blitzjs/next";
+import { MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
-import React from "react";
+import { ModalsProvider } from "@mantine/modals";
+import { Notifications } from "@mantine/notifications";
+import "@mantine/notifications/styles.css";
+import { Suspense } from "react";
 import { withBlitz } from "src/blitz-client";
 import { RootErrorFallback } from "src/core/components/RootErrorFallback";
 import "src/styles/globals.css";
-
-const theme = createTheme({
-  /** Put your mantine theme override here */
-});
+import { builtinModules } from "module";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ErrorBoundary FallbackComponent={RootErrorFallback}>
-      <MantineProvider theme={theme} defaultColorScheme="dark">
-        <Component {...pageProps} />
-      </MantineProvider>
-    </ErrorBoundary>
+    <MantineProvider theme={theme} defaultColorScheme="dark">
+      <Notifications position="top-right" zIndex={1000} />
+      <ModalsProvider modals={globalModals}>
+        <ErrorBoundary FallbackComponent={RootErrorFallback}>
+          <Suspense fallback={<FullPageLoader />}>
+            <Component {...pageProps} />
+          </Suspense>
+        </ErrorBoundary>
+      </ModalsProvider>
+    </MantineProvider>
   );
 }
 

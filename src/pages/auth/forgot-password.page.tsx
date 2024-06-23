@@ -1,15 +1,12 @@
-import Layout from "src/core/layouts/Layout"
-import { LabeledTextField } from "src/core/components/LabeledTextField"
-import { Form, FORM_ERROR } from "src/core/components/Form"
-import { useMutation } from "@blitzjs/rpc"
-import { BlitzPage } from "@blitzjs/next"
-import forgotPassword from "@/features/auth/mutations/forgotPassword"
-import { ForgotPassword } from "@/features/auth/schemas"
-import { Button, TextInput } from "@mantine/core"
-import { useForm } from "@mantine/form"
+import forgotPassword from "@/features/auth/mutations/forgotPassword";
+import { BlitzPage } from "@blitzjs/next";
+import { useMutation } from "@blitzjs/rpc";
+import { Button, TextInput } from "@mantine/core";
+import { useForm } from "@mantine/form";
+import Layout from "src/core/layouts/Layout";
 
 const ForgotPasswordPage: BlitzPage = () => {
-  const [forgotPasswordMutation, { isSuccess }] = useMutation(forgotPassword)
+  const [forgotPasswordMutation, { isSuccess }] = useMutation(forgotPassword);
 
   const form = useForm({
     mode: "uncontrolled",
@@ -20,17 +17,11 @@ const ForgotPasswordPage: BlitzPage = () => {
     validate: {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
     },
-  })
+  });
 
   const onSubmit = async (values) => {
-    try {
-      await forgotPasswordMutation(values)
-    } catch (error: any) {
-      return {
-        [FORM_ERROR]: "Sorry, we had an unexpected error. Please try again.",
-      }
-    }
-  }
+    await forgotPasswordMutation(values);
+  };
 
   return (
     <Layout title="Forgot Your Password?">
@@ -40,8 +31,8 @@ const ForgotPasswordPage: BlitzPage = () => {
         <div>
           <h2>Request Submitted</h2>
           <p>
-            If your email is in our system, you will receive instructions to reset your password
-            shortly.
+            If your email is in our system, you will receive instructions to
+            reset your password shortly.
           </p>
         </div>
       ) : (
@@ -58,7 +49,7 @@ const ForgotPasswordPage: BlitzPage = () => {
         </form>
       )}
     </Layout>
-  )
-}
+  );
+};
 
-export default ForgotPasswordPage
+export default ForgotPasswordPage;
