@@ -2,11 +2,13 @@
   "name": "barber",
   "version": "1.0.0",
   "scripts": {
+    "email": "cd email/react-email && yarn dev --port 3009",
+    "email-install-dependencies": "cd email/react-email && yarn install",
     "dev": "blitz dev",
-    "build": "blitz build",
+    "build": "blitz build migrate deploy && yarn blitz prisma generate && yarn email-install-dependencies && yarn blitz build",
     "start": "blitz start",
-    "db:migrate": "yarn blitz prisma migrate dev",
-    "db:studio": "blitz prisma studio",
+    "migrate": "yarn blitz prisma migrate dev",
+    "studio": "blitz prisma studio",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
@@ -17,7 +19,7 @@
   },
   "prettier": {
     "semi": true,
-    "printWidth": 100
+    "printWidth": 80
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
@@ -33,15 +35,24 @@
     "@mantine/core": "7.8.1",
     "@mantine/form": "7.8.1",
     "@mantine/hooks": "7.8.1",
+    "@mantine/modals": "7.10.2",
+    "@mantine/notifications": "7.9.0",
+    "@mantinex/dev-icons": "1.0.2",
     "@prisma/client": "4.6.1",
+    "@t3-oss/env-nextjs": "0.10.1",
+    "@tabler/icons-react": "3.3.0",
+    "@uploadthing/react": "6.6.0",
     "blitz": "2.0.8",
+    "date-fns": "3.6.0",
     "next": "14.1.4",
+    "nodemailer": "6.9.13",
     "prisma": "4.6.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-hook-form": "7.x",
+    "react-dom": "18.3.1",
+    "resend": "3.2.0",
     "secure-password": "4.0.0",
-    "zod": "3.20.2"
+    "uploadthing": "6.12.0",
+    "zod": "3.23.5"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "12.0.8",

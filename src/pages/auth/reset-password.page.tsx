@@ -1,21 +1,18 @@
-import Layout from "src/core/layouts/Layout"
-import { LabeledTextField } from "src/core/components/LabeledTextField"
-import { Form, FORM_ERROR } from "src/core/components/Form"
+import Layout from "src/core/layouts/Layout";
 
-import { BlitzPage, Routes } from "@blitzjs/next"
-import { useRouter } from "next/router"
-import { useMutation } from "@blitzjs/rpc"
-import Link from "next/link"
-import { assert } from "blitz"
-import { ResetPassword } from "src/features/auth/schemas"
-import resetPassword from "src/features/auth/mutations/resetPassword"
-import { Button, PasswordInput } from "@mantine/core"
-import { useForm } from "@mantine/form"
+import { BlitzPage, Routes } from "@blitzjs/next";
+import { useMutation } from "@blitzjs/rpc";
+import { Button, PasswordInput } from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { assert } from "blitz";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import resetPassword from "src/features/auth/mutations/resetPassword";
 
 const ResetPasswordPage: BlitzPage = () => {
-  const router = useRouter()
-  const token = router.query.token?.toString()
-  const [resetPasswordMutation, { isSuccess }] = useMutation(resetPassword)
+  const router = useRouter();
+  const token = router.query.token?.toString();
+  const [resetPasswordMutation, { isSuccess }] = useMutation(resetPassword);
 
   const form = useForm({
     mode: "uncontrolled",
@@ -23,25 +20,13 @@ const ResetPasswordPage: BlitzPage = () => {
       password: "",
       ConfirmPassword: "",
     },
-  })
+  });
 
   const onSubmit = async (values) => {
-    try {
-      assert(token, "Token is required.")
-      await resetPasswordMutation({ ...values, token })
-      return null
-    } catch (error: any) {
-      if (error.name === "ResetPasswordError") {
-        return {
-          [FORM_ERROR]: error.message,
-        }
-      } else {
-        return {
-          [FORM_ERROR]: "Sorry, we encountered an unexpected error. Please try again.",
-        }
-      }
-    }
-  }
+    assert(token, "Token is required.");
+    await resetPasswordMutation({ ...values, token });
+    return null;
+  };
 
   return (
     <Layout title="Reset Your Password">
@@ -74,9 +59,9 @@ const ResetPasswordPage: BlitzPage = () => {
         </form>
       )}
     </Layout>
-  )
-}
+  );
+};
 
-ResetPasswordPage.redirectAuthenticatedTo = "/"
+ResetPasswordPage.redirectAuthenticatedTo = "/";
 
-export default ResetPasswordPage
+export default ResetPasswordPage;

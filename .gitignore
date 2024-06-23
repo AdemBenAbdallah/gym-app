@@ -6,6 +6,7 @@ node_modules
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+yarn.lock
 .pnp.*
 .npm
 web_modules/

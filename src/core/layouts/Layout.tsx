@@ -1,17 +1,41 @@
-import Head from "next/head";
-import React, { Suspense } from "react";
-import { BlitzLayout, Routes } from "@blitzjs/next";
-import { Anchor, AppShell, Button, Text } from "@mantine/core";
-import { Horizontal, Vertical } from "../components/MantineLayout";
-import Link from "next/link";
-import logout from "@/features/auth/mutations/logout";
-import { useMutation } from "@blitzjs/rpc";
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
+import { GlobalModal } from "@/modals";
+import { ErrorBoundary, Routes } from "@blitzjs/next";
+import {
+  ActionIcon,
+  Anchor,
+  AppShell,
+  Badge,
+  Modal,
+  Text,
+  Tooltip,
+  useMantineColorScheme,
+} from "@mantine/core";
+import { openContextModal } from "@mantine/modals";
+import { IconMoonStars, IconSun, IconUserPlus } from "@tabler/icons-react";
+import Head from "next/head";
+import Link from "next/link";
+import { Suspense } from "react";
+import { ReactFC } from "~/types";
+import FullPageLoader from "../components/FulllPageLoader";
+import UserHeaderMenu from "../components/Header/UserHeaderMenu";
+import UserProfileProgress from "../components/Header/UserProfileProgress";
+import { Horizontal, Vertical } from "../components/MantineLayout";
+import OnboardingWizard from "../components/OnboardingWzard";
+import { RootErrorFallback } from "../components/RootErrorFallback";
 
-type Props = { title?: string; children?: React.ReactNode };
+type Props = { title?: string };
 
-const Layout: BlitzLayout<Props> = ({ title, children }) => {
-  const [logoutMutation] = useMutation(logout);
+export const dynamic = "force-dynamic";
+
+const Layout: ReactFC<Props> = ({ title, children }) => {
+  const currentUser = useCurrentUser();
+
+  const { colorScheme, setColorScheme } = useMantineColorScheme();
+  const toggleColorSchemeHandler = () => {
+    setColorScheme(colorScheme === "dark" ? "light" : "dark");
+  };
+  const isDark = colorScheme === "dark";
 
   return (
     <>
@@ -28,21 +52,69 @@ const Layout: BlitzLayout<Props> = ({ title, children }) => {
                 Hajem
               </Text>
             </Anchor>
-            <Button
-              size="xs"
-              variant="light"
-              onClick={async () => {
-                await logoutMutation();
-              }}
-            >
-              Logout
-            </Button>
+            <Horizontal>
+              {currentUser && (
+                <Horizontal gap={15} align="center">
+                  <UserHeaderMenu />
+                  <Badge
+                    style={{ cursor: "pointer" }}
+                    onClick={() =>
+                      openContextModal({
+                        modal: GlobalModal.becomeBro,
+                        title: "Become a pro member",
+                        innerProps: {
+                          price: 28,
+                        },
+                      })
+                    }
+                    color="red"
+                  >
+                    Pro
+                  </Badge>
+                  <UserProfileProgress />
+
+                  {currentUser.role === "ADMIN" && (
+                    <Tooltip label="ADMIN">
+                      <IconUserPlus />
+                    </Tooltip>
+                  )}
+                </Horizontal>
+              )}
+              <ActionIcon
+                variant="outline"
+                color={isDark ? "yellow" : "blue"}
+                title="toogle color scheme"
+                onClick={toggleColorSchemeHandler}
+                style={{ cursor: "pointer" }}
+              >
+                {isDark ? <IconSun size={24} /> : <IconMoonStars size={24} />}
+              </ActionIcon>
+            </Horizontal>
           </Horizontal>
         </AppShell.Header>
 
         <AppShell.Main h={"100%"}>
           <Vertical fullH fullW>
-            <Suspense fallback="loading...">{children}</Suspense>
+            <ErrorBoundary
+              resetKeys={[currentUser]}
+              FallbackComponent={RootErrorFallback}
+            >
+              <Suspense fallback={<FullPageLoader />}>
+                {currentUser && (
+                  <Modal
+                    closeOnClickOutside={false}
+                    withCloseButton={false}
+                    size={"xl"}
+                    centered
+                    opened={!currentUser?.onboarded}
+                    onClose={() => {}}
+                  >
+                    <OnboardingWizard />
+                  </Modal>
+                )}
+                {children}
+              </Suspense>
+            </ErrorBoundary>
           </Vertical>
         </AppShell.Main>
       </AppShell>
