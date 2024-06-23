@@ -1,9 +1,8 @@
 import { resolver } from "@blitzjs/rpc";
-import { z } from "zod";
-import db from "db";
-import sendEmail from "~/email/sendEmail";
 import React from "react";
+import { z } from "zod";
 import EmailTemplateWelcome from "~/email/react-email/emails/welcome";
+import sendEmail from "~/email/sendEmail";
 
 const Input = z.object({});
 
