@@ -6,10 +6,10 @@
   },
   "jest.runMode": "watch",
   "files.exclude": {
-    // "**/node_modules": true,
+    "**/node_modules": true,
     "**/docs": true,
     "**/.next": true,
-    "**/.husky": true,
+    // "**/.husky": true,
     "**/public": true,
     ".editorconfig": true,
     ".npmrc": true,
