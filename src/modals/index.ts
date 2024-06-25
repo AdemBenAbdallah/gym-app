@@ -9,7 +9,7 @@ export const globalModals = {
 };
 
 declare module "@mantine/modals" {
-  export interface MantineModalsOverride {
+  export interface MantineModalsOver {
     modals: typeof globalModals;
   }
 }
