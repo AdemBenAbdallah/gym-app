@@ -1,6 +1,6 @@
+import { PromiseReturnType } from "blitz";
 import { z } from "zod";
 import getCurrentUser from "../users/queries/getCurrentUser";
-import { PromiseReturnType } from "blitz";
 
 export const email = z
   .string()
@@ -33,7 +33,7 @@ export const ForgotPassword = z.object({
   email,
 });
 
-export const ResetPassword = z
+export const ResetPasswordInput = z
   .object({
     password: password,
     passwordConfirmation: password,
@@ -57,3 +57,5 @@ export const ChangePasswordInput = z
 
 export type UserType = PromiseReturnType<typeof getCurrentUser>;
 export type ChangePasswordInputType = z.infer<typeof ChangePasswordInput>;
+export type forgotPasswordInput = z.infer<typeof ForgotPassword>;
+export type resetPasswordType = z.infer<typeof ResetPasswordInput>;

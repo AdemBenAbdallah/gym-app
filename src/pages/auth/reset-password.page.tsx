@@ -1,30 +1,32 @@
-import Layout from "src/core/layouts/Layout";
-
+import { Vertical } from "@/core/components/MantineLayout";
+import { ResetPasswordInput, resetPasswordType } from "@/features/auth/schemas";
 import { BlitzPage, Routes } from "@blitzjs/next";
 import { useMutation } from "@blitzjs/rpc";
-import { Button, PasswordInput } from "@mantine/core";
-import { useForm } from "@mantine/form";
-import { assert } from "blitz";
+import { Button, PasswordInput, rem } from "@mantine/core";
+import { useForm, zodResolver } from "@mantine/form";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Layout from "src/core/layouts/Layout";
 import resetPassword from "src/features/auth/mutations/resetPassword";
 
 const ResetPasswordPage: BlitzPage = () => {
   const router = useRouter();
   const token = router.query.token?.toString();
-  const [resetPasswordMutation, { isSuccess }] = useMutation(resetPassword);
+  const [$resetPasswordMutation, { isLoading, isSuccess }] =
+    useMutation(resetPassword);
 
-  const form = useForm({
-    mode: "uncontrolled",
+  const form = useForm<resetPasswordType>({
     initialValues: {
+      token: "",
       password: "",
-      ConfirmPassword: "",
+      passwordConfirmation: "",
     },
+    validate: zodResolver(ResetPasswordInput),
+    validateInputOnBlur: true,
   });
 
   const onSubmit = async (values) => {
-    assert(token, "Token is required.");
-    await resetPasswordMutation({ ...values, token });
+    await $resetPasswordMutation({ ...values, token });
     return null;
   };
 
@@ -41,21 +43,27 @@ const ResetPasswordPage: BlitzPage = () => {
         </div>
       ) : (
         <form onSubmit={form.onSubmit(onSubmit)}>
-          <PasswordInput
-            withAsterisk
-            label="Password"
-            key={form.key("password")}
-            {...form.getInputProps("password")}
-          />
+          <Vertical w={rem(300)}>
+            <PasswordInput
+              withAsterisk
+              label="Password"
+              {...form.getInputProps("password")}
+            />
 
-          <PasswordInput
-            withAsterisk
-            label="Confirm Password"
-            key={form.key("ConfirmPassword")}
-            {...form.getInputProps("ConfirmPassword")}
-          />
+            <PasswordInput
+              withAsterisk
+              label="Confirm Password"
+              {...form.getInputProps("passwordConfirmation")}
+            />
 
-          <Button type="submit">Submit</Button>
+            <Button
+              loading={isLoading}
+              disabled={!form.isValid()}
+              type="submit"
+            >
+              Submit
+            </Button>
+          </Vertical>
         </form>
       )}
     </Layout>

@@ -7,7 +7,6 @@ import {
 import { useMutation } from "@blitzjs/rpc";
 import { Button, Card, PasswordInput, Text, Title } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
-import React from "react";
 
 export const ChangePassword = () => {
   const [$ChangePassword, { isSuccess, isLoading }] =
@@ -24,7 +23,6 @@ export const ChangePassword = () => {
   });
 
   const handleSubmit = async (values: ChangePasswordInputType) => {
-    console.log(values);
     await $ChangePassword(values);
   };
 

@@ -1,21 +1,22 @@
-import { useForm, zodResolver } from "@mantine/form";
+import login from "@/features/auth/mutations/login";
+import { InputLogin, LoginFormType } from "@/features/auth/schemas";
+import { Routes } from "@blitzjs/next";
+import { useMutation } from "@blitzjs/rpc";
 import {
-  TextInput,
-  PasswordInput,
-  Text,
-  Paper,
-  Group,
-  PaperProps,
+  Anchor,
   Button,
   Divider,
-  Anchor,
+  Group,
+  Paper,
+  PasswordInput,
   Stack,
+  Text,
+  TextInput,
   rem,
 } from "@mantine/core";
-import login from "@/features/auth/mutations/login";
-import { useMutation } from "@blitzjs/rpc";
+import { useForm, zodResolver } from "@mantine/form";
+import Link from "next/link";
 import { Vertical } from "../MantineLayout";
-import { InputLogin, LoginFormType } from "@/features/auth/schemas";
 import SocialButtonAuth from "./SocialButtonAuth";
 
 export function LoginForm(props: { toggle: () => void }) {
@@ -29,7 +30,7 @@ export function LoginForm(props: { toggle: () => void }) {
   });
 
   return (
-    <Vertical fullW fullH align="center" justify="center">
+    <Vertical align="center" justify="center">
       <Paper
         radius="md"
         p="xl"
@@ -64,13 +65,24 @@ export function LoginForm(props: { toggle: () => void }) {
               radius="md"
             />
 
-            <PasswordInput
-              required
-              label="Password"
-              placeholder="Your password"
-              {...form.getInputProps("password")}
-              radius="md"
-            />
+            <Vertical gap={"xs"}>
+              <PasswordInput
+                required
+                label="Password"
+                placeholder="Your password"
+                {...form.getInputProps("password")}
+                radius="md"
+              />
+              <Text
+                fz={"xs"}
+                c={"dimed"}
+                style={{ alignSelf: "flex-end" }}
+                component={Link}
+                href={Routes.ForgotPasswordPage()}
+              >
+                Forgot password?
+              </Text>
+            </Vertical>
           </Stack>
 
           <Group justify="space-between" mt="xl">
@@ -81,7 +93,7 @@ export function LoginForm(props: { toggle: () => void }) {
               size="xs"
               onClick={props.toggle}
             >
-              Don$t have an account? Register{" "}
+              Don't have an account? Register{" "}
             </Anchor>
             <Button
               disabled={!form.isValid()}
