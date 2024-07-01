@@ -11,7 +11,7 @@ import { openContextModal } from "@mantine/modals";
 import Link from "next/link";
 import Layout from "src/core/layouts/Layout";
 
-const Home: BlitzPage = () => {
+const Profile: BlitzPage = () => {
   const currentUser = useCurrentUser();
   const [$testEmailSend] = useMutation(testEmailSend);
 
@@ -19,7 +19,7 @@ const Home: BlitzPage = () => {
     console.log("profile deleted");
   };
   return (
-    <Layout title="Home">
+    <Layout title="Profile">
       {currentUser && (
         <>
           <Vertical align="center">
@@ -74,4 +74,4 @@ const Home: BlitzPage = () => {
   );
 };
 
-export default Home;
+export default Profile;

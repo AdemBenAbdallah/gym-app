@@ -1,10 +1,7 @@
 import { Vertical } from "@/core/components/MantineLayout";
 import ToggleUserSettings from "@/core/components/ToogleUserSettings";
-import setUserSettings from "@/features/users/mutations/setUserSettings";
 import getUserEmailSettings from "@/features/users/queries/getUserEmailSettings";
-import { useMutation, useQuery } from "@blitzjs/rpc";
-import { Checkbox } from "@mantine/core";
-import React from "react";
+import { useQuery } from "@blitzjs/rpc";
 
 const UserEmailSettings = () => {
   const [settings] = useQuery(getUserEmailSettings, {});

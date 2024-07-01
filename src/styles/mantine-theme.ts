@@ -1,9 +1,10 @@
-import { Loader, createTheme } from "@mantine/core";
+import { Loader, colorsTuple, createTheme } from "@mantine/core";
 import { CssLoader } from "./cssLoader/CssLoader";
 
 export const theme = createTheme({
-  primaryColor: "violet",
+  primaryColor: "lime-sorbet",
   colors: {
+    "lime-sorbet": colorsTuple("#beff5a"),
     "ocean-blue": [
       "#7AD1DD",
       "#5FCCDB",
@@ -34,7 +35,7 @@ export const theme = createTheme({
       defaultProps: {
         w: "fit-content",
         size: "md",
-        variant: "light",
+        c: "black",
       },
     },
     Loader: Loader.extend({
