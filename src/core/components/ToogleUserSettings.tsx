@@ -23,7 +23,6 @@ const ToggleUserSettings = ({
         })
       }
       defaultChecked={value}
-      label={label}
     />
   );
 };
