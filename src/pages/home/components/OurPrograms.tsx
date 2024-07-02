@@ -5,8 +5,8 @@ import {
   Container,
   Grid,
   Group,
+  Image,
   SimpleGrid,
-  Skeleton,
   Stack,
   Text,
   Title,
@@ -68,13 +68,41 @@ const OurPrograms = () => {
 
             <Grid gutter="md">
               <Grid.Col>
-                <Skeleton height={SECONDARY_COL_HEIGHT} radius="md" animate={false} />
+                <Stack h={SECONDARY_COL_HEIGHT} style={{ borderRadius: theme.radius.md }} bg={"black"} c={"white"}>
+                  <Image
+                    w={"100%"}
+                    h={"60%"}
+                    style={{ borderRadius: theme.radius.md }}
+                    src={"http://trainwithlcpt.com/wp-content/uploads/2019/07/service4.jpg"}
+                  />
+                  <Stack gap={5} p={10}>
+                    <Title order={3}>Strength Training</Title>
+                    <Text lineClamp={2} fz={rem(14)}>
+                      This program is designed for those who exercises only for their body fitness not body building.
+                    </Text>
+                  </Stack>
+                </Stack>
+                {/* <Skeleton height={SECONDARY_COL_HEIGHT} radius="md" animate={false} /> */}
               </Grid.Col>
               <Grid.Col span={6}>
-                <Skeleton height={SECONDARY_COL_HEIGHT} radius="md" animate={false} />
+                <Stack h={SECONDARY_COL_HEIGHT} style={{ borderRadius: theme.radius.md }} bg={"black"}>
+                  <Image
+                    w={"100%"}
+                    h={"100%"}
+                    style={{ borderRadius: theme.radius.md }}
+                    src="http://trainwithlcpt.com/wp-content/uploads/2019/05/hipcravo-1370862-unsplash.jpg"
+                  />
+                </Stack>
               </Grid.Col>
               <Grid.Col span={6}>
-                <Skeleton height={SECONDARY_COL_HEIGHT} radius="md" animate={false} />
+                <Stack h={SECONDARY_COL_HEIGHT} style={{ borderRadius: theme.radius.md }} bg={"black"}>
+                  <Image
+                    w={"100%"}
+                    h={"100%"}
+                    style={{ borderRadius: theme.radius.md }}
+                    src={"http://trainwithlcpt.com/wp-content/uploads/2019/05/hipcravo-1370862-unsplash.jpg"}
+                  />
+                </Stack>
               </Grid.Col>
             </Grid>
           </SimpleGrid>

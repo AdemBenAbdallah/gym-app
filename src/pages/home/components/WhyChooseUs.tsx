@@ -1,13 +1,5 @@
 import { Horizontal, Vertical } from "@/core/components/MantineLayout";
-import {
-  CheckIcon,
-  ColorSwatch,
-  Container,
-  Image,
-  Text,
-  Title,
-  rem,
-} from "@mantine/core";
+import { CheckIcon, ColorSwatch, Container, Image, Text, Title, rem } from "@mantine/core";
 
 const WhyChooseUs = () => {
   const reasons = [
@@ -22,7 +14,7 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <Container size="lg" py="xl">
+    <Container size="md" py={60}>
       <Horizontal align="flex-start" gap="xl">
         <Image
           flex={1}
@@ -43,18 +35,13 @@ const WhyChooseUs = () => {
               </Title>
             </Vertical>
             <Text c={"gray"}>
-              Choose your favourite class and start now. Remember, the only bad
-              workout is the one you didn't do.
+              Choose your favourite class and start now. Remember, the only bad workout is the one you didn't do.
             </Text>
           </Vertical>
           <Vertical gap="sm">
             {reasons.map((reason, index) => (
               <Horizontal key={index} gap="sm" align="center">
-                <ColorSwatch
-                  component="button"
-                  color="var(--mantine-color-lime-6)"
-                  style={{ color: "#fff" }}
-                >
+                <ColorSwatch component="button" color="var(--mantine-color-lime-6)" style={{ color: "#fff" }}>
                   <CheckIcon style={{ width: rem(12), height: rem(12) }} />
                 </ColorSwatch>
                 <Text fz={20} fw={600}>
