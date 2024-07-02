@@ -25,8 +25,8 @@ const OurPrograms = () => {
         <Vertical gap={50}>
           <Vertical gap={0}>
             <Text> Programs</Text>
-            <Title fz={rem(50)}>Our programs</Title>
-            <Text>
+            <Title fz={{ base: rem(35), md: rem(50) }}>Our programs</Title>
+            <Text fz={{ base: rem(13), md: rem(14) }}>
               Gaine up your routine our growing libray of workouts led <br /> by our world-class Trainers
             </Text>
           </Vertical>
@@ -57,7 +57,7 @@ const OurPrograms = () => {
                 </div>
               </Group>
               <Stack gap={80}>
-                <Title order={1} fz={80} lh={1}>
+                <Title order={1} fz={{ base: rem(60), md: rem(80) }} lh={1}>
                   Training Experience
                 </Title>
                 <Button ml={"auto"} bg={"black"} c={"white"} size="lg" radius={"sm"}>

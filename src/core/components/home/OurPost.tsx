@@ -14,9 +14,10 @@ import {
 } from "@mantine/core";
 import React from "react";
 
-// Access the theme inside the getChild function and type the parameters
-const getChild = (height: number, theme: MantineTheme) => (
-  <Image style={{ borderRadius: theme.radius.md }} src="/images/gym.jpeg" height={height} alt="image" />
+const getChild = (height: number, theme: MantineTheme, index: number) => (
+  <Stack style={{ borderRadius: theme.radius.md }} h={height} bg={"black"}>
+    <Image style={{ borderRadius: theme.radius.md }} src={`/images/gym_${index}.jpeg`} h={height} alt="image" />
+  </Stack>
 );
 
 const BASE_HEIGHT = 360;
@@ -34,7 +35,7 @@ const OurPost: React.FC = () => {
             <Text>Instagram Feed</Text>
           </Center>
           <Center>
-            <Title fz={rem(50)} style={{ textAlign: "center" }}>
+            <Title fz={{ base: rem(35), md: rem(50) }} style={{ textAlign: "center" }}>
               Our Instagram Post
             </Title>
           </Center>
@@ -42,17 +43,17 @@ const OurPost: React.FC = () => {
       </Center>
       <Container my="md" mt={50}>
         <SimpleGrid cols={{ base: 1, xs: 4 }}>
-          {getChild(BASE_HEIGHT, theme)}
+          {getChild(BASE_HEIGHT, theme, 2)}
           <Stack>
-            {getChild(getSubHeight(2, px(theme.spacing.md) as number), theme)}
-            {getChild(getSubHeight(2, px(theme.spacing.md) as number), theme)}
+            {getChild(getSubHeight(2, px(theme.spacing.md) as number), theme, 2)}
+            {getChild(getSubHeight(2, px(theme.spacing.md) as number), theme, 1)}
           </Stack>
           <Stack>
-            {getChild(getSubHeight(3, px(theme.spacing.md) as number), theme)}
-            {getChild(getSubHeight(3, px(theme.spacing.md) as number), theme)}
-            {getChild(getSubHeight(3, px(theme.spacing.md) as number), theme)}
+            {getChild(getSubHeight(3, px(theme.spacing.md) as number), theme, 1)}
+            {getChild(getSubHeight(3, px(theme.spacing.md) as number), theme, 1)}
+            {getChild(getSubHeight(3, px(theme.spacing.md) as number), theme, 1)}
           </Stack>
-          {getChild(BASE_HEIGHT, theme)}
+          {getChild(BASE_HEIGHT, theme, 1)}
         </SimpleGrid>
       </Container>
     </React.Fragment>

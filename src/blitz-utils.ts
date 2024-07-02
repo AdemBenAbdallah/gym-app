@@ -1,7 +1,7 @@
-import { generateToken, hash256 } from "@blitzjs/auth";
-import { addDays } from "date-fns";
-import { TokenType } from "@prisma/client";
 import { URL_ORIGIN } from "@/config";
+import { generateToken, hash256 } from "@blitzjs/auth";
+import { TokenType } from "@prisma/client";
+import { addDays } from "date-fns";
 import db from "~/db";
 const EMAIL_VERIFY_LINK_IN_HOUR = 4;
 

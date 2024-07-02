@@ -1,3 +1,4 @@
+import classes from "@/styles/module/HomeHeader.module.css";
 import {
   Anchor,
   Box,
@@ -28,7 +29,6 @@ import {
   IconFingerprint,
   IconNotification,
 } from "@tabler/icons-react";
-import classes from "./HomeHeader.module.css";
 
 const mockdata = [
   {

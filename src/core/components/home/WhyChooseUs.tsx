@@ -1,5 +1,5 @@
 import { Horizontal, Vertical } from "@/core/components/MantineLayout";
-import { CheckIcon, ColorSwatch, Container, Image, Text, Title, rem } from "@mantine/core";
+import { CheckIcon, ColorSwatch, Container, Flex, Image, Text, Title, rem } from "@mantine/core";
 
 const WhyChooseUs = () => {
   const reasons = [
@@ -15,8 +15,9 @@ const WhyChooseUs = () => {
 
   return (
     <Container size="md" mt={100}>
-      <Horizontal align="flex-start" gap="xl">
+      <Flex align="flex-start" gap="xl" direction={{ base: "column", md: "row" }}>
         <Image
+          display={{ base: "none", md: "block" }}
           flex={1}
           radius={12}
           src="http://trainwithlcpt.com/wp-content/uploads/2019/05/alexander-redl-185764-unsplashb.jpg"
@@ -30,7 +31,7 @@ const WhyChooseUs = () => {
               <Text c="lime.6" fw={600}>
                 About
               </Text>
-              <Title order={1} fz={60}>
+              <Title order={1} fz={{ base: rem(35), md: rem(60) }}>
                 Why choose us
               </Title>
             </Vertical>
@@ -44,14 +45,14 @@ const WhyChooseUs = () => {
                 <ColorSwatch component="button" color="var(--mantine-color-lime-6)" style={{ color: "#fff" }}>
                   <CheckIcon style={{ width: rem(12), height: rem(12) }} />
                 </ColorSwatch>
-                <Text fz={20} fw={600}>
+                <Text fz={{ base: rem(15), md: rem(20) }} fw={600}>
                   {reason}
                 </Text>
               </Horizontal>
             ))}
           </Vertical>
         </Vertical>
-      </Horizontal>
+      </Flex>
     </Container>
   );
 };

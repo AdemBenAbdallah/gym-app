@@ -5,20 +5,21 @@ import { IconCookie, IconGauge, IconUser } from "@tabler/icons-react";
 
 const mockdata = [
   {
-    title: "Extreme performance",
+    title: "Performance extrême",
     description:
-      "This dust is actually a powerful poison that will even make a pro wrestler sick, Regice cloaks itself with frigid air of -328 degrees Fahrenheit",
+      "Cette poussière est en réalité un poison puissant qui rendra même un catcheur professionnel malade. Regice se couvre d'air glacial à -200 degrés Celsius.",
     icon: IconGauge,
   },
   {
-    title: "Privacy focused",
+    title: "Axé sur la confidentialité",
     description:
-      "People say it can run at the same speed as lightning striking, Its icy body is so cold, it will not melt even if it is immersed in magma",
+      "On dit qu'il peut courir à la même vitesse que la foudre. Son corps glacé est tellement froid qu'il ne fondra pas même s'il est immergé dans le magma.",
     icon: IconUser,
   },
   {
-    title: "No third parties",
-    description: "They’re popular, but they’re rare. Trainers who show them off recklessly may be targeted by thieves",
+    title: "Pas de tierces parties",
+    description:
+      "Ils sont populaires mais rares. Les entraîneurs qui les exhibent imprudemment peuvent être ciblés par des voleurs.",
     icon: IconCookie,
   },
 ];
@@ -31,6 +32,7 @@ export function FeaturesCards() {
       <Text fz="lg" fw={500} className={classes.cardTitle} mt="md">
         {feature.title}
       </Text>
+
       <Text fz="sm" c="dimmed" mt="sm">
         {feature.description}
       </Text>
@@ -41,9 +43,9 @@ export function FeaturesCards() {
     <Container size="lg" mt={100}>
       <Vertical gap={0}>
         <Text> Services</Text>
-        <Title fz={rem(50)}>Our Services</Title>
+        <Title fz={{ base: rem(35), md: rem(50) }}>Our Services</Title>
       </Vertical>
-      <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl" mt={50}>
+      <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl" mt={{ base: 10, md: 50 }}>
         {features}
       </SimpleGrid>
     </Container>

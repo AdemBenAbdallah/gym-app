@@ -69,10 +69,10 @@ export function FooterLinks() {
       </Container>
       <Container className={classes.afterFooter}>
         <Text c="dimmed" size="sm">
-          © 2020 mantine.dev. All rights reserved.
+          © {new Date().getFullYear()} mantine.dev. All rights reserved.
         </Text>
 
-        <Group gap={0} className={classes.social} justify="flex-end" wrap="nowrap">
+        <Group gap={0} className={classes.social} justify="flex-end">
           <ActionIcon size="lg" color="gray" variant="subtle">
             <IconBrandTwitter style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
           </ActionIcon>

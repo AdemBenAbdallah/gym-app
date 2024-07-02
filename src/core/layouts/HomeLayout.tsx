@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { ReactFC } from "~/types";
-import { HomeHeader } from "../components/Header/HomeHeader/HomeHeader";
+import { HomeHeader } from "../components/Header/HomeHeader";
 
 type Props = { title?: string };
 

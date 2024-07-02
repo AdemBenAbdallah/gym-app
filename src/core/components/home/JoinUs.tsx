@@ -1,6 +1,8 @@
+import useResponsive from "@/utils/useResponsive";
 import { Box, Button, Center, Text, Title, rem } from "@mantine/core";
 
 const JoinUs = () => {
+  const { isMobile } = useResponsive();
   return (
     <Center mb={70}>
       <Center
@@ -8,19 +10,15 @@ const JoinUs = () => {
         bg={"lime"}
         mt={rem(120)}
         c={"white"}
-        px={{ base: rem(20), sm: 0 }}
-        style={{ borderRadius: 48 }}
+        px={{ base: rem(20), sm: rem(20) }}
+        style={{ borderRadius: isMobile ? 25 : 48 }}
       >
         <Box>
-          <Title
-            fw={800}
-            fz={{ base: rem(32), sm: rem(57) }}
-            mt={{ base: rem(50), sm: rem(100) }}
-          >
-            GET STARTED FOR FREE
+          <Title fw={800} fz={{ base: rem(30), sm: rem(36), md: rem(57) }} mt={{ base: rem(50), sm: rem(100) }}>
+            START YOUR FITNESS JOURNEY
           </Title>
           <p className="text">
-            Join the talents in our community. Have doubts?{" "}
+            Become a part of our gym community. Have questions?{" "}
             <Text span fw={600}>
               Read 270+ reviews here.
             </Text>
@@ -37,7 +35,7 @@ const JoinUs = () => {
             h={{ base: rem(50), sm: rem(40) }}
             style={{ display: "block" }}
           >
-            Join our Talent community
+            Join Our Gym Community
           </Button>
         </Box>
       </Center>
