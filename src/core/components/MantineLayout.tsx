@@ -9,25 +9,12 @@ type VerticalProps = StackProps & {
   h?: string | number;
   children: React.ReactNode;
 };
-export const Vertical = ({
-  debug,
-  fullH,
-  fullW,
-  w,
-  h,
-  children,
-  ...props
-}: VerticalProps) => {
+export const Vertical = ({ debug, fullH, fullW, w, h, children, ...props }: VerticalProps) => {
   const height = fullH ? "100%" : h ? h : "auto";
   const width = fullW ? "100%" : w ? w : "auto";
 
   return (
-    <Stack
-      {...props}
-      w={width}
-      h={height}
-      style={{ border: debug ? "2px solid red" : "none" }}
-    >
+    <Stack {...props} w={width} h={height} style={{ border: debug ? "2px solid red" : "none" }}>
       {children}
     </Stack>
   );
@@ -39,13 +26,7 @@ type HorizontalProps = GroupProps & {
   fullW?: boolean;
   children: React.ReactNode;
 };
-export const Horizontal = ({
-  debug,
-  fullH,
-  fullW,
-  children,
-  ...props
-}: HorizontalProps) => {
+export const Horizontal = ({ debug, fullH, fullW, children, ...props }: HorizontalProps) => {
   return (
     <Group
       {...props}

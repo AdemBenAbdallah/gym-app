@@ -1,3 +1,3 @@
-import HomeImage from "./home.jpg";
+import slider from "./slider1_1.png";
 
-export { HomeImage };
+export { slider };

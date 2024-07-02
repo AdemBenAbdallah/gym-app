@@ -19,7 +19,7 @@
   },
   "prettier": {
     "semi": true,
-    "printWidth": 80
+    "printWidth": 120
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [

@@ -1,7 +1,7 @@
 import { Button, Center, Group } from "@mantine/core";
 import { IconArrowUpRight } from "@tabler/icons-react";
 
-const Start = () => {
+const HeroSection = () => {
   return (
     <div className="home-page">
       <div className="video-container">
@@ -40,4 +40,4 @@ const Start = () => {
   );
 };
 
-export default Start;
+export default HeroSection;

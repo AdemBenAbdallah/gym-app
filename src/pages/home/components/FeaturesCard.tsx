@@ -1,4 +1,5 @@
 import { Vertical } from "@/core/components/MantineLayout";
+import classes from "@/styles/module/FeaturesCards.module.css";
 import {
   Card,
   Container,
@@ -9,7 +10,6 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { IconCookie, IconGauge, IconUser } from "@tabler/icons-react";
-import classes from "./FeaturesCards.module.css";
 
 const mockdata = [
   {

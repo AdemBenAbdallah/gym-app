@@ -1,3 +1,4 @@
+import classes from "@/styles/module/FooterLinks.module.css";
 import { ActionIcon, Container, Group, Text, rem } from "@mantine/core";
 import {
   IconBrandInstagram,
@@ -5,7 +6,6 @@ import {
   IconBrandYoutube,
   IconLogout,
 } from "@tabler/icons-react";
-import classes from "./FooterLinks.module.css";
 
 const data = [
   {
