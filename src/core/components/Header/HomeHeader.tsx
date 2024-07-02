@@ -1,4 +1,5 @@
 import classes from "@/styles/module/HomeHeader.module.css";
+import { Routes } from "@blitzjs/next";
 import {
   Anchor,
   Box,
@@ -29,6 +30,7 @@ import {
   IconFingerprint,
   IconNotification,
 } from "@tabler/icons-react";
+import Link from "next/link";
 
 const mockdata = [
   {
@@ -90,8 +92,6 @@ export function HomeHeader() {
     <Box>
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
-          {/* <IconAbacusOff size={30} /> */}
-
           <Image style={{ borderRadius: theme.radius.md }} src="/images/logo.svg" w={50} />
           <Group h="100%" gap={0} visibleFrom="sm">
             <a href="#" className={classes.link}>
@@ -147,7 +147,9 @@ export function HomeHeader() {
           </Group>
 
           <Group visibleFrom="sm">
-            <Button variant="default">Log in</Button>
+            <Button component={Link} href={Routes.Profile()} variant="default">
+              Log in
+            </Button>
             <Button>Sign up</Button>
           </Group>
 

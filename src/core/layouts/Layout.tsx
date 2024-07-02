@@ -1,9 +1,19 @@
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
 import { GlobalModal } from "@/modals";
 import { ErrorBoundary, Routes } from "@blitzjs/next";
-import { ActionIcon, Anchor, AppShell, Badge, Modal, Text, Tooltip, useMantineColorScheme } from "@mantine/core";
+import {
+  Anchor,
+  AppShell,
+  Badge,
+  Image,
+  Modal,
+  Text,
+  Tooltip,
+  useMantineColorScheme,
+  useMantineTheme,
+} from "@mantine/core";
 import { openContextModal } from "@mantine/modals";
-import { IconMoonStars, IconSun, IconUserPlus } from "@tabler/icons-react";
+import { IconUserPlus } from "@tabler/icons-react";
 import Head from "next/head";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -21,12 +31,9 @@ export const dynamic = "force-dynamic";
 
 const Layout: ReactFC<Props> = ({ title, children }) => {
   const currentUser = useCurrentUser();
+  const theme = useMantineTheme();
 
   const { colorScheme, setColorScheme } = useMantineColorScheme();
-  const toggleColorSchemeHandler = () => {
-    setColorScheme(colorScheme === "dark" ? "light" : "dark");
-  };
-  const isDark = colorScheme === "dark";
 
   return (
     <>
@@ -40,7 +47,7 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
           <Horizontal fullH align="center" justify="space-between" p={"md"}>
             <Anchor component={Link} underline="never" href={Routes.Home()}>
               <Text fz={"h3"} fw={500}>
-                Hajem
+                <Image style={{ borderRadius: theme.radius.md }} src="/images/logo.svg" w={50} />
               </Text>
             </Anchor>
             <Horizontal>
@@ -71,15 +78,6 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
                   )}
                 </Horizontal>
               )}
-              <ActionIcon
-                variant="outline"
-                color={isDark ? "yellow" : "blue"}
-                title="toogle color scheme"
-                onClick={toggleColorSchemeHandler}
-                style={{ cursor: "pointer" }}
-              >
-                {isDark ? <IconSun size={24} /> : <IconMoonStars size={24} />}
-              </ActionIcon>
             </Horizontal>
           </Horizontal>
         </AppShell.Header>

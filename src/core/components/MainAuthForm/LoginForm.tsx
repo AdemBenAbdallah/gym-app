@@ -2,18 +2,7 @@ import login from "@/features/auth/mutations/login";
 import { InputLogin, LoginFormType } from "@/features/auth/schemas";
 import { Routes } from "@blitzjs/next";
 import { useMutation } from "@blitzjs/rpc";
-import {
-  Anchor,
-  Button,
-  Divider,
-  Group,
-  Paper,
-  PasswordInput,
-  Stack,
-  Text,
-  TextInput,
-  rem,
-} from "@mantine/core";
+import { Anchor, Button, Divider, Group, Paper, PasswordInput, Stack, Text, TextInput, rem } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import Link from "next/link";
 import { Vertical } from "../MantineLayout";
@@ -45,11 +34,7 @@ export function LoginForm(props: { toggle: () => void }) {
 
         <SocialButtonAuth />
 
-        <Divider
-          label="Or continue with email"
-          labelPosition="center"
-          my="lg"
-        />
+        <Divider label="Or continue with email" labelPosition="center" my="lg" />
 
         <form
           onSubmit={form.onSubmit(async (values) => {
@@ -86,21 +71,10 @@ export function LoginForm(props: { toggle: () => void }) {
           </Stack>
 
           <Group justify="space-between" mt="xl">
-            <Anchor
-              component="button"
-              type="button"
-              c="dimmed"
-              size="xs"
-              onClick={props.toggle}
-            >
+            <Anchor component="button" type="button" c="dimmed" size="xs" onClick={props.toggle}>
               Don't have an account? Register{" "}
             </Anchor>
-            <Button
-              disabled={!form.isValid()}
-              loading={isLoading}
-              type="submit"
-              radius="xl"
-            >
+            <Button disabled={!form.isValid()} loading={isLoading} type="submit" radius="xl">
               Login
             </Button>
           </Group>
