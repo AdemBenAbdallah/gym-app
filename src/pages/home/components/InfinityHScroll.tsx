@@ -1,4 +1,4 @@
-import { Icons } from "@/assets/svg/Icons";
+import { Icons } from "@/assets/Icons";
 import { Box, rem } from "@mantine/core";
 import React from "react";
 
@@ -19,11 +19,7 @@ const InfinityHScroll = () => {
               <Icons.trainning width={250} key="trainning" />,
               <Icons.trainning width={250} key="trainning" />,
             ].map((Icon, idx) => (
-              <div
-                className="item"
-                style={{ "--position": idx + 1 } as React.CSSProperties}
-                key={idx}
-              >
+              <div className="item" style={{ "--position": idx + 1 } as React.CSSProperties} key={idx}>
                 {Icon}
               </div>
             ))}

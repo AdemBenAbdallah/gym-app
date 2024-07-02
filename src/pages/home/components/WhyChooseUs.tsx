@@ -14,7 +14,7 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <Container size="md" py={60}>
+    <Container size="md" mt={100}>
       <Horizontal align="flex-start" gap="xl">
         <Image
           flex={1}

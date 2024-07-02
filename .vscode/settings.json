@@ -10,7 +10,7 @@
     "**/docs": true,
     "**/.next": true,
     "**/.husky": true,
-    "**/public": true,
+    // "**/public": true,
     ".editorconfig": true,
     ".npmrc": true,
     "next-env.d.ts": true,

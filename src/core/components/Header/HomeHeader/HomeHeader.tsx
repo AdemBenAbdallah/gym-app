@@ -9,6 +9,7 @@ import {
   Drawer,
   Group,
   HoverCard,
+  Image,
   ScrollArea,
   SimpleGrid,
   Text,
@@ -19,7 +20,6 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import {
-  IconAbacusOff,
   IconBook,
   IconChartPie3,
   IconChevronDown,
@@ -64,8 +64,7 @@ const mockdata = [
 ];
 
 export function HomeHeader() {
-  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
-    useDisclosure(false);
+  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const theme = useMantineTheme();
 
@@ -73,10 +72,7 @@ export function HomeHeader() {
     <UnstyledButton className={classes.subLink} key={item.title}>
       <Group wrap="nowrap" align="flex-start">
         <ThemeIcon size={34} variant="default" radius="md">
-          <item.icon
-            style={{ width: rem(22), height: rem(22) }}
-            color={theme.colors.blue[6]}
-          />
+          <item.icon style={{ width: rem(22), height: rem(22) }} color={theme.colors.blue[6]} />
         </ThemeIcon>
         <div>
           <Text size="sm" fw={500}>
@@ -94,29 +90,21 @@ export function HomeHeader() {
     <Box>
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
-          <IconAbacusOff size={30} />
+          {/* <IconAbacusOff size={30} /> */}
 
+          <Image style={{ borderRadius: theme.radius.md }} src="/images/logo.svg" w={50} />
           <Group h="100%" gap={0} visibleFrom="sm">
             <a href="#" className={classes.link}>
               Home
             </a>
-            <HoverCard
-              width={600}
-              position="bottom"
-              radius="md"
-              shadow="md"
-              withinPortal
-            >
+            <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
               <HoverCard.Target>
                 <a href="#" className={classes.link}>
                   <Center inline>
                     <Box component="span" mr={5}>
                       Features
                     </Box>
-                    <IconChevronDown
-                      style={{ width: rem(16), height: rem(16) }}
-                      color={theme.colors.blue[6]}
-                    />
+                    <IconChevronDown style={{ width: rem(16), height: rem(16) }} color={theme.colors.blue[6]} />
                   </Center>
                 </a>
               </HoverCard.Target>
@@ -163,11 +151,7 @@ export function HomeHeader() {
             <Button>Sign up</Button>
           </Group>
 
-          <Burger
-            opened={drawerOpened}
-            onClick={toggleDrawer}
-            hiddenFrom="sm"
-          />
+          <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
         </Group>
       </header>
 
@@ -191,10 +175,7 @@ export function HomeHeader() {
               <Box component="span" mr={5}>
                 Features
               </Box>
-              <IconChevronDown
-                style={{ width: rem(16), height: rem(16) }}
-                color={theme.colors.blue[6]}
-              />
+              <IconChevronDown style={{ width: rem(16), height: rem(16) }} color={theme.colors.blue[6]} />
             </Center>
           </UnstyledButton>
           <Collapse in={linksOpened}>{links}</Collapse>

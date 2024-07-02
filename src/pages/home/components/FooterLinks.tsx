@@ -1,11 +1,6 @@
 import classes from "@/styles/module/FooterLinks.module.css";
-import { ActionIcon, Container, Group, Text, rem } from "@mantine/core";
-import {
-  IconBrandInstagram,
-  IconBrandTwitter,
-  IconBrandYoutube,
-  IconLogout,
-} from "@tabler/icons-react";
+import { ActionIcon, Container, Group, Image, Text, rem, useMantineTheme } from "@mantine/core";
+import { IconBrandInstagram, IconBrandTwitter, IconBrandYoutube } from "@tabler/icons-react";
 
 const data = [
   {
@@ -38,6 +33,7 @@ const data = [
 ];
 
 export function FooterLinks() {
+  const theme = useMantineTheme();
   const groups = data.map((group) => {
     const links = group.links.map((link, index) => (
       <Text<"a">
@@ -63,7 +59,8 @@ export function FooterLinks() {
     <footer className={classes.footer}>
       <Container className={classes.inner}>
         <div className={classes.logo}>
-          <IconLogout size={30} />
+          <Image style={{ borderRadius: theme.radius.md }} src="/images/logo.svg" w={50} />
+
           <Text size="xs" c="dimmed" className={classes.description}>
             Build fully functional accessible web applications faster than ever
           </Text>
@@ -75,29 +72,15 @@ export function FooterLinks() {
           © 2020 mantine.dev. All rights reserved.
         </Text>
 
-        <Group
-          gap={0}
-          className={classes.social}
-          justify="flex-end"
-          wrap="nowrap"
-        >
+        <Group gap={0} className={classes.social} justify="flex-end" wrap="nowrap">
           <ActionIcon size="lg" color="gray" variant="subtle">
-            <IconBrandTwitter
-              style={{ width: rem(18), height: rem(18) }}
-              stroke={1.5}
-            />
+            <IconBrandTwitter style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
           </ActionIcon>
           <ActionIcon size="lg" color="gray" variant="subtle">
-            <IconBrandYoutube
-              style={{ width: rem(18), height: rem(18) }}
-              stroke={1.5}
-            />
+            <IconBrandYoutube style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
           </ActionIcon>
           <ActionIcon size="lg" color="gray" variant="subtle">
-            <IconBrandInstagram
-              style={{ width: rem(18), height: rem(18) }}
-              stroke={1.5}
-            />
+            <IconBrandInstagram style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
           </ActionIcon>
         </Group>
       </Container>

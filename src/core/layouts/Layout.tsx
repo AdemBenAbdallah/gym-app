@@ -1,16 +1,7 @@
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
 import { GlobalModal } from "@/modals";
 import { ErrorBoundary, Routes } from "@blitzjs/next";
-import {
-  ActionIcon,
-  Anchor,
-  AppShell,
-  Badge,
-  Modal,
-  Text,
-  Tooltip,
-  useMantineColorScheme,
-} from "@mantine/core";
+import { ActionIcon, Anchor, AppShell, Badge, Modal, Text, Tooltip, useMantineColorScheme } from "@mantine/core";
 import { openContextModal } from "@mantine/modals";
 import { IconMoonStars, IconSun, IconUserPlus } from "@tabler/icons-react";
 import Head from "next/head";
@@ -40,8 +31,8 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
   return (
     <>
       <Head>
-        <title>{title || "barber"}</title>
-        <link rel="icon" href="/barber.svg" />
+        <title>{title || "Gym"}</title>
+        <link rel="icon" href="/logo.svg" />
       </Head>
 
       <AppShell header={{ height: 60 }} padding="md" h={"100%"}>
@@ -95,10 +86,7 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
 
         <AppShell.Main h={"100%"}>
           <Vertical fullH fullW>
-            <ErrorBoundary
-              resetKeys={[currentUser]}
-              FallbackComponent={RootErrorFallback}
-            >
+            <ErrorBoundary resetKeys={[currentUser]} FallbackComponent={RootErrorFallback}>
               <Suspense fallback={<FullPageLoader />}>
                 {currentUser && (
                   <Modal

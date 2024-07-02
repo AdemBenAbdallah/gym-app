@@ -82,7 +82,6 @@ const OurPrograms = () => {
                     </Text>
                   </Stack>
                 </Stack>
-                {/* <Skeleton height={SECONDARY_COL_HEIGHT} radius="md" animate={false} /> */}
               </Grid.Col>
               <Grid.Col span={6}>
                 <Stack h={SECONDARY_COL_HEIGHT} style={{ borderRadius: theme.radius.md }} bg={"black"}>

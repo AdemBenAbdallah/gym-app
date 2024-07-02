@@ -1,14 +1,6 @@
 import { Vertical } from "@/core/components/MantineLayout";
 import classes from "@/styles/module/FeaturesCards.module.css";
-import {
-  Card,
-  Container,
-  SimpleGrid,
-  Text,
-  Title,
-  rem,
-  useMantineTheme,
-} from "@mantine/core";
+import { Card, Container, SimpleGrid, Text, Title, rem, useMantineTheme } from "@mantine/core";
 import { IconCookie, IconGauge, IconUser } from "@tabler/icons-react";
 
 const mockdata = [
@@ -26,8 +18,7 @@ const mockdata = [
   },
   {
     title: "No third parties",
-    description:
-      "They’re popular, but they’re rare. Trainers who show them off recklessly may be targeted by thieves",
+    description: "They’re popular, but they’re rare. Trainers who show them off recklessly may be targeted by thieves",
     icon: IconCookie,
   },
 ];
@@ -35,18 +26,8 @@ const mockdata = [
 export function FeaturesCards() {
   const theme = useMantineTheme();
   const features = mockdata.map((feature) => (
-    <Card
-      key={feature.title}
-      shadow="md"
-      radius="md"
-      className={classes.card}
-      padding="xl"
-    >
-      <feature.icon
-        style={{ width: rem(50), height: rem(50) }}
-        stroke={2}
-        color={theme.colors.lime[6]}
-      />
+    <Card key={feature.title} shadow="md" radius="md" className={classes.card} padding="xl">
+      <feature.icon style={{ width: rem(50), height: rem(50) }} stroke={2} color={theme.colors.lime[6]} />
       <Text fz="lg" fw={500} className={classes.cardTitle} mt="md">
         {feature.title}
       </Text>
@@ -57,8 +38,8 @@ export function FeaturesCards() {
   ));
 
   return (
-    <Container size="lg">
-      <Vertical>
+    <Container size="lg" mt={100}>
+      <Vertical gap={0}>
         <Text> Services</Text>
         <Title fz={rem(50)}>Our Services</Title>
       </Vertical>
