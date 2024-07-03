@@ -9,6 +9,8 @@ export const env = createEnv({
     // NODEMAILER_LOCAL_PASS: z.string().min(1),
     UPLOADTHING_SECRET: z.string().min(1),
     UPLOADTHING_APP_ID: z.string().min(1),
+    GOOGLE_CLIENT_ID: z.string().min(1),
+    GOOGLE_SECRET_CODE: z.string().min(1),
   },
 
   client: {},
@@ -20,5 +22,7 @@ export const env = createEnv({
     // NODEMAILER_LOCAL_PASS: process.env.NODEMAILER_LOCAL_PASS,
     UPLOADTHING_SECRET: process.env.UPLOADTHING_SECRET,
     UPLOADTHING_APP_ID: process.env.UPLOADTHING_APP_ID,
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    GOOGLE_SECRET_CODE: process.env.GOOGLE_SECRET_CODE,
   },
 });

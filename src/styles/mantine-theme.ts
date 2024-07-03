@@ -2,7 +2,7 @@ import { Loader, colorsTuple, createTheme } from "@mantine/core";
 import { CssLoader } from "./cssLoader/CssLoader";
 
 export const theme = createTheme({
-  primaryColor: "lime-sorbet",
+  primaryColor: "lime",
   colors: {
     "lime-sorbet": colorsTuple("#beff5a"),
     "ocean-blue": [

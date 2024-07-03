@@ -29,7 +29,7 @@ export function LoginForm(props: { toggle: () => void }) {
         }}
       >
         <Text size="lg" fw={500}>
-          Welcome to Hajem, Login with
+          Bienvenue au Gymnase{" "}
         </Text>
 
         <SocialButtonAuth />
