@@ -5,7 +5,9 @@ const SocialButtonAuth = () => {
   return (
     <Group grow mb="md" mt="md">
       <Box w={"100%"} component="a" href="/api/auth/google">
-        <GoogleButton radius="xl">Google</GoogleButton>
+        <GoogleButton w={"100%"} radius="xl">
+          Google
+        </GoogleButton>
       </Box>
     </Group>
   );

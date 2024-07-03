@@ -1,23 +1,15 @@
-import { Menu, rem, Indicator, Tooltip, Box } from "@mantine/core";
-import {
-  IconSettings,
-  IconArrowsLeftRight,
-  IconUserShield,
-  IconHome,
-  IconPencil,
-  IconLogout,
-  IconFileCheck,
-} from "@tabler/icons-react";
-import Conditional from "../Conditional";
-import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
-import UserAvatar from "../UserAvatar";
-import Link from "next/link";
-import { Routes } from "@blitzjs/next";
-import { RouteUrlObject } from "blitz";
-import React from "react";
-import { useRouter } from "next/router";
-import { useMutation } from "@blitzjs/rpc";
 import logout from "@/features/auth/mutations/logout";
+import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
+import { Routes } from "@blitzjs/next";
+import { useMutation } from "@blitzjs/rpc";
+import { Box, Indicator, Menu, Tooltip, rem } from "@mantine/core";
+import { IconFileCheck, IconHome, IconLogout, IconPencil, IconSettings, IconUserShield } from "@tabler/icons-react";
+import { RouteUrlObject } from "blitz";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React from "react";
+import Conditional from "../Conditional";
+import UserAvatar from "../UserAvatar";
 
 const UserHeaderMenu = () => {
   const currentUser = useCurrentUser();
@@ -55,23 +47,11 @@ const UserHeaderMenu = () => {
         <Menu.Label>Application</Menu.Label>
         <MenuItemLink text="Home" href={Routes.Home()} Icon={IconHome} />
 
-        <MenuItemLink
-          text="Todo"
-          href={Routes.TodosPage()}
-          Icon={IconFileCheck}
-        />
+        {currentUser?.role === "ADMIN" && <MenuItemLink text="Users" href={Routes.UsersPage()} Icon={IconFileCheck} />}
 
-        <MenuItemLink
-          text="Edit profile"
-          href={Routes.EditProfilePage()}
-          Icon={IconPencil}
-        />
+        <MenuItemLink text="Edit profile" href={Routes.EditProfilePage()} Icon={IconPencil} />
 
-        <MenuItemLink
-          text="Settings"
-          href={Routes.SettingsPage()}
-          Icon={IconSettings}
-        />
+        <MenuItemLink text="Settings" href={Routes.SettingsPage()} Icon={IconSettings} />
 
         <Menu.Divider />
 
@@ -83,9 +63,7 @@ const UserHeaderMenu = () => {
             await $logoutMutation();
             await router.push("/");
           }}
-          leftSection={
-            <IconLogout style={{ width: rem(14), height: rem(14) }} />
-          }
+          leftSection={<IconLogout style={{ width: rem(14), height: rem(14) }} />}
         >
           Logout
         </Menu.Item>
@@ -103,11 +81,7 @@ type MenuItemLinkProps = {
 const MenuItemLink: React.FC<MenuItemLinkProps> = ({ text, Icon, href }) => {
   return (
     <Link href={href}>
-      <Menu.Item
-        leftSection={<Icon style={{ width: rem(14), height: rem(14) }} />}
-      >
-        {text}
-      </Menu.Item>
+      <Menu.Item leftSection={<Icon style={{ width: rem(14), height: rem(14) }} />}>{text}</Menu.Item>
     </Link>
   );
 };
