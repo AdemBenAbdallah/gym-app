@@ -10,7 +10,6 @@ export default api(
     errorRedirectUrl: "/",
     strategies: [
       {
-        // authenticateOptions: { scope: ["email", "profile"] },
         strategy: new GoogleStrategy(
           {
             clientID: env.GOOGLE_CLIENT_ID,
