@@ -9,14 +9,15 @@ import {
   Group,
   Paper,
   PasswordInput,
+  Radio,
   Stack,
   Text,
   TextInput,
   rem,
 } from "@mantine/core";
+import { DateInput } from "@mantine/dates";
 import { useForm, zodResolver } from "@mantine/form";
 import { Vertical } from "../MantineLayout";
-import SocialButtonAuth from "./SocialButtonAuth";
 
 export const bindCheckboxToForm = (form: any, key: string) => {
   const inputProps = form.getInputProps(key);
@@ -30,7 +31,7 @@ export function SignUpForm(props: { toggle: () => void }) {
   const [$signup, { isLoading }] = useMutation(signup);
 
   const form = useForm<SignupFormType>({
-    initialValues: { name: "", email: "", password: "", terms: false },
+    // initialValues: { name: "", email: "", password: "", terms: false },
     validate: zodResolver(InputSginUp),
     validateInputOnBlur: true,
     validateInputOnChange: ["email", "password", "terms"],
@@ -50,7 +51,7 @@ export function SignUpForm(props: { toggle: () => void }) {
           Welcome to Hajem, Sign up with
         </Text>
 
-        <SocialButtonAuth />
+        {/* <SocialButtonAuth /> */}
 
         <Divider label="Or continue with email" labelPosition="center" my="lg" />
 
@@ -65,6 +66,22 @@ export function SignUpForm(props: { toggle: () => void }) {
               {...form.getInputProps("email")}
               radius="md"
             />
+
+            <DateInput
+              required
+              {...form.getInputProps("birthdayDate")}
+              clearable
+              label="birthday Date"
+              placeholder="Date input"
+              radius="md"
+            />
+
+            <Radio.Group {...form.getInputProps("gender")} label="Gender" withAsterisk>
+              <Group mt="xs">
+                <Radio value="MALE" label="Male" />
+                <Radio value="FEMALE" label="Female" />
+              </Group>
+            </Radio.Group>
 
             <PasswordInput
               required

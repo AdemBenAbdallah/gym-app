@@ -1,5 +1,6 @@
+import { GenderType } from "@prisma/client";
 import { PromiseReturnType } from "blitz";
-import { z } from "zod";
+import { date, z } from "zod";
 import getCurrentUser from "../users/queries/getCurrentUser";
 
 export const email = z
@@ -25,6 +26,8 @@ export const InputSginUp = z.object({
   password,
   name: z.string(),
   terms: z.boolean().refine((val) => val === true),
+  birthdayDate: date(),
+  gender: z.nativeEnum(GenderType),
 });
 
 export type SignupFormType = z.infer<typeof InputSginUp>;

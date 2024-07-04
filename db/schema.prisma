@@ -34,6 +34,8 @@ model User {
   role              RoleType    @default(USER)
   emailVerification DateTime?
 
+  birthdayDate   DateTime
+  gender         GenderType
   avatarImageKey String?
   coverImageKey  String?
   username       String? @unique
@@ -112,4 +114,9 @@ enum RoleType {
   ADMIN
   COACH
   USER
+}
+
+enum GenderType {
+  MALE
+  FEMALE
 }

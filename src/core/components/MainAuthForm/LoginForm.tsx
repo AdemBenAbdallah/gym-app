@@ -6,7 +6,6 @@ import { Anchor, Button, Divider, Group, Paper, PasswordInput, Stack, Text, Text
 import { useForm, zodResolver } from "@mantine/form";
 import Link from "next/link";
 import { Vertical } from "../MantineLayout";
-import SocialButtonAuth from "./SocialButtonAuth";
 
 export function LoginForm(props: { toggle: () => void }) {
   const [$login, { isLoading }] = useMutation(login);
@@ -32,7 +31,7 @@ export function LoginForm(props: { toggle: () => void }) {
           Welcome to Hajem, Login with
         </Text>
 
-        <SocialButtonAuth />
+        {/* <SocialButtonAuth /> */}
 
         <Divider label="Or continue with email" labelPosition="center" my="lg" />
 

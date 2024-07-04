@@ -17,11 +17,28 @@ export default resolver.pipe(
       skip,
       take,
       count: () => db.user.count({ where }),
-      query: (paginateArgs) => db.user.findMany({ ...paginateArgs, where, orderBy }),
+      query: (paginateArgs) =>
+        db.user.findMany({
+          ...paginateArgs,
+          where,
+          orderBy,
+          include: {
+            subscriptions: {
+              orderBy: { startDate: "desc" },
+              select: { startDate: true, endDate: true },
+              take: 1,
+            },
+          },
+        }),
     });
 
+    const formatteUsers = users.map((user) => ({
+      ...user,
+      lastSubscription: user.subscriptions.length ? user.subscriptions[0] : null,
+    }));
+
     return {
-      users,
+      users: formatteUsers,
       pageCount,
       from,
       to,

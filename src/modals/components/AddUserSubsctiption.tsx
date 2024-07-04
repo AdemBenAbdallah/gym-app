@@ -67,16 +67,35 @@ const AddUserSubsctiption: ReactFC<ContextModalProps<InnerProps>> = ({ context, 
       >
         <Stack>
           <Group align="center">
-            <DateInput flex={2} {...form.getInputProps("startDate")} clearable placeholder="Date input" />
+            <DateInput
+              required
+              label="Date de début d'abonnement"
+              flex={2}
+              {...form.getInputProps("startDate")}
+              clearable
+              placeholder="July 11, 2024"
+            />
             <Select
               flex={1}
+              label="Durée"
               placeholder="Pick value"
               data={["1 Month", "3 Months", "6 Months", "1 Year"]}
               onChange={handleDurationChange}
             />
           </Group>
-          <DateInput {...form.getInputProps("endDate")} clearable label="Date input" placeholder="Date input" />
-          <NumberInput label="Subscption cost" {...form.getInputProps("subscriptionCost")} />
+          <DateInput
+            required
+            {...form.getInputProps("endDate")}
+            clearable
+            label="Date de fin d'abonnement"
+            placeholder="July 11, 2024"
+          />
+          <NumberInput
+            required
+            placeholder="120dt"
+            label="Abonnement Prix"
+            {...form.getInputProps("subscriptionCost")}
+          />
           <Horizontal ml={"auto"}>
             <Button bg={"black"} c={"white"} onClick={closeModal}>
               Cancel
