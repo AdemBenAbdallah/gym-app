@@ -1,19 +1,20 @@
 import { InputWithButton } from "@/core/components/InputWithButton";
 import { StatsRing } from "@/core/components/StatsRing";
 import UserAvatar from "@/core/components/UserAvatar";
+import UserDetails from "@/core/components/UserDetails";
 import Layout from "@/core/layouts/Layout";
 import getUsersByAdmin from "@/features/users/queries/getUsersByAdmin";
 import { GlobalModal } from "@/modals";
 import { BlitzPage } from "@blitzjs/next";
 import { usePaginatedQuery } from "@blitzjs/rpc";
-import { Badge, Center, Flex, Group, Pagination, Select, Stack, Table, Text, rem } from "@mantine/core";
-import { useDebouncedState } from "@mantine/hooks";
+import { Badge, Center, Drawer, Flex, Group, Loader, Pagination, Select, Stack, Table, Text, rem } from "@mantine/core";
+import { useDebouncedState, useDisclosure } from "@mantine/hooks";
 import { openContextModal } from "@mantine/modals";
 import { GenderType } from "@prisma/client";
 import { IconEdit, IconEye, IconGenderFemale, IconGenderMale } from "@tabler/icons-react";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -33,7 +34,9 @@ type FilterGenderType = {
 };
 
 const UsersPage: BlitzPage = () => {
+  const [opened, { open, close }] = useDisclosure(false);
   const [genderFilter, setGenderFilter] = useState<FilterGenderType | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
   const [search, setSearch] = useDebouncedState("", 200);
 
   const router = useRouter();
@@ -93,7 +96,15 @@ const UsersPage: BlitzPage = () => {
             style={{ cursor: "pointer" }}
             size={25}
           />
-          <IconEye stroke={1} style={{ cursor: "pointer" }} size={25} />
+          <IconEye
+            onClick={() => {
+              setUserId(user.id);
+              open();
+            }}
+            stroke={1}
+            style={{ cursor: "pointer" }}
+            size={25}
+          />
         </Group>
       </Table.Td>
     </Table.Tr>
@@ -153,6 +164,11 @@ const UsersPage: BlitzPage = () => {
           )}
         </Stack>
       </Flex>
+      <Drawer opened={opened} onClose={close}>
+        <Suspense fallback={<Loader />}>
+          <UserDetails userId={userId} />
+        </Suspense>
+      </Drawer>
     </Layout>
   );
 };
