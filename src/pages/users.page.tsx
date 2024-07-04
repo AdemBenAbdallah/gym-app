@@ -1,4 +1,5 @@
 import { InputWithButton } from "@/core/components/InputWithButton";
+import { StatsRing } from "@/core/components/StatsRing";
 import UserAvatar from "@/core/components/UserAvatar";
 import Layout from "@/core/layouts/Layout";
 import getUsersByAdmin from "@/features/users/queries/getUsersByAdmin";
@@ -101,7 +102,7 @@ const UsersPage: BlitzPage = () => {
   return (
     <Layout title="Users">
       <Flex gap={20}>
-        <Stack style={{ borderRadius: "12px" }} flex={2} h={400} bg={"#192209"} c={"white"}></Stack>
+        <StatsRing />
         <Stack flex={8} gap={30}>
           <Group>
             <InputWithButton defaultValue={search} onChange={(event) => setSearch(event.currentTarget.value)} w={400} />
