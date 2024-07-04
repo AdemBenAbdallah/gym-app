@@ -1,17 +1,7 @@
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
 import { GlobalModal } from "@/modals";
 import { ErrorBoundary, Routes } from "@blitzjs/next";
-import {
-  Anchor,
-  AppShell,
-  Badge,
-  Image,
-  Modal,
-  Text,
-  Tooltip,
-  useMantineColorScheme,
-  useMantineTheme,
-} from "@mantine/core";
+import { Anchor, AppShell, Badge, Image, Modal, Text, Tooltip, useMantineTheme } from "@mantine/core";
 import { openContextModal } from "@mantine/modals";
 import { IconUserPlus } from "@tabler/icons-react";
 import Head from "next/head";
@@ -33,13 +23,11 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
   const currentUser = useCurrentUser();
   const theme = useMantineTheme();
 
-  const { colorScheme, setColorScheme } = useMantineColorScheme();
-
   return (
     <>
       <Head>
         <title>{title || "Gym"}</title>
-        <link rel="icon" href="/logo.svg" />
+        <link rel="icon" href="/images/logo.svg" />
       </Head>
 
       <AppShell header={{ height: 60 }} padding="md" h={"100%"}>

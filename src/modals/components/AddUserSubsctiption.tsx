@@ -6,6 +6,7 @@ import { Button, Group, NumberInput, Select, Stack } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 import { useForm, zodResolver } from "@mantine/form";
 import { ContextModalProps } from "@mantine/modals";
+import { notifications } from "@mantine/notifications";
 import dayjs from "dayjs";
 import { ReactFC } from "~/types";
 
@@ -56,6 +57,12 @@ const AddUserSubsctiption: ReactFC<ContextModalProps<InnerProps>> = ({ context, 
             subscriptionCost: values.subscriptionCost,
             userId,
           });
+          notifications.show({
+            color: "green",
+            title: "Abonnement créé",
+            message: "Vous avez ajouté un abonnement pour l'utilisateur avec succès.",
+          });
+          closeModal();
         })}
       >
         <Stack>

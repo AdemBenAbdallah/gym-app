@@ -191,7 +191,9 @@ export function HomeHeader() {
           <Divider my="sm" />
 
           <Group justify="center" grow pb="xl" px="md">
-            <Button variant="default">Log in</Button>
+            <Button component={Link} href={Routes.Profile()} variant="default">
+              Log in
+            </Button>
             <Button>Sign up</Button>
           </Group>
         </ScrollArea>
