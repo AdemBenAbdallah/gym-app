@@ -31,7 +31,6 @@ export function SignUpForm(props: { toggle: () => void }) {
   const [$signup, { isLoading }] = useMutation(signup);
 
   const form = useForm<SignupFormType>({
-    // initialValues: { name: "", email: "", password: "", terms: false },
     validate: zodResolver(InputSginUp),
     validateInputOnBlur: true,
     validateInputOnChange: ["email", "password", "terms"],

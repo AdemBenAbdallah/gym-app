@@ -1,9 +1,18 @@
 import logout from "@/features/auth/mutations/logout";
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
+import { useSession } from "@blitzjs/auth";
 import { Routes } from "@blitzjs/next";
 import { useMutation } from "@blitzjs/rpc";
 import { Box, Indicator, Menu, Tooltip, rem } from "@mantine/core";
-import { IconFileCheck, IconHome, IconLogout, IconPencil, IconSettings, IconUserShield } from "@tabler/icons-react";
+import {
+  IconHome,
+  IconLogout,
+  IconPencil,
+  IconSettings,
+  IconTrain,
+  IconUserCircle,
+  IconUserShield,
+} from "@tabler/icons-react";
 import { RouteUrlObject } from "blitz";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -13,6 +22,7 @@ import UserAvatar from "../UserAvatar";
 
 const UserHeaderMenu = () => {
   const currentUser = useCurrentUser();
+  const session = useSession();
   const [$logoutMutation] = useMutation(logout);
   const router = useRouter();
 
@@ -47,7 +57,8 @@ const UserHeaderMenu = () => {
         <Menu.Label>Application</Menu.Label>
         <MenuItemLink text="Home" href={Routes.Home()} Icon={IconHome} />
 
-        {currentUser?.role === "ADMIN" && <MenuItemLink text="Users" href={Routes.UsersPage()} Icon={IconFileCheck} />}
+        {session.role === "ADMIN" && <MenuItemLink text="Users" href={Routes.UsersPage()} Icon={IconUserCircle} />}
+        {session.role === "ADMIN" && <MenuItemLink text="Coaches" href={Routes.CoachesPage()} Icon={IconTrain} />}
 
         <MenuItemLink text="Edit profile" href={Routes.EditProfilePage()} Icon={IconPencil} />
 

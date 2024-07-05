@@ -1,34 +1,27 @@
 import { InputWithButton } from "@/core/components/InputWithButton";
 import RenderTable, { Column } from "@/core/components/RenderTable";
-import { StatsRing } from "@/core/components/StatsRing";
 import UserAvatar from "@/core/components/UserAvatar";
-import UserDetails from "@/core/components/UserDetails";
 import Layout from "@/core/layouts/Layout";
 import getUsersByAdmin from "@/features/users/queries/getUsersByAdmin";
 import { GlobalModal } from "@/modals";
 import { calculateAge } from "@/utils/utils";
 import { BlitzPage } from "@blitzjs/next";
 import { usePaginatedQuery } from "@blitzjs/rpc";
-import { Badge, Center, Drawer, Flex, Group, Loader, Select, Stack } from "@mantine/core";
-import { useDebouncedState, useDisclosure } from "@mantine/hooks";
+import { Badge, Button, Center, Flex, Group, Paper, Select, Stack } from "@mantine/core";
+import { useDebouncedState } from "@mantine/hooks";
 import { openContextModal } from "@mantine/modals";
 import { GenderType } from "@prisma/client";
-import { IconEdit, IconEye, IconGenderFemale, IconGenderMale } from "@tabler/icons-react";
-import dayjs from "dayjs";
+import { IconEdit, IconGenderFemale, IconGenderMale } from "@tabler/icons-react";
 import { useRouter } from "next/router";
-import { Suspense, useState } from "react";
-
-const ITEMS_PER_PAGE = 10;
+import { useState } from "react";
 
 type FilterGenderType = {
   value: GenderType;
   label: string;
 };
-
-const UsersPage: BlitzPage = () => {
-  const [opened, { open, close }] = useDisclosure(false);
+const ITEMS_PER_PAGE = 10;
+const CoachesPage: BlitzPage = () => {
   const [genderFilter, setGenderFilter] = useState<FilterGenderType | null>(null);
-  const [userId, setUserId] = useState<string | null>(null);
   const [search, setSearch] = useDebouncedState("", 200);
 
   const router = useRouter();
@@ -36,7 +29,7 @@ const UsersPage: BlitzPage = () => {
   const [{ users, count, from, to }] = usePaginatedQuery(getUsersByAdmin, {
     orderBy: { id: "asc" },
     where: {
-      role: "USER",
+      role: "COACH",
       name: search ? { contains: search, mode: "insensitive" } : undefined,
       gender: genderFilter?.value || undefined,
     },
@@ -66,14 +59,6 @@ const UsersPage: BlitzPage = () => {
       ),
     },
     {
-      header: "Date de début d'abonnement",
-      accessor: (user: UserType) => dayjs(user.lastSubscription?.startDate).format("YYYY-MM-DD"),
-    },
-    {
-      header: "Date de fin d'abonnement",
-      accessor: (user: UserType) => dayjs(user.lastSubscription?.endDate).format("YYYY-MM-DD"),
-    },
-    {
       header: "",
       accessor: (user: UserType) => (
         <Group>
@@ -89,40 +74,40 @@ const UsersPage: BlitzPage = () => {
             style={{ cursor: "pointer" }}
             size={25}
           />
-          <IconEye
-            onClick={() => {
-              setUserId(user.id);
-              open();
-            }}
-            stroke={1}
-            style={{ cursor: "pointer" }}
-            size={25}
-          />
         </Group>
       ),
     },
   ];
 
   return (
-    <Layout title="Users">
+    <Layout title="Coaches">
       <Flex gap={20}>
-        <StatsRing />
+        <Paper radius={"md"} bg={"lime.1"} miw={300}></Paper>
         <Stack flex={8} gap={30}>
-          <Group>
-            <InputWithButton defaultValue={search} onChange={(event) => setSearch(event.currentTarget.value)} w={400} />
-            <Select
-              w={120}
-              radius="xl"
-              size="md"
-              placeholder="Gender"
-              data={[
-                { value: "", label: "All" },
-                { value: "MALE", label: "Male" },
-                { value: "FEMALE", label: "Female" },
-              ]}
-              value={genderFilter ? genderFilter.value : null}
-              onChange={(_value, option: FilterGenderType) => setGenderFilter(option)}
-            />
+          <Group justify="space-between">
+            <Group>
+              <InputWithButton
+                defaultValue={search}
+                onChange={(event) => setSearch(event.currentTarget.value)}
+                w={400}
+              />
+              <Select
+                w={120}
+                radius="xl"
+                size="md"
+                placeholder="Gender"
+                data={[
+                  { value: "", label: "All" },
+                  { value: "MALE", label: "Male" },
+                  { value: "FEMALE", label: "Female" },
+                ]}
+                value={genderFilter ? genderFilter.value : null}
+                onChange={(_value, option: FilterGenderType) => setGenderFilter(option)}
+              />
+            </Group>
+            <Button radius={"md"} c={"white"}>
+              Add Coach
+            </Button>
           </Group>
           {users && (
             <RenderTable
@@ -138,14 +123,8 @@ const UsersPage: BlitzPage = () => {
           )}
         </Stack>
       </Flex>
-      <Drawer opened={opened} onClose={close}>
-        <Suspense fallback={<Loader />}>
-          <UserDetails userId={userId} />
-        </Suspense>
-      </Drawer>
     </Layout>
   );
 };
 
-export default UsersPage;
-UsersPage.authenticate = { role: "ADMIN" };
+export default CoachesPage;
