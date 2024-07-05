@@ -31,6 +31,7 @@ export const InputSginUp = z.object({
 });
 
 export type SignupFormType = z.infer<typeof InputSginUp>;
+export type SignupFormWtithoutTermsType = Omit<SignupFormType, "terms">;
 
 export const ForgotPassword = z.object({
   email,

@@ -2,16 +2,15 @@ import { InputWithButton } from "@/core/components/InputWithButton";
 import RenderTable, { Column } from "@/core/components/RenderTable";
 import UserAvatar from "@/core/components/UserAvatar";
 import Layout from "@/core/layouts/Layout";
+import { CoachForm } from "@/features/users/form/CoachForm";
 import getUsersByAdmin from "@/features/users/queries/getUsersByAdmin";
-import { GlobalModal } from "@/modals";
 import { calculateAge } from "@/utils/utils";
 import { BlitzPage } from "@blitzjs/next";
 import { usePaginatedQuery } from "@blitzjs/rpc";
-import { Badge, Button, Center, Flex, Group, Paper, Select, Stack } from "@mantine/core";
-import { useDebouncedState } from "@mantine/hooks";
-import { openContextModal } from "@mantine/modals";
+import { Badge, Button, Center, Flex, Group, Modal, Paper, Select, Stack } from "@mantine/core";
+import { useDebouncedState, useDisclosure } from "@mantine/hooks";
 import { GenderType } from "@prisma/client";
-import { IconEdit, IconGenderFemale, IconGenderMale } from "@tabler/icons-react";
+import { IconGenderFemale, IconGenderMale } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -21,6 +20,7 @@ type FilterGenderType = {
 };
 const ITEMS_PER_PAGE = 10;
 const CoachesPage: BlitzPage = () => {
+  const [opened, { open, close }] = useDisclosure(false);
   const [genderFilter, setGenderFilter] = useState<FilterGenderType | null>(null);
   const [search, setSearch] = useDebouncedState("", 200);
 
@@ -58,25 +58,6 @@ const CoachesPage: BlitzPage = () => {
         </Badge>
       ),
     },
-    {
-      header: "",
-      accessor: (user: UserType) => (
-        <Group>
-          <IconEdit
-            stroke={1}
-            onClick={() =>
-              openContextModal({
-                modal: GlobalModal.AddUserSubsctiption,
-                title: "Ajouter une nouvelle durée d'abonnement",
-                innerProps: { userId: user.id },
-              })
-            }
-            style={{ cursor: "pointer" }}
-            size={25}
-          />
-        </Group>
-      ),
-    },
   ];
 
   return (
@@ -105,7 +86,7 @@ const CoachesPage: BlitzPage = () => {
                 onChange={(_value, option: FilterGenderType) => setGenderFilter(option)}
               />
             </Group>
-            <Button radius={"md"} c={"white"}>
+            <Button onClick={open} radius={"md"} c={"white"}>
               Add Coach
             </Button>
           </Group>
@@ -123,6 +104,9 @@ const CoachesPage: BlitzPage = () => {
           )}
         </Stack>
       </Flex>
+      <Modal opened={opened} onClose={close}>
+        <CoachForm close={close} />
+      </Modal>
     </Layout>
   );
 };

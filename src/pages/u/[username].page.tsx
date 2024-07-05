@@ -17,7 +17,6 @@ import { useDisclosure } from "@mantine/hooks";
 import { notifications, showNotification } from "@mantine/notifications";
 import { IconAlertCircle } from "@tabler/icons-react";
 import { useRouter } from "next/router";
-import React from "react";
 
 const ProfilePage: BlitzPage = () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -25,9 +24,7 @@ const ProfilePage: BlitzPage = () => {
   const username = useStringParam("username");
   const [user] = useQuery(getUserForProfile, { username });
   const [$updateUser, { isLoading }] = useMutation(updateUser, {});
-  const [$requestVerificationEmail, { isLoading: loading }] = useMutation(
-    requestVerificationEmail
-  );
+  const [$requestVerificationEmail, { isLoading: loading }] = useMutation(requestVerificationEmail);
 
   const router = useRouter();
   const form = useForm<InputUpdateUserType>({
@@ -61,18 +58,11 @@ const ProfilePage: BlitzPage = () => {
       ProfilePage
       <Vertical>
         {isOwner && !currentUser.emailVerification && (
-          <Alert
-            icon={<IconAlertCircle size={"1rem"} />}
-            variant="outline"
-            title="Warning!"
-            color="red"
-            maw={"30rem"}
-          >
+          <Alert icon={<IconAlertCircle size={"1rem"} />} variant="outline" title="Warning!" color="red" maw={"30rem"}>
             <Vertical>
               <Text fz={14}>
-                Your email has not been verified yet. Verifying your email
-                ensures account security and enables access to all features.
-                Please verify your email to fully experience our platform.
+                Your email has not been verified yet. Verifying your email ensures account security and enables access
+                to all features. Please verify your email to fully experience our platform.
               </Text>
               <Button
                 onClick={async () => {
@@ -102,20 +92,10 @@ const ProfilePage: BlitzPage = () => {
         <Text>{user.username}</Text>
         <Text>{user.name}</Text>
         <Text>{user.bio}</Text>
-        {user?.coverImageKey && (
-          <Image
-            w={300}
-            src={getUploadThingUrl(user.coverImageKey)}
-            alt="cover picture"
-          />
-        )}
+        {user?.coverImageKey && <Image w={300} src={getUploadThingUrl(user.coverImageKey)} alt="cover picture" />}
       </Vertical>
       <Modal opened={opened} onClose={close} title="Authentication">
-        <EditProfileForm
-          form={form}
-          onSubmit={onSubmit}
-          isLoading={isLoading}
-        />
+        <EditProfileForm form={form} onSubmit={onSubmit} isLoading={isLoading} />
       </Modal>
     </Layout>
   );
