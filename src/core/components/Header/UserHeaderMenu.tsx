@@ -5,6 +5,7 @@ import { Routes } from "@blitzjs/next";
 import { useMutation } from "@blitzjs/rpc";
 import { Box, Indicator, Menu, Tooltip, rem } from "@mantine/core";
 import {
+  IconBook,
   IconHome,
   IconLogout,
   IconPencil,
@@ -56,6 +57,7 @@ const UserHeaderMenu = () => {
       <Menu.Dropdown>
         <Menu.Label>Application</Menu.Label>
         <MenuItemLink text="Home" href={Routes.Home()} Icon={IconHome} />
+        <MenuItemLink text="Blog" href={Routes.BlogPage()} Icon={IconBook} />
 
         {session.role === "ADMIN" && <MenuItemLink text="Users" href={Routes.UsersPage()} Icon={IconUserCircle} />}
         {session.role === "ADMIN" && <MenuItemLink text="Coaches" href={Routes.CoachesPage()} Icon={IconTrain} />}

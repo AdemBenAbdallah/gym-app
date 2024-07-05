@@ -67,6 +67,8 @@ model Subscription {
 model Blog {
   id             String    @id @default(uuid())
   title          String
+  blogImageKey   String?
+  category       String?
   content        String
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt

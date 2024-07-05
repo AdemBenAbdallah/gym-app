@@ -1,6 +1,8 @@
-import { Vertical } from "@/core/components/MantineLayout";
-import { Container, SimpleGrid, Text, Title, rem } from "@mantine/core";
-import { BlogCard } from "../BadgeCard";
+import { BlogCard } from "@/core/components/BadgeCard";
+import { InputWithButton } from "@/core/components/InputWithButton";
+import { Button, Group, Modal, Select, SimpleGrid, Stack } from "@mantine/core";
+import { useDebouncedState, useDisclosure } from "@mantine/hooks";
+import AddBlog from "./AddBlog";
 
 const blogs = [
   {
@@ -26,21 +28,31 @@ const blogs = [
       "Enhance your flexibility and find inner peace with these yoga poses designed for all levels. Whether you're a beginner or an advanced practitioner, these exercises will help you achieve a more balanced body and mind.",
   },
 ];
+const MyBlog = () => {
+  const [search, setSearch] = useDebouncedState("", 200);
+  const [opened, { open, close }] = useDisclosure(false);
 
-const OurBlog = () => {
   return (
-    <Container size="lg" mt={100}>
-      <Vertical gap={0}>
-        <Text> Blog</Text>
-        <Title fz={{ base: rem(35), md: rem(50) }}>Articale from tasking</Title>
-      </Vertical>
-      <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl" mt={{ base: 30, md: 50 }}>
+    <Stack p={20}>
+      <Group justify="space-between">
+        <Group>
+          <InputWithButton defaultValue={search} onChange={(event) => setSearch(event.currentTarget.value)} w={400} />
+          <Select w={120} radius="xl" size="md" placeholder="Gender" data={[{ value: "", label: "All" }]} />
+        </Group>
+        <Button onClick={open} radius={"md"} c={"white"}>
+          Add Blog
+        </Button>
+      </Group>
+      <SimpleGrid cols={{ base: 1, md: 3, lg: 4 }} spacing="xl">
         {blogs.map((blog, idx) => (
           <BlogCard key={idx} blog={blog} />
         ))}
       </SimpleGrid>
-    </Container>
+      <Modal opened={opened} onClose={close} fullScreen>
+        <AddBlog />
+      </Modal>
+    </Stack>
   );
 };
 
-export default OurBlog;
+export default MyBlog;

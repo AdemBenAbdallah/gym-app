@@ -13,6 +13,7 @@ import { withBlitz } from "src/blitz-client";
 import { RootErrorFallback } from "src/core/components/RootErrorFallback";
 import "src/styles/globals.css";
 import "@mantine/dates/styles.css";
+import "@mantine/tiptap/styles.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
