@@ -33,8 +33,9 @@ const UserDetails = ({ userId }: { userId: string | null }) => {
       </Group>
 
       <Timeline active={1} bulletSize={24} lineWidth={2}>
-        {user?.subscriptions.map((subscription) => (
+        {user?.subscriptions.map((subscription, idx) => (
           <Timeline.Item
+            key={idx}
             bullet={<IconGitBranch size={12} />}
             title={`${dayjs(subscription.startDate).format("YYYY-MM-DD")} / ${dayjs(subscription.endDate).format("YYYY-MM-DD")}`}
           >

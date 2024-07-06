@@ -10,11 +10,18 @@ import AddBlog from "./AddBlog";
 
 const MyBlog = () => {
   const [search, setSearch] = useDebouncedState("", 200);
+  const [categoryFilter, setCategoryFilter] = useState<string | null>("");
   const [opened, { open, close }] = useDisclosure(false);
   const [selectedBlog, setSelectedBlog] = useState<BlogType | null>(null);
   const [blogPages, { isFetchingNextPage, fetchNextPage, hasNextPage }] = useInfiniteQuery(
     getBlogs,
-    (page = { take: 1, skip: 0 }) => page,
+    (page = { take: 1, skip: 0 }) => ({
+      ...page,
+      where: {
+        title: { contains: search, mode: "insensitive" },
+        category: { contains: categoryFilter === "All" ? "" : categoryFilter },
+      },
+    }),
     {
       getNextPageParam: (lastPage) => lastPage.nextPage,
     },
@@ -25,7 +32,26 @@ const MyBlog = () => {
       <Group justify="space-between">
         <Group>
           <InputWithButton defaultValue={search} onChange={(event) => setSearch(event.currentTarget.value)} w={400} />
-          <Select w={120} radius="xl" size="md" placeholder="Gender" data={[{ value: "", label: "All" }]} />
+          <Select
+            radius="xl"
+            size="lg"
+            placeholder="Choisissez une catégorie"
+            value={categoryFilter}
+            onChange={setCategoryFilter}
+            data={[
+              "All",
+              "Entraînement",
+              "Nutrition",
+              "Santé mentale",
+              "Motivation",
+              "Récupération",
+              "Techniques avancées",
+              "Histoires de réussite",
+              "Conseils pour débutants",
+              "Exercices spécifiques",
+              "Équipement de gym",
+            ]}
+          />{" "}
         </Group>
         <Button onClick={open} radius={"md"} c={"white"}>
           Add Blog
@@ -35,7 +61,7 @@ const MyBlog = () => {
         {blogPages.map((page, i) => (
           <Stack key={i}>
             {page.blogs.map((blog) => (
-              <BlogCard key={blog.id} blog={blog} setSelectedBlog={setSelectedBlog} updateModalOpen={open} />
+              <BlogCard key={blog.id} blog={blog} setSelectedBlog={setSelectedBlog} updateModalOpen={open} isEdit />
             ))}
           </Stack>
         ))}

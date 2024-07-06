@@ -2,20 +2,25 @@ import deleteBlog from "@/features/blogs/mutations/deleteBlog";
 import { BlogType } from "@/features/blogs/schema";
 import classes from "@/styles/module/BlogCard.module.css";
 import { getUploadThingUrl } from "@/utils/image-utils";
+import { Routes } from "@blitzjs/next";
 import { useMutation } from "@blitzjs/rpc";
 import { ActionIcon, Badge, Button, Card, Group, Image, Text, useMantineTheme } from "@mantine/core";
 import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
 import { IconEdit, IconTrashFilled } from "@tabler/icons-react";
+import { useRouter } from "next/router";
+import React from "react";
 
 type Props = {
   blog: BlogType;
   setSelectedBlog?: (value: BlogType) => void;
   updateModalOpen?: () => void;
+  isEdit?: boolean;
 };
 
-export function BlogCard({ blog, setSelectedBlog, updateModalOpen }: Props) {
+export function BlogCard({ blog, setSelectedBlog, updateModalOpen, isEdit }: Props) {
   const theme = useMantineTheme();
+  const router = useRouter();
   const [$deleteBlog] = useMutation(deleteBlog, {});
 
   const plainTextContent = stripHtmlTags(blog?.content);
@@ -64,27 +69,31 @@ export function BlogCard({ blog, setSelectedBlog, updateModalOpen }: Props) {
       </Card.Section>
 
       <Group mt="xs">
-        <Button radius="md" style={{ flex: 1 }}>
+        <Button onClick={() => router.push(Routes.BlogDetails({ id: blog?.id }))} radius="md" style={{ flex: 1 }}>
           Show details
         </Button>
         {/* <ActionIcon variant="default" radius="md" size={36}>
           <IconHeart className={classes.like} stroke={1.5} />
         </ActionIcon> */}
-        <ActionIcon
-          onClick={() => {
-            if (!updateModalOpen || !setSelectedBlog) return;
-            setSelectedBlog(blog);
-            updateModalOpen();
-          }}
-          variant="default"
-          radius="md"
-          size={36}
-        >
-          <IconEdit width={20} height={20} color={theme.colors.blue[6]} stroke={1.5} />
-        </ActionIcon>
-        <ActionIcon onClick={openDeleteModal} variant="default" radius="md" size={36}>
-          <IconTrashFilled width={20} height={20} color={theme.colors.red[6]} stroke={1.5} />
-        </ActionIcon>
+        {isEdit && (
+          <React.Fragment>
+            <ActionIcon
+              onClick={() => {
+                if (!updateModalOpen || !setSelectedBlog) return;
+                setSelectedBlog(blog);
+                updateModalOpen();
+              }}
+              variant="default"
+              radius="md"
+              size={36}
+            >
+              <IconEdit width={20} height={20} color={theme.colors.blue[6]} stroke={1.5} />
+            </ActionIcon>
+            <ActionIcon onClick={openDeleteModal} variant="default" radius="md" size={36}>
+              <IconTrashFilled width={20} height={20} color={theme.colors.red[6]} stroke={1.5} />
+            </ActionIcon>
+          </React.Fragment>
+        )}
       </Group>
     </Card>
   );

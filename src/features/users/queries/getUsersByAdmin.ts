@@ -32,10 +32,12 @@ export default resolver.pipe(
         }),
     });
 
-    const formatteUsers = users.map((user) => ({
-      ...user,
-      lastSubscription: user.subscriptions.length ? user.subscriptions[0] : null,
-    }));
+    const formatteUsers = users.map((user) => {
+      const { subscriptions, ...restUser } = user;
+      return Object.assign({}, restUser, {
+        lastSubscription: subscriptions.length ? subscriptions[0] : null,
+      });
+    });
 
     return {
       users: formatteUsers,
