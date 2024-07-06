@@ -1,7 +1,8 @@
 import EditorRichText from "@/core/components/EditorRichText";
 import UploadThingFileInput from "@/core/components/UploadThingFileInput";
 import addBlog from "@/features/blogs/mutations/addBlog";
-import { InputAddBlogType, InputAddTBlog } from "@/features/blogs/schema";
+import updateBlog from "@/features/blogs/mutations/updateBlog";
+import { BlogType, InputAddBlog, InputAddBlogType } from "@/features/blogs/schema";
 import { useMutation } from "@blitzjs/rpc";
 import {
   Box,
@@ -21,12 +22,19 @@ import { notifications } from "@mantine/notifications";
 import TextAlign from "@tiptap/extension-text-align";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import { useEffect } from "react";
 
-const AddBlog = ({ close }: { close: () => void }) => {
+const AddBlog = ({ close, blog }: { close: () => void; blog: BlogType | null }) => {
   const theme = useMantineTheme();
-  const [$addBlog, { isLoading }] = useMutation(addBlog);
+  const [$updateBlog, { isLoading: isLoadingUpdate }] = useMutation(updateBlog);
+  const [$addBlog, { isLoading: isLoadingAdd }] = useMutation(addBlog);
   const form = useForm<Omit<InputAddBlogType, "content">>({
-    validate: zodResolver(InputAddTBlog.omit({ content: true })),
+    initialValues: {
+      title: blog?.title || "",
+      category: blog?.category || "",
+      blogImageKey: blog?.blogImageKey || "",
+    },
+    validate: zodResolver(InputAddBlog.omit({ content: true })),
     validateInputOnBlur: true,
   });
 
@@ -34,26 +42,47 @@ const AddBlog = ({ close }: { close: () => void }) => {
     extensions: [StarterKit, TextAlign.configure({ types: ["heading", "paragraph"] })],
     content: "",
   });
+
+  useEffect(() => {
+    if (blog) {
+      editor?.commands.setContent(blog.content);
+    }
+  }, [blog, editor]);
+
+  const onSubmit = async () => {
+    const data = {
+      title: form.values.title,
+      content: editor?.getHTML() || "",
+      category: form.values.category,
+      blogImageKey: form.values.blogImageKey,
+    };
+
+    if (blog) {
+      await $updateBlog({ id: blog.id, ...data });
+      notifications.show({
+        title: "Success",
+        color: "green",
+        message: "Blog updated!",
+      });
+    }
+
+    if (!blog) {
+      await $addBlog(data);
+      notifications.show({
+        title: "Success",
+        color: "green",
+        message: "Blog created!",
+      });
+    }
+    close();
+  };
+
+  const isLoading = isLoadingAdd || isLoadingUpdate;
   return (
     <Container size={"lg"}>
       <Center>
         <Stack w={"100%"}>
-          <Form
-            form={form}
-            onSubmit={async () => {
-              $addBlog({
-                title: form.values.title,
-                content: editor?.getHTML() || "",
-                category: form.values.category,
-                blogImageKey: form.values.blogImageKey,
-              });
-              notifications.show({
-                title: "Succes",
-                color: "green",
-                message: "Blog created!",
-              });
-            }}
-          >
+          <Form form={form} onSubmit={onSubmit}>
             <Group align="flex-start" gap={50} wrap="wrap">
               <Box flex={1} miw={300}>
                 <UploadThingFileInput form={form} label="BLOG IMAGE" name="blogImageKey" />

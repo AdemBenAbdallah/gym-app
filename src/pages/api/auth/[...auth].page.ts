@@ -31,6 +31,12 @@ export default api(
               create: {
                 email,
                 name: profile.displayName,
+                avatarImageKey: profile.photos && profile.photos[0]?.value,
+                hashedPassword: null,
+                role: "USER",
+                onboarded: false,
+                birthdayDate: new Date(2020, 0, 1),
+                gender: "MALE",
               },
               update: { email },
             });

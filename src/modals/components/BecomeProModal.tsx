@@ -2,19 +2,15 @@ import { Horizontal, Vertical } from "@/core/components/MantineLayout";
 import { Button, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { ContextModalProps } from "@mantine/modals";
-import React from "react";
 import { ReactFC } from "~/types";
 
 type InnerProps = {
   price: number;
+  onDelete: () => void;
 };
 
-const BecomeProModal: ReactFC<ContextModalProps<InnerProps>> = ({
-  context,
-  id,
-  innerProps,
-}) => {
-  const { price } = innerProps;
+const BecomeProModal: ReactFC<ContextModalProps<InnerProps>> = ({ context, id, innerProps }) => {
+  const { price, onDelete } = innerProps;
 
   let closeModal = () => context.closeModal(id);
   const [opened, { open, close }] = useDisclosure();
@@ -24,14 +20,7 @@ const BecomeProModal: ReactFC<ContextModalProps<InnerProps>> = ({
       <Button onClick={open} w={"fit-content"} ml={"auto"}>
         Tell me more
       </Button>
-      <Modal
-        zIndex={209}
-        overlayProps={{ blur: 2 }}
-        size={"sm"}
-        opened={opened}
-        onClose={close}
-        title="More Info"
-      >
+      <Modal zIndex={209} overlayProps={{ blur: 2 }} size={"sm"} opened={opened} onClose={close} title="More Info">
         More info about the pro plan
       </Modal>
 
@@ -39,13 +28,7 @@ const BecomeProModal: ReactFC<ContextModalProps<InnerProps>> = ({
         <Button color="grey" onClick={closeModal}>
           Cancel
         </Button>
-        <Button
-          onClick={() => {
-            console.log("submit");
-          }}
-        >
-          Submit
-        </Button>
+        <Button onClick={onDelete}>Delete</Button>
       </Horizontal>
     </Vertical>
   );

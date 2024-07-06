@@ -34,7 +34,6 @@ export const theme = createTheme({
       defaultProps: {
         w: "fit-content",
         size: "md",
-        c: "black",
       },
     },
     Loader: Loader.extend({

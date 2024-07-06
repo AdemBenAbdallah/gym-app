@@ -1,16 +1,16 @@
-import { BlitzPage } from "@blitzjs/next";
-import React, { Suspense, useState } from "react";
-import { useMutation, useQuery } from "@blitzjs/rpc";
-import { Button, Checkbox, List, Loader, TextInput } from "@mantine/core";
-import getTodos from "@/features/todos/queries/getTodos";
+import { Horizontal, Vertical } from "@/core/components/MantineLayout";
 import Layout from "@/core/layouts/Layout";
 import addTodo from "@/features/todos/mutations/addTodo";
-import { Horizontal, Vertical } from "@/core/components/MantineLayout";
-import toggleTodo from "@/features/todos/mutations/toggleTodo";
 import clearCompleted from "@/features/todos/mutations/clearCompleted";
-import { useForm, zodResolver } from "@mantine/form";
-import { z } from "zod";
+import toggleTodo from "@/features/todos/mutations/toggleTodo";
+import getTodos from "@/features/todos/queries/getTodos";
 import { InputAddTodo } from "@/features/todos/schemas";
+import { BlitzPage } from "@blitzjs/next";
+import { useMutation, useQuery } from "@blitzjs/rpc";
+import { Button, Checkbox, List, Loader, TextInput } from "@mantine/core";
+import { useForm, zodResolver } from "@mantine/form";
+import { Suspense } from "react";
+import { z } from "zod";
 
 // type TodosType = PromiseReturnType<typeof getTodos>;
 // type TodoType = TodoType[number];
@@ -38,10 +38,7 @@ const Todos = () => {
         })}
       >
         <Vertical>
-          <TextInput
-            placeholder="Enter your todo"
-            {...form.getInputProps("todoTitle")}
-          />
+          <TextInput placeholder="Enter your todo" {...form.getInputProps("todoTitle")} />
           <Horizontal gap={10}>
             <Button type="submit">Create A Todo</Button>
             <Button
@@ -57,12 +54,7 @@ const Todos = () => {
       <List>
         <Vertical gap={10}>
           {todos.map((item, idx) => (
-            <Checkbox
-              key={idx}
-              checked={item.done}
-              label={item.title}
-              onChange={() => $toggleTodo({ id: item.id })}
-            />
+            <Checkbox key={idx} checked={item.done} label={item.title} onChange={() => $toggleTodo({ id: item.id })} />
           ))}
         </Vertical>
       </List>
