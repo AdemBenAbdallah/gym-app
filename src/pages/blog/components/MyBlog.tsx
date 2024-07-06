@@ -49,7 +49,7 @@ const MyBlog = () => {
         ))}
       </SimpleGrid>
       <Modal opened={opened} onClose={close} fullScreen>
-        <AddBlog />
+        <AddBlog close={close} />
       </Modal>
     </Stack>
   );

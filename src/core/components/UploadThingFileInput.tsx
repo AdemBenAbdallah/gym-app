@@ -1,18 +1,10 @@
-import React, { useState } from "react";
-import { Horizontal, Vertical } from "./MantineLayout";
-import {
-  ActionIcon,
-  FileInput,
-  Image,
-  Indicator,
-  Loader,
-  Text,
-  Tooltip,
-} from "@mantine/core";
-import { UseFormReturnType } from "@mantine/form";
-import { IconPhoto, IconX } from "@tabler/icons-react";
 import { getUploadThingUrl } from "@/utils/image-utils";
+import { ActionIcon, FileInput, Image, Indicator, Loader, Text, Tooltip } from "@mantine/core";
+import { UseFormReturnType } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
+import { IconPhoto, IconX } from "@tabler/icons-react";
+import { useState } from "react";
+import { Horizontal, Vertical } from "./MantineLayout";
 import { useUploadThing } from "./Uploadthing";
 
 type Props = {
@@ -33,6 +25,7 @@ const UploadThingFileInput = ({ form, label, name }: Props) => {
         title: "Succes",
         message: "File uploaded!",
       });
+      console.log(form.values, form.values.name, name, fileKey);
       form.setFieldValue(name, fileKey);
     },
     onUploadError: (error) => {
@@ -46,7 +39,7 @@ const UploadThingFileInput = ({ form, label, name }: Props) => {
   });
 
   const existingAvatarImgKey = form.values[name];
-
+  console.log(existingAvatarImgKey);
   return (
     <Vertical>
       <Horizontal>
@@ -59,26 +52,18 @@ const UploadThingFileInput = ({ form, label, name }: Props) => {
           color="none"
           label={
             <Tooltip color="dark" label="Clear image">
-              <ActionIcon
-                onClick={() => form.setFieldValue(name, "")}
-                size="xs"
-                variant="gradient"
-              >
+              <ActionIcon onClick={() => form.setFieldValue(name, "")} size="xs" variant="gradient">
                 <IconX size={16} color="#fff" />
               </ActionIcon>
             </Tooltip>
           }
         >
-          <Image
-            w={80}
-            radius={"sm"}
-            src={getUploadThingUrl(existingAvatarImgKey)}
-            alt="avatar"
-          />
+          <Image w={"100%"} radius={"sm"} src={getUploadThingUrl(existingAvatarImgKey)} alt="avatar" />
         </Indicator>
       )}
       {!existingAvatarImgKey && (
         <FileInput
+          maw={300}
           disabled={loading}
           clearable={true}
           w={"fit-content"}

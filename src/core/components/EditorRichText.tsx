@@ -5,7 +5,7 @@ const EditorRichText = ({ editor }: { editor: Editor | null }) => {
   return (
     <RichTextEditor
       editor={editor}
-      mih={300}
+      mih={400}
       styles={{
         toolbar: { background: "#f6f7f9" },
         control: { background: "#f6f7f9" },
