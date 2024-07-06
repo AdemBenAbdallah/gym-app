@@ -22,16 +22,10 @@ import TextAlign from "@tiptap/extension-text-align";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
-const AddBlog = () => {
+const AddBlog = ({ close }: { close: () => void }) => {
   const theme = useMantineTheme();
   const [$addBlog, { isLoading }] = useMutation(addBlog);
   const form = useForm<Omit<InputAddBlogType, "content">>({
-    initialValues: {
-      title: "",
-      category: "",
-      blogImageKey: "",
-    },
-    mode: "uncontrolled",
     validate: zodResolver(InputAddTBlog.omit({ content: true })),
     validateInputOnBlur: true,
   });
@@ -60,8 +54,8 @@ const AddBlog = () => {
               });
             }}
           >
-            <Group align="flex-start">
-              <Box flex={1}>
+            <Group align="flex-start" gap={50} wrap="wrap">
+              <Box flex={1} miw={300}>
                 <UploadThingFileInput form={form} label="BLOG IMAGE" name="blogImageKey" />
               </Box>
               <Stack flex={2}>
@@ -114,7 +108,12 @@ const AddBlog = () => {
             </Group>
 
             <Group justify="flex-end" mt={30}>
-              <Button bg={"white"} c={"black"} style={{ border: "1px solid", borderColor: theme.colors.gray[3] }}>
+              <Button
+                onClick={close}
+                bg={"white"}
+                c={"black"}
+                style={{ border: "1px solid", borderColor: theme.colors.gray[3] }}
+              >
                 Cancel
               </Button>
               <Button loading={isLoading} disabled={!form.isValid() || !editor?.getText()} type="submit">
