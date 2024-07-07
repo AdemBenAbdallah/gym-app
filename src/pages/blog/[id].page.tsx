@@ -29,7 +29,7 @@ const BlogDetails: BlitzPage = () => {
             <Title order={1}>{blogDetails?.title}</Title>
             <Text c={"gray"}>{blogDetails?.category}</Text>
           </Stack>
-          <Stack gap={100}>
+          <Stack gap={30}>
             <Image w={"100%"} src={getUploadThingUrl(blogDetails?.blogImageKey)} alt="blog image" />
             <TypographyStylesProvider>
               <div dangerouslySetInnerHTML={{ __html: blogDetails?.content || "" }} />

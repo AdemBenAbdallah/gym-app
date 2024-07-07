@@ -24,6 +24,20 @@ import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useEffect } from "react";
 
+export const blogCategory = [
+  "All",
+  "Entraînement",
+  "Nutrition",
+  "Santé mentale",
+  "Motivation",
+  "Récupération",
+  "Techniques avancées",
+  "Histoires de réussite",
+  "Conseils pour débutants",
+  "Exercices spécifiques",
+  "Équipement de gym",
+];
+
 const AddBlog = ({ close, blog }: { close: () => void; blog: BlogType | null }) => {
   const theme = useMantineTheme();
   const [$updateBlog, { isLoading: isLoadingUpdate }] = useMutation(updateBlog);
@@ -109,18 +123,7 @@ const AddBlog = ({ close, blog }: { close: () => void; blog: BlogType | null }) 
                     size="lg"
                     placeholder="Choisissez une catégorie"
                     {...form.getInputProps("category")}
-                    data={[
-                      "Entraînement",
-                      "Nutrition",
-                      "Santé mentale",
-                      "Motivation",
-                      "Récupération",
-                      "Techniques avancées",
-                      "Histoires de réussite",
-                      "Conseils pour débutants",
-                      "Exercices spécifiques",
-                      "Équipement de gym",
-                    ]}
+                    data={blogCategory}
                   />
                 </Stack>
 

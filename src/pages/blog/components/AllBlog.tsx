@@ -2,16 +2,19 @@ import { BlogCard } from "@/core/components/BlogCard";
 import { InputWithButton } from "@/core/components/InputWithButton";
 import getBlogs from "@/features/blogs/queries/getBlogs";
 import { useInfiniteQuery } from "@blitzjs/rpc";
-import { Button, Group, Select, SimpleGrid, Stack } from "@mantine/core";
-import { useDebouncedState } from "@mantine/hooks";
+import { Button, Group, Modal, Radio, SimpleGrid, Stack, ThemeIcon } from "@mantine/core";
+import { useDebouncedState, useDisclosure } from "@mantine/hooks";
+import { IconAdjustmentsAlt } from "@tabler/icons-react";
 import React, { useState } from "react";
+import { blogCategory } from "./AddBlog";
 
 const AllBlog = () => {
   const [search, setSearch] = useDebouncedState("", 200);
-  const [categoryFilter, setCategoryFilter] = useState<string | null>("");
+  const [categoryFilter, setCategoryFilter] = useState("All");
+  const [opened, { open, close }] = useDisclosure(false);
   const [blogPages, { isFetchingNextPage, fetchNextPage, hasNextPage }] = useInfiniteQuery(
     getBlogs,
-    (page = { take: 1, skip: 0 }) => ({
+    (page = { take: 10, skip: 0 }) => ({
       ...page,
       where: {
         title: { contains: search, mode: "insensitive" },
@@ -23,29 +26,22 @@ const AllBlog = () => {
     },
   );
   return (
-    <Stack p={20}>
+    <Stack px={{ base: 0, md: 20 }} pt={20} pb={80}>
       <Group>
-        <InputWithButton defaultValue={search} onChange={(event) => setSearch(event.currentTarget.value)} w={400} />
-        <Select
-          radius="xl"
-          size="lg"
-          placeholder="Choisissez une catégorie"
-          value={categoryFilter}
-          onChange={setCategoryFilter}
-          data={[
-            "All",
-            "Entraînement",
-            "Nutrition",
-            "Santé mentale",
-            "Motivation",
-            "Récupération",
-            "Techniques avancées",
-            "Histoires de réussite",
-            "Conseils pour débutants",
-            "Exercices spécifiques",
-            "Équipement de gym",
-          ]}
+        <InputWithButton
+          defaultValue={search}
+          onChange={(event) => setSearch(event.currentTarget.value)}
+          w={{ base: 250, md: 300 }}
         />
+        <ThemeIcon
+          onClick={open}
+          variant="gradient"
+          size="lg"
+          style={{ cursor: "pointer" }}
+          gradient={{ from: "lime", to: "teal", deg: 90 }}
+        >
+          <IconAdjustmentsAlt />
+        </ThemeIcon>
       </Group>
       <SimpleGrid cols={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing="xl">
         {blogPages.map((page, i) => (
@@ -56,14 +52,67 @@ const AllBlog = () => {
           </React.Fragment>
         ))}
       </SimpleGrid>
-      <Stack>
-        <div>
-          <Button onClick={() => fetchNextPage()} disabled={!hasNextPage || !!isFetchingNextPage}>
-            {isFetchingNextPage ? "Loading more..." : hasNextPage ? "Load More" : "Nothing more to load"}
-          </Button>
-        </div>
-      </Stack>
+      {hasNextPage && (
+        <Stack>
+          <div>
+            <Button onClick={() => fetchNextPage()} disabled={!hasNextPage || !!isFetchingNextPage}>
+              {isFetchingNextPage ? "Loading more..." : hasNextPage ? "Load More" : "Nothing more to load"}
+            </Button>
+          </div>
+        </Stack>
+      )}
+      <Modal opened={opened} onClose={close} title="Blog Categories" centered size={"sm"}>
+        <BlogCategorySelector
+          blogCategories={blogCategory}
+          categoryFilter={categoryFilter}
+          setCategoryFilter={setCategoryFilter}
+          close={close}
+        />
+      </Modal>
     </Stack>
+  );
+};
+
+const chunkArray = <T,>(array: T[], chunkSize: number): T[][] => {
+  const results: T[][] = [];
+  for (let i = 0; i < array.length; i += chunkSize) {
+    results.push(array.slice(i, i + chunkSize));
+  }
+  return results;
+};
+
+export const BlogCategorySelector = ({
+  blogCategories,
+  categoryFilter,
+  setCategoryFilter,
+  close,
+}: {
+  blogCategories: string[];
+  categoryFilter: string;
+  setCategoryFilter: (value: string) => void;
+  close: () => void;
+}) => {
+  const categoriesInColumns = chunkArray(blogCategories, 6);
+
+  return (
+    <Radio.Group
+      mb={40}
+      value={categoryFilter}
+      onChange={(value) => {
+        setCategoryFilter(value);
+        close();
+      }}
+    >
+      <Group mt="xs">
+        {categoriesInColumns.map((column, columnIndex) => (
+          <Stack key={columnIndex}>
+            {column.map((category) => (
+              <Radio value={category} label={category} key={category} />
+            ))}
+          </Stack>
+        ))}
+      </Group>
+    </Radio.Group>
   );
 };
 

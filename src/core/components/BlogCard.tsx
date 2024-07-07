@@ -2,6 +2,7 @@ import deleteBlog from "@/features/blogs/mutations/deleteBlog";
 import { BlogType } from "@/features/blogs/schema";
 import classes from "@/styles/module/BlogCard.module.css";
 import { getUploadThingUrl } from "@/utils/image-utils";
+import { useSession } from "@blitzjs/auth";
 import { Routes } from "@blitzjs/next";
 import { useMutation } from "@blitzjs/rpc";
 import { ActionIcon, Badge, Button, Card, Group, Image, Text, useMantineTheme } from "@mantine/core";
@@ -20,6 +21,7 @@ type Props = {
 
 export function BlogCard({ blog, setSelectedBlog, updateModalOpen, isEdit }: Props) {
   const theme = useMantineTheme();
+  const session = useSession();
   const router = useRouter();
   const [$deleteBlog] = useMutation(deleteBlog, {});
 
@@ -75,7 +77,7 @@ export function BlogCard({ blog, setSelectedBlog, updateModalOpen, isEdit }: Pro
         {/* <ActionIcon variant="default" radius="md" size={36}>
           <IconHeart className={classes.like} stroke={1.5} />
         </ActionIcon> */}
-        {isEdit && (
+        {(isEdit || session.role === "ADMIN") && (
           <React.Fragment>
             <ActionIcon
               onClick={() => {

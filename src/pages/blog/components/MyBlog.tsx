@@ -2,22 +2,29 @@ import { BlogCard } from "@/core/components/BlogCard";
 import { InputWithButton } from "@/core/components/InputWithButton";
 import getBlogs from "@/features/blogs/queries/getBlogs";
 import { BlogType } from "@/features/blogs/schema";
+import { useSession } from "@blitzjs/auth";
 import { useInfiniteQuery } from "@blitzjs/rpc";
-import { Button, Group, Modal, Select, SimpleGrid, Stack } from "@mantine/core";
+import { Button, Group, Modal, SimpleGrid, Stack, ThemeIcon } from "@mantine/core";
 import { useDebouncedState, useDisclosure } from "@mantine/hooks";
-import { useState } from "react";
-import AddBlog from "./AddBlog";
+import { IconAdjustmentsAlt } from "@tabler/icons-react";
+import { Fragment, useState } from "react";
+import AddBlog, { blogCategory } from "./AddBlog";
+import { BlogCategorySelector } from "./AllBlog";
 
 const MyBlog = () => {
   const [search, setSearch] = useDebouncedState("", 200);
-  const [categoryFilter, setCategoryFilter] = useState<string | null>("");
+  const [categoryFilter, setCategoryFilter] = useState("All");
   const [opened, { open, close }] = useDisclosure(false);
+  const [openedFilter, { open: openFilter, close: closeFilter }] = useDisclosure(false);
+
   const [selectedBlog, setSelectedBlog] = useState<BlogType | null>(null);
+  const session = useSession();
   const [blogPages, { isFetchingNextPage, fetchNextPage, hasNextPage }] = useInfiniteQuery(
     getBlogs,
-    (page = { take: 1, skip: 0 }) => ({
+    (page = { take: 10, skip: 0 }) => ({
       ...page,
       where: {
+        authorId: session.userId,
         title: { contains: search, mode: "insensitive" },
         category: { contains: categoryFilter === "All" ? "" : categoryFilter },
       },
@@ -32,26 +39,15 @@ const MyBlog = () => {
       <Group justify="space-between">
         <Group>
           <InputWithButton defaultValue={search} onChange={(event) => setSearch(event.currentTarget.value)} w={400} />
-          <Select
-            radius="xl"
+          <ThemeIcon
+            onClick={openFilter}
+            variant="gradient"
             size="lg"
-            placeholder="Choisissez une catégorie"
-            value={categoryFilter}
-            onChange={setCategoryFilter}
-            data={[
-              "All",
-              "Entraînement",
-              "Nutrition",
-              "Santé mentale",
-              "Motivation",
-              "Récupération",
-              "Techniques avancées",
-              "Histoires de réussite",
-              "Conseils pour débutants",
-              "Exercices spécifiques",
-              "Équipement de gym",
-            ]}
-          />{" "}
+            style={{ cursor: "pointer" }}
+            gradient={{ from: "lime", to: "teal", deg: 90 }}
+          >
+            <IconAdjustmentsAlt />
+          </ThemeIcon>
         </Group>
         <Button onClick={open} radius={"md"} c={"white"}>
           Add Blog
@@ -59,22 +55,32 @@ const MyBlog = () => {
       </Group>
       <SimpleGrid cols={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing="xl">
         {blogPages.map((page, i) => (
-          <Stack key={i}>
+          <Fragment key={i}>
             {page.blogs.map((blog) => (
               <BlogCard key={blog.id} blog={blog} setSelectedBlog={setSelectedBlog} updateModalOpen={open} isEdit />
             ))}
-          </Stack>
+          </Fragment>
         ))}
       </SimpleGrid>
-      <Stack>
-        <div>
-          <button onClick={() => fetchNextPage()} disabled={!hasNextPage || !!isFetchingNextPage}>
-            {isFetchingNextPage ? "Loading more..." : hasNextPage ? "Load More" : "Nothing more to load"}
-          </button>
-        </div>
-      </Stack>
+      {hasNextPage && (
+        <Stack>
+          <div>
+            <Button onClick={() => fetchNextPage()} disabled={!hasNextPage || !!isFetchingNextPage}>
+              {isFetchingNextPage ? "Loading more..." : hasNextPage ? "Load More" : "Nothing more to load"}
+            </Button>
+          </div>
+        </Stack>
+      )}
       <Modal opened={opened} onClose={close} fullScreen>
         <AddBlog close={close} blog={selectedBlog} />
+      </Modal>
+      <Modal opened={openedFilter} onClose={closeFilter} title="Blog Categories" centered size={"sm"}>
+        <BlogCategorySelector
+          blogCategories={blogCategory}
+          categoryFilter={categoryFilter}
+          setCategoryFilter={setCategoryFilter}
+          close={closeFilter}
+        />
       </Modal>
     </Stack>
   );

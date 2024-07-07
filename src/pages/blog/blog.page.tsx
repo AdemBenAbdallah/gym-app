@@ -1,22 +1,22 @@
 import Layout from "@/core/layouts/Layout";
 import { BlitzPage } from "@blitzjs/next";
 import { Tabs, rem } from "@mantine/core";
-import { IconMessageCircle, IconPhoto } from "@tabler/icons-react";
+import { IconBrandBooking, IconTablePlus } from "@tabler/icons-react";
 import AllBlog from "./components/AllBlog";
 import MyBlog from "./components/MyBlog";
 
 const BlogPage: BlitzPage = () => {
-  const iconStyle = { width: rem(12), height: rem(12) };
+  const iconStyle = { width: rem(20), height: rem(20) };
 
   return (
     <Layout title="Blog">
       <Tabs defaultValue="gallery">
-        <Tabs.List>
-          <Tabs.Tab value="gallery" leftSection={<IconPhoto style={iconStyle} />}>
-            All Blog
+        <Tabs.List w={"fit-content"}>
+          <Tabs.Tab value="gallery" leftSection={<IconBrandBooking style={iconStyle} />}>
+            Tous les blogs
           </Tabs.Tab>
-          <Tabs.Tab value="messages" leftSection={<IconMessageCircle style={iconStyle} />}>
-            My contributions
+          <Tabs.Tab value="messages" leftSection={<IconTablePlus style={iconStyle} />}>
+            Mes contributions
           </Tabs.Tab>
         </Tabs.List>
 
