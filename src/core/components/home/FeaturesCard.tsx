@@ -1,25 +1,25 @@
 import { Vertical } from "@/core/components/MantineLayout";
 import classes from "@/styles/module/FeaturesCards.module.css";
 import { Card, Container, SimpleGrid, Text, Title, rem, useMantineTheme } from "@mantine/core";
-import { IconCookie, IconGauge, IconUser } from "@tabler/icons-react";
+import { IconCookie, IconGauge, IconWeight } from "@tabler/icons-react";
 
 const mockdata = [
   {
-    title: "Performance extrême",
+    title: "Cours collectifs variés",
     description:
-      "Cette poussière est en réalité un poison puissant qui rendra même un catcheur professionnel malade. Regice se couvre d'air glacial à -200 degrés Celsius.",
+      "Participez à une variété de cours collectifs pour tous les niveaux, y compris le yoga, le pilates, le spinning et plus encore, pour une expérience de remise en forme diversifiée.",
     icon: IconGauge,
   },
   {
-    title: "Axé sur la confidentialité",
+    title: "Équipement de pointe",
     description:
-      "On dit qu'il peut courir à la même vitesse que la foudre. Son corps glacé est tellement froid qu'il ne fondra pas même s'il est immergé dans le magma.",
-    icon: IconUser,
+      "Accédez à un équipement de fitness de haute qualité pour vous aider à atteindre vos objectifs, y compris des machines cardio, des poids libres, et des équipements de musculation.",
+    icon: IconWeight,
   },
   {
-    title: "Pas de tierces parties",
+    title: "Programmes d'entraînement personnalisés",
     description:
-      "Ils sont populaires mais rares. Les entraîneurs qui les exhibent imprudemment peuvent être ciblés par des voleurs.",
+      "Bénéficiez de programmes d'entraînement personnalisés élaborés par nos entraîneurs certifiés, adaptés à vos besoins et objectifs spécifiques.",
     icon: IconCookie,
   },
 ];
@@ -40,10 +40,10 @@ export function FeaturesCards() {
   ));
 
   return (
-    <Container size="lg" mt={100}>
+    <Container size="lg" mt={{ base: 100, md: 200 }}>
       <Vertical gap={0}>
         <Text> Services</Text>
-        <Title fz={{ base: rem(35), md: rem(50) }}>Our Services</Title>
+        <Title fz={{ base: rem(35), md: rem(50) }}>Nos Services</Title>
       </Vertical>
       <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl" mt={{ base: 10, md: 50 }}>
         {features}

@@ -3,7 +3,7 @@ import { CheckIcon, ColorSwatch, Container, Flex, Image, Text, Title, rem } from
 
 const WhyChooseUs = () => {
   const reasons = [
-    "1 programme gratuit pour les nouveaux membres",
+    "1 programme gratuit pour les nouveaux",
     "Installations à la pointe de la technologie",
     "Entraînez-vous plus intelligemment",
     "Plans d'entraînement personnalisés",

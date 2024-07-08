@@ -1,3 +1,4 @@
+import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
 import classes from "@/styles/module/HomeHeader.module.css";
 import { Routes } from "@blitzjs/next";
 import { Box, Burger, Button, Divider, Drawer, Group, Image, ScrollArea, rem, useMantineTheme } from "@mantine/core";
@@ -9,6 +10,7 @@ export function HomeHeader() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
   const router = useRouter();
   const theme = useMantineTheme();
+  const currentUser = useCurrentUser();
 
   return (
     <Box>
@@ -30,13 +32,16 @@ export function HomeHeader() {
             </Link>
           </Group>
 
-          <Group visibleFrom="sm">
-            <Button component={Link} href={Routes.BlogPage()} variant="default">
-              Connexion
-            </Button>
-            <Button onClick={() => router.push(Routes.BlogPage({ form: "register" }))}>S'inscrire</Button>{" "}
-          </Group>
+          {!currentUser && (
+            <Group visibleFrom="sm">
+              <Button component={Link} href={Routes.BlogPage()} variant="default">
+                Connexion
+              </Button>
+              <Button onClick={() => router.push(Routes.BlogPage({ form: "register" }))}>S'inscrire</Button>{" "}
+            </Group>
+          )}
 
+          {currentUser && <Button onClick={() => router.push(Routes.BlogPage({ form: "update" }))}>Mon compte</Button>}
           <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
         </Group>
       </header>

@@ -40,8 +40,8 @@ function ContactIcon({ icon: Icon, title, description, ...others }: ContactIconP
 }
 
 const MOCKDATA = [
-  { title: "Email", description: "hello@mantine.dev", icon: IconAt },
-  { title: "Téléphone", description: "+49 (800) 335 35 35", icon: IconPhone },
+  { title: "Email", description: "hello@gym.com", icon: IconAt },
+  { title: "Téléphone", description: "+216 (800) 335 35 35", icon: IconPhone },
   { title: "Adresse", description: "844 avenue Morris Park", icon: IconMapPin },
   { title: "Heures d'ouverture", description: "8h - 23h", icon: IconSun },
 ];

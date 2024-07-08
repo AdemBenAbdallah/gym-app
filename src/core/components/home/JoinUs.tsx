@@ -1,5 +1,7 @@
 import useResponsive from "@/utils/useResponsive";
+import { Routes } from "@blitzjs/next";
 import { Box, Button, Center, Text, Title, rem } from "@mantine/core";
+import Link from "next/link";
 
 const JoinUs = () => {
   const { isMobile } = useResponsive();
@@ -15,12 +17,12 @@ const JoinUs = () => {
       >
         <Box>
           <Title fw={800} fz={{ base: rem(30), sm: rem(36), md: rem(57) }} mt={{ base: rem(50), sm: rem(100) }}>
-            START YOUR FITNESS JOURNEY
+            COMMENCEZ VOTRE PARCOURS DE FITNESS
           </Title>
           <p className="text">
-            Become a part of our gym community. Have questions?{" "}
+            Rejoignez notre communauté de salle de sport. Vous avez des questions ?{" "}
             <Text span fw={600}>
-              Read 270+ reviews here.
+              Lisez nos 270+ avis ici.
             </Text>
           </p>
           <Button
@@ -34,8 +36,10 @@ const JoinUs = () => {
             w={{ base: "100%", sm: rem(326) }}
             h={{ base: rem(50), sm: rem(40) }}
             style={{ display: "block" }}
+            component={Link}
+            href={Routes.BlogPage()}
           >
-            Join Our Gym Community
+            Rejoignez Notre Communauté
           </Button>
         </Box>
       </Center>

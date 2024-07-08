@@ -1,15 +1,16 @@
 import classes from "@/styles/module/FooterLinks.module.css";
+import { Routes } from "@blitzjs/next";
 import { ActionIcon, Container, Group, Image, Text, rem, useMantineTheme } from "@mantine/core";
 import { IconBrandInstagram, IconBrandTwitter, IconBrandYoutube } from "@tabler/icons-react";
+import Link from "next/link";
 
 const data = [
   {
     title: "About",
     links: [
-      { label: "Features", link: "#" },
-      { label: "Pricing", link: "#" },
-      { label: "Support", link: "#" },
-      { label: "Forums", link: "#" },
+      { label: "Contact", link: Routes.ContactPage() },
+      { label: "Blog", link: Routes.BlogPage() },
+      { label: "Support", link: Routes.ContactPage() },
     ],
   },
   {
@@ -24,10 +25,10 @@ const data = [
   {
     title: "Community",
     links: [
-      { label: "Join Discord", link: "#" },
+      { label: "Join Facebook", link: "#" },
+      { label: "Follow on Instagram", link: "#" },
       { label: "Follow on Twitter", link: "#" },
       { label: "Email newsletter", link: "#" },
-      { label: "GitHub discussions", link: "#" },
     ],
   },
 ];
@@ -36,15 +37,9 @@ export function FooterLinks() {
   const theme = useMantineTheme();
   const groups = data.map((group) => {
     const links = group.links.map((link, index) => (
-      <Text<"a">
-        key={index}
-        className={classes.link}
-        component="a"
-        href={link.link}
-        onClick={(event) => event.preventDefault()}
-      >
+      <Link key={index} href={link.link} className={classes.link}>
         {link.label}
-      </Text>
+      </Link>
     ));
 
     return (
@@ -62,14 +57,14 @@ export function FooterLinks() {
           <Image style={{ borderRadius: theme.radius.md }} src="/images/logo.svg" w={50} />
 
           <Text size="xs" c="dimmed" className={classes.description}>
-            Build fully functional accessible web applications faster than ever
+            Développez rapidement un corps musclé et performant avec notre programme d'entraînement intensif.
           </Text>
         </div>
         <div className={classes.groups}>{groups}</div>
       </Container>
       <Container className={classes.afterFooter}>
         <Text c="dimmed" size="sm">
-          © {new Date().getFullYear()} mantine.dev. All rights reserved.
+          © {new Date().getFullYear()} gym.com. All rights reserved.
         </Text>
 
         <Group gap={0} className={classes.social} justify="flex-end">
