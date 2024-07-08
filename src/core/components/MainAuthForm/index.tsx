@@ -1,10 +1,16 @@
 import { useToggle } from "@mantine/hooks";
+import { useEffect } from "react";
 import { LoginForm } from "./LoginForm";
 import { SignUpForm } from "./SignUpForm";
-import { Vertical } from "../MantineLayout";
 
-export function AuthenticationForm() {
+export function AuthenticationForm({ initialFormType = "login" }) {
   const [type, toggle] = useToggle(["login", "register"]);
+
+  useEffect(() => {
+    if (initialFormType === "register") {
+      toggle();
+    }
+  }, [initialFormType, toggle]);
 
   return (
     <>

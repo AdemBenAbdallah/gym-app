@@ -2,7 +2,7 @@ import login from "@/features/auth/mutations/login";
 import { InputLogin, LoginFormType } from "@/features/auth/schemas";
 import { Routes } from "@blitzjs/next";
 import { useMutation } from "@blitzjs/rpc";
-import { Anchor, Button, Divider, Group, Paper, PasswordInput, Stack, Text, TextInput, rem } from "@mantine/core";
+import { Anchor, Button, Divider, Flex, Paper, PasswordInput, Stack, Text, TextInput, rem } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import Link from "next/link";
 import { Vertical } from "../MantineLayout";
@@ -19,21 +19,12 @@ export function LoginForm(props: { toggle: () => void }) {
 
   return (
     <Vertical align="center" justify="center">
-      <Paper
-        radius="md"
-        p="xl"
-        withBorder
-        w={{
-          base: rem(400),
-        }}
-      >
-        <Text size="lg" fw={500}>
-          Welcome to Hajem, Login with
+      <Paper radius="md" p={{ base: "lg", md: "xl" }} maw={400} withBorder>
+        <Text size="lg" fw={500} fz={{ base: rem(14), md: rem(19) }}>
+          Bienvenue sur l'application Gym{" "}
         </Text>
 
-        {/* <SocialButtonAuth /> */}
-
-        <Divider label="Or continue with email" labelPosition="center" my="lg" />
+        <Divider label="Connectez-vous avec votre email" labelPosition="center" my="lg" />
 
         <form
           onSubmit={form.onSubmit(async (values) => {
@@ -52,8 +43,8 @@ export function LoginForm(props: { toggle: () => void }) {
             <Vertical gap={"xs"}>
               <PasswordInput
                 required
-                label="Password"
-                placeholder="Your password"
+                label="Mot de passe"
+                placeholder="Votre mot de passe"
                 {...form.getInputProps("password")}
                 radius="md"
               />
@@ -64,19 +55,26 @@ export function LoginForm(props: { toggle: () => void }) {
                 component={Link}
                 href={Routes.ForgotPasswordPage()}
               >
-                Forgot password?
+                Mot de passe oublié ?
               </Text>
             </Vertical>
           </Stack>
 
-          <Group justify="space-between" mt="xl">
-            <Anchor component="button" type="button" c="dimmed" size="xs" onClick={props.toggle}>
-              Don't have an account? Register{" "}
+          <Flex justify="space-between" mt="xl">
+            <Anchor
+              style={{ textAlign: "start" }}
+              component="button"
+              type="button"
+              c="gray.7"
+              size="xs"
+              onClick={props.toggle}
+            >
+              Vous n'avez pas de compte ? Inscrivez-vous
             </Anchor>
-            <Button disabled={!form.isValid()} loading={isLoading} type="submit" radius="xl">
-              Login
+            <Button size="sm" disabled={!form.isValid()} loading={isLoading} type="submit" radius="xl">
+              Connexion
             </Button>
-          </Group>
+          </Flex>
         </form>
       </Paper>
     </Vertical>

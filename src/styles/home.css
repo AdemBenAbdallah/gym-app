@@ -39,16 +39,6 @@
   font-weight: 400;
 }
 
-.home-page .video-container .content button {
-  padding: 14px 20px;
-  font-weight: 400;
-  background-color: #ffffff;
-  color: #000000;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-}
-
 /* Mobile styles */
 @media (max-width: 768px) {
   .home-page .video-container .content h1 {
@@ -83,9 +73,7 @@
   left: 100%;
   animation: autoRun 10s linear infinite;
   transition: filter 0.5s;
-  animation-delay: calc(
-    (10s / var(--quantity)) * (var(--position) - 1)
-  ) !important;
+  animation-delay: calc((10s / var(--quantity)) * (var(--position) - 1)) !important;
 }
 
 .slider .list .item img {

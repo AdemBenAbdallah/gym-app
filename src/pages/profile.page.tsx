@@ -1,11 +1,9 @@
 import { AuthenticationForm } from "@/core/components/MainAuthForm";
 import { Horizontal, Vertical } from "@/core/components/MantineLayout";
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
-import testEmailSend from "@/features/users/mutations/testEmailSend";
 import { GlobalModal } from "@/modals";
 import { ConfirmDelete } from "@/utils/mantine-utils";
 import { BlitzPage, Routes } from "@blitzjs/next";
-import { useMutation } from "@blitzjs/rpc";
 import { Button } from "@mantine/core";
 import { openContextModal } from "@mantine/modals";
 import Link from "next/link";
@@ -13,7 +11,6 @@ import Layout from "src/core/layouts/Layout";
 
 const Profile: BlitzPage = () => {
   const currentUser = useCurrentUser();
-  const [$testEmailSend] = useMutation(testEmailSend);
 
   const deleteAccountMutation = () => {
     console.log("profile deleted");
@@ -51,13 +48,6 @@ const Profile: BlitzPage = () => {
             </Horizontal>
           </Vertical>
           <Vertical align="center">
-            {/* <UserInfo />
-            <Button
-              onClick={async () => await $testEmailSend({})}
-              w={"fit-content"}
-            >
-              send test email
-            </Button> */}
             <Link href={Routes.TodosPage()}>
               <Button>Go Ta Todo</Button>
             </Link>

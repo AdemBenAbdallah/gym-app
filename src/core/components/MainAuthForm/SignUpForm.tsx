@@ -6,6 +6,7 @@ import {
   Button,
   Checkbox,
   Divider,
+  Flex,
   Group,
   Paper,
   PasswordInput,
@@ -38,30 +39,21 @@ export function SignUpForm(props: { toggle: () => void }) {
 
   return (
     <Vertical fullW fullH align="center" justify="center">
-      <Paper
-        radius="md"
-        p="xl"
-        withBorder
-        w={{
-          base: rem(400),
-        }}
-      >
-        <Text size="lg" fw={500}>
-          Welcome to Hajem, Sign up with
+      <Paper radius="md" p={{ base: "lg", md: "xl" }} withBorder>
+        <Text size="lg" fw={500} fz={{ base: rem(14), md: rem(19) }}>
+          Bienvenue sur l'application Gym
         </Text>
 
-        {/* <SocialButtonAuth /> */}
-
-        <Divider label="Or continue with email" labelPosition="center" my="lg" />
+        <Divider label="Inscrivez-vous avec votre email" labelPosition="center" my="lg" />
 
         <form onSubmit={form.onSubmit(async (values) => await $signup(values))}>
           <Stack>
-            <TextInput required label="Name" placeholder="Your name" {...form.getInputProps("name")} radius="md" />
+            <TextInput required label="Nom" placeholder="Votre nom" {...form.getInputProps("name")} radius="md" />
 
             <TextInput
               required
               label="Email"
-              placeholder="hello@mantine.dev"
+              placeholder="bonjour@mantine.dev"
               {...form.getInputProps("email")}
               radius="md"
             />
@@ -70,37 +62,44 @@ export function SignUpForm(props: { toggle: () => void }) {
               required
               {...form.getInputProps("birthdayDate")}
               clearable
-              label="birthday Date"
-              placeholder="Date input"
+              label="Date de naissance"
+              placeholder="Entrée de la date"
               radius="md"
             />
 
-            <Radio.Group {...form.getInputProps("gender")} label="Gender" withAsterisk>
+            <Radio.Group {...form.getInputProps("gender")} label="Genre" withAsterisk>
               <Group mt="xs">
-                <Radio value="MALE" label="Male" />
-                <Radio value="FEMALE" label="Female" />
+                <Radio value="MALE" label="Homme" />
+                <Radio value="FEMALE" label="Femme" />
               </Group>
             </Radio.Group>
 
             <PasswordInput
               required
-              label="Password"
-              placeholder="Your password"
+              label="Mot de passe"
+              placeholder="Votre mot de passe"
               {...form.getInputProps("password")}
               radius="md"
             />
 
-            <Checkbox label="I accept terms and conditions" {...bindCheckboxToForm(form, "terms")} />
+            <Checkbox label="J'accepte les termes et conditions" {...bindCheckboxToForm(form, "terms")} />
           </Stack>
 
-          <Group justify="space-between" mt="xl">
-            <Anchor component="button" type="button" c="dimmed" size="xs" onClick={props.toggle}>
-              Already have an account? Login
+          <Flex justify="space-between" mt="xl" gap={10}>
+            <Anchor
+              style={{ textAlign: "start" }}
+              component="button"
+              type="button"
+              c="dimmed"
+              size="xs"
+              onClick={props.toggle}
+            >
+              Vous avez déjà un compte ? Connectez-vous
             </Anchor>
             <Button disabled={!form.isValid()} loading={isLoading} type="submit" radius="xl">
-              Sign Up{" "}
+              S'inscrire{" "}
             </Button>
-          </Group>
+          </Flex>
         </form>
       </Paper>
     </Vertical>
