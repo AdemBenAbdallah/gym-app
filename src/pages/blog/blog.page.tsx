@@ -32,4 +32,5 @@ const BlogPage: BlitzPage = () => {
   );
 };
 
+BlogPage.authenticate = true;
 export default BlogPage;

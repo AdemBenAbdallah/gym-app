@@ -11,7 +11,7 @@ const HomeLayout: ReactFC<Props> = ({ title, children }) => {
     <>
       <Head>
         <title>{title || "barber"}</title>
-        <link rel="icon" href="/barber.svg" />
+        <link rel="icon" href="/images/logo.svg" />
       </Head>
       <>
         <HomeHeader />

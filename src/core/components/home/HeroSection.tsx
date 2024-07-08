@@ -8,9 +8,7 @@ const HeroSection = () => {
         {/* <Image src={HomeImage} w={200} /> */}
         <video autoPlay loop muted className="video">
           <source
-            src={
-              "https://res.cloudinary.com/dmedknyzv/video/upload/v1718033606/intro_qu0rit.mp4"
-            }
+            src={"https://res.cloudinary.com/dfc7p5apq/video/upload/v1720351402/nc7jejirxkqazliva2fn.mp4"}
             type="video/mp4"
           />
           Your browser does not support the video tag.
@@ -19,9 +17,8 @@ const HeroSection = () => {
         <div className="content">
           <h1>TRAVAILLEZ AVEC DES PROFESSIONNELS</h1>
           <h2>
-            Nous sommes le plus grand réseau d'experts en fitness, santé et
-            bien-être en Tunisie. Prêts à vous aider à atteindre vos objectifs
-            de fitness et à transformer votre vie.
+            Nous sommes le plus grand réseau d'experts en fitness, santé et bien-être en Tunisie. Prêts à vous aider à
+            atteindre vos objectifs de fitness et à transformer votre vie.
           </h2>
 
           <Center>
@@ -29,9 +26,7 @@ const HeroSection = () => {
               <Button bg={"lime-sorbet"} radius={"md"}>
                 START NOW
               </Button>
-              <Button rightSection={<IconArrowUpRight width={20} />}>
-                LEARN MORE
-              </Button>
+              <Button rightSection={<IconArrowUpRight width={20} />}>LEARN MORE</Button>
             </Group>
           </Center>
         </div>

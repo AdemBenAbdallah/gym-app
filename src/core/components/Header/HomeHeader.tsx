@@ -94,9 +94,9 @@ export function HomeHeader() {
         <Group justify="space-between" h="100%">
           <Image style={{ borderRadius: theme.radius.md }} src="/images/logo.svg" w={50} />
           <Group h="100%" gap={0} visibleFrom="sm">
-            <a href="#" className={classes.link}>
+            <Link href={Routes.Home()} className={classes.link}>
               Home
-            </a>
+            </Link>
             <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
               <HoverCard.Target>
                 <a href="#" className={classes.link}>
@@ -138,9 +138,9 @@ export function HomeHeader() {
                 </div>
               </HoverCard.Dropdown>
             </HoverCard>
-            <a href="#" className={classes.link}>
-              Learn
-            </a>
+            <Link href={Routes.ContactPage()} className={classes.link}>
+              Contact
+            </Link>
             <a href="#" className={classes.link}>
               Academy
             </a>
