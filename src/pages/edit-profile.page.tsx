@@ -18,9 +18,7 @@ const EditProfilePage: BlitzPage = () => {
   const router = useRouter();
   const form = useForm<InputUpdateUserType>({
     initialValues: {
-      username: user?.username || "",
       name: user?.name || "",
-      bio: user?.bio || "",
       avatarImageKey: user?.avatarImageKey || "",
       coverImageKey: user?.coverImageKey || "",
     },
@@ -30,27 +28,19 @@ const EditProfilePage: BlitzPage = () => {
 
   const onSubmit = async (values: InputUpdateUserType) => {
     await $updateUser(values);
-    const { username } = values;
-    if (user.username !== username) {
-      if (!username) return;
-      await router.push(Routes.ProfilePage({ username }));
-    }
     showNotification({
       color: "green",
       title: "Updated",
       message: "profile info updated successfully",
     });
+    router.push(Routes.Profile());
     close();
   };
 
   return (
     <Layout>
       <Vertical maw={rem(500)}>
-        <EditProfileForm
-          form={form}
-          onSubmit={onSubmit}
-          isLoading={isLoading}
-        />
+        <EditProfileForm form={form} onSubmit={onSubmit} isLoading={isLoading} />
       </Vertical>
     </Layout>
   );

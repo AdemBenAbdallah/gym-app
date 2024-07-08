@@ -18,14 +18,16 @@ const BlogPage: BlitzPage = () => {
     <Layout title="Blog">
       {currentUser && (
         <Tabs defaultValue="gallery">
-          <Tabs.List w={"fit-content"}>
-            <Tabs.Tab value="gallery" leftSection={<IconBrandBooking style={iconStyle} />}>
-              Tous les blogs
-            </Tabs.Tab>
-            <Tabs.Tab value="messages" leftSection={<IconTablePlus style={iconStyle} />}>
-              Mes contributions
-            </Tabs.Tab>
-          </Tabs.List>
+          {currentUser.role === "COACH" && (
+            <Tabs.List w={"fit-content"}>
+              <Tabs.Tab value="gallery" leftSection={<IconBrandBooking style={iconStyle} />}>
+                Tous les blogs
+              </Tabs.Tab>
+              <Tabs.Tab value="messages" leftSection={<IconTablePlus style={iconStyle} />}>
+                Mes contributions
+              </Tabs.Tab>
+            </Tabs.List>
+          )}
 
           <Tabs.Panel value="gallery">
             <AllBlog />

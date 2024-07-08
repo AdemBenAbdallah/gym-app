@@ -41,7 +41,11 @@ export function HomeHeader() {
             </Group>
           )}
 
-          {currentUser && <Button onClick={() => router.push(Routes.BlogPage({ form: "update" }))}>Mon compte</Button>}
+          {currentUser && (
+            <Button visibleFrom="sm" onClick={() => router.push(Routes.BlogPage({ form: "update" }))}>
+              Mon compte
+            </Button>
+          )}
           <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
         </Group>
       </header>
@@ -71,19 +75,30 @@ export function HomeHeader() {
           </Link>
 
           <Divider my="sm" />
+          {!currentUser && (
+            <Group justify="center" grow pb="xl" px="md">
+              <Box>
+                <Button w={"100%"} component={Link} href={Routes.BlogPage()} variant="default">
+                  Connexion
+                </Button>
+              </Box>
+              <Box>
+                <Button w={"100%"} onClick={() => router.push(Routes.BlogPage({ form: "register" }))}>
+                  S'inscrire
+                </Button>{" "}
+              </Box>
+            </Group>
+          )}
 
-          <Group justify="center" grow pb="xl" px="md">
-            <Box>
-              <Button w={"100%"} component={Link} href={Routes.BlogPage()} variant="default">
-                Connexion
-              </Button>
-            </Box>
-            <Box>
-              <Button w={"100%"} onClick={() => router.push(Routes.BlogPage({ form: "register" }))}>
-                S'inscrire
-              </Button>{" "}
-            </Box>
-          </Group>
+          {currentUser && (
+            <Group justify="center" grow pb="xl" px="md">
+              <Box>
+                <Button w={"100%"} onClick={() => router.push(Routes.BlogPage({ form: "update" }))}>
+                  Mon compte
+                </Button>
+              </Box>
+            </Group>
+          )}
         </ScrollArea>
       </Drawer>
     </Box>

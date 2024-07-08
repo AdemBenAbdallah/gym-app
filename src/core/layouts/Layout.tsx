@@ -1,8 +1,6 @@
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
-import { GlobalModal } from "@/modals";
 import { ErrorBoundary, Routes } from "@blitzjs/next";
-import { Anchor, AppShell, Badge, Image, Modal, Text, Tooltip, useMantineTheme } from "@mantine/core";
-import { openContextModal } from "@mantine/modals";
+import { Anchor, AppShell, Image, Modal, Text, Tooltip, useMantineTheme } from "@mantine/core";
 import { IconUserPlus } from "@tabler/icons-react";
 import Head from "next/head";
 import Link from "next/link";
@@ -42,21 +40,7 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
               {currentUser && (
                 <Horizontal gap={15} align="center">
                   <UserHeaderMenu />
-                  <Badge
-                    style={{ cursor: "pointer" }}
-                    onClick={() =>
-                      openContextModal({
-                        modal: GlobalModal.becomeBro,
-                        title: "Become a pro member",
-                        innerProps: {
-                          price: 28,
-                        },
-                      })
-                    }
-                    color="red"
-                  >
-                    Pro
-                  </Badge>
+
                   <UserProfileProgress />
 
                   {currentUser.role === "ADMIN" && (

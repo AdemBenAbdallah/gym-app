@@ -34,7 +34,7 @@ const HeroSection = () => {
                 c={"black"}
                 rightSection={<IconArrowUpRight width={20} />}
               >
-                EN SAVOIR PLUS
+                SAVOIR PLUS
               </Button>
             </Group>
           </Center>

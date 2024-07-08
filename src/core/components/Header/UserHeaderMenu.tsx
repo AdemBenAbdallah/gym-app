@@ -10,9 +10,10 @@ import {
   IconLogout,
   IconPencil,
   IconSettings,
-  IconTrain,
+  IconStretching,
   IconUserCircle,
   IconUserShield,
+  IconUsers,
 } from "@tabler/icons-react";
 import { RouteUrlObject } from "blitz";
 import Link from "next/link";
@@ -56,19 +57,20 @@ const UserHeaderMenu = () => {
 
       <Menu.Dropdown>
         <Menu.Label>Application</Menu.Label>
-        <MenuItemLink text="Home" href={Routes.Home()} Icon={IconHome} />
+        <MenuItemLink text="Accueil" href={Routes.Home()} Icon={IconHome} />
+        <MenuItemLink text="Profil" href={Routes.Profile()} Icon={IconUserCircle} />
         <MenuItemLink text="Blog" href={Routes.BlogPage()} Icon={IconBook} />
 
-        {session.role === "ADMIN" && <MenuItemLink text="Users" href={Routes.UsersPage()} Icon={IconUserCircle} />}
-        {session.role === "ADMIN" && <MenuItemLink text="Coaches" href={Routes.CoachesPage()} Icon={IconTrain} />}
+        {session.role === "ADMIN" && <MenuItemLink text="Utilisateurs" href={Routes.UsersPage()} Icon={IconUsers} />}
+        {session.role === "ADMIN" && <MenuItemLink text="Coachs" href={Routes.CoachesPage()} Icon={IconStretching} />}
 
-        <MenuItemLink text="Edit profile" href={Routes.EditProfilePage()} Icon={IconPencil} />
+        <MenuItemLink text="Modifier le profil" href={Routes.EditProfilePage()} Icon={IconPencil} />
 
-        <MenuItemLink text="Settings" href={Routes.SettingsPage()} Icon={IconSettings} />
+        <MenuItemLink text="Paramètres" href={Routes.SettingsPage()} Icon={IconSettings} />
 
         <Menu.Divider />
 
-        <Menu.Label>Danger zone</Menu.Label>
+        <Menu.Label>Zone dangereuse</Menu.Label>
 
         <Menu.Item
           color="red"
@@ -78,7 +80,7 @@ const UserHeaderMenu = () => {
           }}
           leftSection={<IconLogout style={{ width: rem(14), height: rem(14) }} />}
         >
-          Logout
+          Déconnexion
         </Menu.Item>
       </Menu.Dropdown>
     </Menu>
