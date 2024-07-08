@@ -16,7 +16,13 @@ import React from "react";
 
 const getChild = (height: number, theme: MantineTheme, index: number) => (
   <Stack style={{ borderRadius: theme.radius.md }} h={height} bg={"black"}>
-    <Image style={{ borderRadius: theme.radius.md }} src={`/images/gym_${index}.jpeg`} h={height} alt="image" />
+    <Image
+      fit="cover"
+      style={{ borderRadius: theme.radius.md }}
+      src={`/images/gym_${index}.jpg`}
+      mih={height}
+      alt="image"
+    />
   </Stack>
 );
 
@@ -29,7 +35,7 @@ const OurPost: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Center mt={100}>
+      <Center mt={{ base: 100, md: 150 }}>
         <Vertical gap={0}>
           <Center>
             <Text>Instagram Feed</Text>
@@ -45,15 +51,15 @@ const OurPost: React.FC = () => {
         <SimpleGrid cols={{ base: 1, xs: 4 }}>
           {getChild(BASE_HEIGHT, theme, 2)}
           <Stack>
-            {getChild(getSubHeight(2, px(theme.spacing.md) as number), theme, 2)}
-            {getChild(getSubHeight(2, px(theme.spacing.md) as number), theme, 1)}
+            {getChild(getSubHeight(2, px(theme.spacing.md) as number), theme, 6)}
+            {getChild(getSubHeight(2, px(theme.spacing.md) as number), theme, 4)}
           </Stack>
           <Stack>
-            {getChild(getSubHeight(3, px(theme.spacing.md) as number), theme, 1)}
-            {getChild(getSubHeight(3, px(theme.spacing.md) as number), theme, 1)}
+            {getChild(getSubHeight(3, px(theme.spacing.md) as number), theme, 3)}
+            {getChild(getSubHeight(3, px(theme.spacing.md) as number), theme, 5)}
             {getChild(getSubHeight(3, px(theme.spacing.md) as number), theme, 1)}
           </Stack>
-          {getChild(BASE_HEIGHT, theme, 1)}
+          {getChild(BASE_HEIGHT, theme, 7)}
         </SimpleGrid>
       </Container>
     </React.Fragment>

@@ -24,10 +24,11 @@ const OurPrograms = () => {
       <Container my="md" mb={80}>
         <Vertical gap={50}>
           <Vertical gap={0}>
-            <Text> Programs</Text>
-            <Title fz={{ base: rem(35), md: rem(50) }}>Our programs</Title>
+            <Text> Programmes</Text>
+            <Title fz={{ base: rem(35), md: rem(50) }}>Nos programmes</Title>
             <Text fz={{ base: rem(13), md: rem(14) }}>
-              Gaine up your routine our growing libray of workouts led <br /> by our world-class Trainers
+              Améliorez votre routine avec notre bibliothèque croissante d'entraînements dirigés <br /> par nos
+              entraîneurs de classe mondiale
             </Text>
           </Vertical>
 
@@ -52,16 +53,16 @@ const OurPrograms = () => {
                     Jacob Warnhalter
                   </Text>
                   <Text fz="sm" c="gray.8">
-                    10 minutes ago
+                    Il y a 10 minutes
                   </Text>
                 </div>
               </Group>
               <Stack gap={80}>
-                <Title order={1} fz={{ base: rem(60), md: rem(80) }} lh={1}>
-                  Training Experience
+                <Title order={1} fz={{ base: rem(40), md: rem(60) }} lh={1}>
+                  Expérience enrichissante d'entraînement{" "}
                 </Title>
                 <Button ml={"auto"} bg={"black"} c={"white"} size="lg" radius={"sm"}>
-                  Learn more
+                  En savoir plus
                 </Button>
               </Stack>
             </Stack>
@@ -75,10 +76,11 @@ const OurPrograms = () => {
                     style={{ borderRadius: theme.radius.md }}
                     src={"http://trainwithlcpt.com/wp-content/uploads/2019/07/service4.jpg"}
                   />
-                  <Stack gap={5} p={10}>
-                    <Title order={3}>Strength Training</Title>
+                  <Stack gap={5} p={12}>
+                    <Title order={3}>Entraînement de force</Title>
                     <Text lineClamp={2} fz={rem(14)}>
-                      This program is designed for those who exercises only for their body fitness not body building.
+                      Ce programme est conçu pour ceux qui font de l'exercice uniquement pour la forme physique et non
+                      pour la musculation.
                     </Text>
                   </Stack>
                 </Stack>
@@ -89,7 +91,7 @@ const OurPrograms = () => {
                     w={"100%"}
                     h={"100%"}
                     style={{ borderRadius: theme.radius.md }}
-                    src="http://trainwithlcpt.com/wp-content/uploads/2019/05/hipcravo-1370862-unsplash.jpg"
+                    src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   />
                 </Stack>
               </Grid.Col>
