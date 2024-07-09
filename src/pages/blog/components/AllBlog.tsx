@@ -1,5 +1,6 @@
 import { BlogCard } from "@/core/components/BlogCard";
 import { InputWithButton } from "@/core/components/InputWithButton";
+import NotFound from "@/core/components/NotFound";
 import getBlogs from "@/features/blogs/queries/getBlogs";
 import { useInfiniteQuery } from "@blitzjs/rpc";
 import { Button, Group, Modal, Radio, SimpleGrid, Stack, ThemeIcon } from "@mantine/core";
@@ -25,6 +26,8 @@ const AllBlog = () => {
       getNextPageParam: (lastPage) => lastPage.nextPage,
     },
   );
+  const hasBlogs = blogPages.some((page) => page.blogs.length > 0);
+
   return (
     <Stack px={{ base: 0, md: 20 }} pt={20} pb={80}>
       <Group>
@@ -43,15 +46,18 @@ const AllBlog = () => {
           <IconAdjustmentsAlt />
         </ThemeIcon>
       </Group>
-      <SimpleGrid cols={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing="xl">
-        {blogPages.map((page, i) => (
-          <React.Fragment key={i}>
-            {page.blogs.map((blog) => (
-              <BlogCard key={blog.id} blog={blog} />
-            ))}
-          </React.Fragment>
-        ))}
-      </SimpleGrid>
+      {hasBlogs && (
+        <SimpleGrid cols={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing="xl">
+          {blogPages.map((page, i) => (
+            <React.Fragment key={i}>
+              {page.blogs.map((blog) => (
+                <BlogCard key={blog.id} blog={blog} />
+              ))}
+            </React.Fragment>
+          ))}
+        </SimpleGrid>
+      )}
+      {!hasBlogs && <NotFound text="Aucun blog trouvé." />}
       {hasNextPage && (
         <Stack>
           <div>

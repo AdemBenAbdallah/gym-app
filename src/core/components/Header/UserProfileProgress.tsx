@@ -2,23 +2,10 @@ import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
 import { Routes } from "@blitzjs/next";
 import { RingProgress, Tooltip } from "@mantine/core";
 import Link from "next/link";
-import React from "react";
 
 const UserProfileProgress = () => {
   const user = useCurrentUser();
   const keys = [
-    {
-      key: "name",
-      label: "Name",
-    },
-    {
-      key: "username",
-      label: "Username",
-    },
-    {
-      key: "bio",
-      label: "Bio",
-    },
     {
       key: "name",
       label: "Name",
@@ -35,9 +22,7 @@ const UserProfileProgress = () => {
 
   if (!user) return;
   const existingKeys = keys.filter(({ key }) => user[key]);
-  const complitionPercentage = Math.round(
-    (existingKeys.length / keys.length) * 100
-  );
+  const complitionPercentage = Math.round((existingKeys.length / keys.length) * 100);
 
   return (
     <>

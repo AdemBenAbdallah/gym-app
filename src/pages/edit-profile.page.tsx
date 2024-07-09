@@ -1,4 +1,3 @@
-import { Vertical } from "@/core/components/MantineLayout";
 import Layout from "@/core/layouts/Layout";
 import EditProfileForm from "@/features/users/form/EditProfileForm";
 import updateUser from "@/features/users/mutations/updateUser";
@@ -6,7 +5,7 @@ import getUserForProfile from "@/features/users/queries/getUserForProfile";
 import { InputUpdateUser, InputUpdateUserType } from "@/features/users/schemas";
 import { BlitzPage, Routes } from "@blitzjs/next";
 import { useMutation, useQuery } from "@blitzjs/rpc";
-import { rem } from "@mantine/core";
+import { Stack, rem } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
 import { useRouter } from "next/router";
@@ -39,9 +38,9 @@ const EditProfilePage: BlitzPage = () => {
 
   return (
     <Layout>
-      <Vertical maw={rem(500)}>
+      <Stack w={{ base: "100%", md: rem(500) }} mx="auto">
         <EditProfileForm form={form} onSubmit={onSubmit} isLoading={isLoading} />
-      </Vertical>
+      </Stack>
     </Layout>
   );
 };

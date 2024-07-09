@@ -13,7 +13,7 @@ const Profile: BlitzPage = () => {
   return (
     <Layout title="Profile">
       {currentUser && (
-        <Stack>
+        <Stack w={{ base: "100%", md: "40%" }} mx={"auto"}>
           <UserCardImage user={currentUser} />
           <UserDetails userId={currentUser?.id} />
         </Stack>

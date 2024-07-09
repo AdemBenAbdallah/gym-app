@@ -1,4 +1,5 @@
 import { InputWithButton } from "@/core/components/InputWithButton";
+import NotFound from "@/core/components/NotFound";
 import RenderTable, { Column } from "@/core/components/RenderTable";
 import { StatsRing } from "@/core/components/StatsRing";
 import UserAvatar from "@/core/components/UserAvatar";
@@ -88,6 +89,7 @@ const CoachsPage: BlitzPage = () => {
       },
     });
 
+  const hasCoachs = users && users.length > 0;
   return (
     <Layout title="Coaches">
       <Flex gap={20}>
@@ -118,7 +120,7 @@ const CoachsPage: BlitzPage = () => {
               Add Coach
             </Button>
           </Group>
-          {users && (
+          {hasCoachs && (
             <RenderTable
               data={users}
               columns={columns}
@@ -130,6 +132,7 @@ const CoachsPage: BlitzPage = () => {
               to={to}
             />
           )}
+          {!hasCoachs && <NotFound text="Aucun coach trouvé." />}
         </Stack>
       </Flex>
       <Modal opened={opened} onClose={close}>

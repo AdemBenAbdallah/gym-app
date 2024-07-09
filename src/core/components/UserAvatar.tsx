@@ -1,5 +1,5 @@
 import { UserType } from "@/features/auth/schemas";
-import { getAvatarFallbackName, getUploadThingUrl } from "@/utils/image-utils";
+import { getUploadThingUrl } from "@/utils/image-utils";
 import { Avatar, AvatarProps } from "@mantine/core";
 
 type Props = Partial<AvatarProps> & {
@@ -7,9 +7,13 @@ type Props = Partial<AvatarProps> & {
 };
 const UserAvatar = ({ user, ...res }: Props) => {
   return (
-    <Avatar src={getUploadThingUrl(user?.avatarImageKey)} radius={"xl"} {...res}>
-      {getAvatarFallbackName(user?.name)}
-    </Avatar>
+    <Avatar
+      src={getUploadThingUrl(user?.avatarImageKey)}
+      key={user?.name}
+      name={user?.name || ""}
+      color="initials"
+      {...res}
+    />
   );
 };
 

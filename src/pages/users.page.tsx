@@ -1,4 +1,5 @@
 import { InputWithButton } from "@/core/components/InputWithButton";
+import NotFound from "@/core/components/NotFound";
 import RenderTable, { Column } from "@/core/components/RenderTable";
 import { StatsRing } from "@/core/components/StatsRing";
 import UserAvatar from "@/core/components/UserAvatar";
@@ -136,6 +137,7 @@ const UsersPage: BlitzPage = () => {
               to={to}
             />
           )}
+          {!users && <NotFound text="Aucun utilisateur trouvé." />}
         </Stack>
       </Flex>
       <Drawer opened={opened} onClose={close}>
