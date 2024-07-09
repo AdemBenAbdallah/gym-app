@@ -13,6 +13,7 @@ import {
   rem,
   useMantineTheme,
 } from "@mantine/core";
+import NextImage from "next/image";
 import React from "react";
 
 const PRIMARY_COL_HEIGHT = rem(600);
@@ -74,7 +75,11 @@ const OurPrograms = () => {
                     w={"100%"}
                     h={"60%"}
                     style={{ borderRadius: theme.radius.md }}
-                    src={`/images/program_1.webp`}
+                    src={"/images/program_2.webp"}
+                    component={NextImage}
+                    width={100}
+                    height={100}
+                    alt="image"
                   />
                   <Stack gap={5} p={12}>
                     <Title order={3}>Entraînement de force</Title>
@@ -91,7 +96,11 @@ const OurPrograms = () => {
                     w={"100%"}
                     h={"100%"}
                     style={{ borderRadius: theme.radius.md }}
-                    src={`/images/program_3.webp`}
+                    component={NextImage}
+                    width={100}
+                    height={100}
+                    alt="image"
+                    src={"/images/program_1.webp"}
                   />
                 </Stack>
               </Grid.Col>
@@ -101,7 +110,11 @@ const OurPrograms = () => {
                     w={"100%"}
                     h={"100%"}
                     style={{ borderRadius: theme.radius.md }}
-                    src={`/images/program_2.webp`}
+                    src={"/images/program_3.jpeg"}
+                    component={NextImage}
+                    width={100}
+                    height={100}
+                    alt="image"
                   />
                 </Stack>
               </Grid.Col>

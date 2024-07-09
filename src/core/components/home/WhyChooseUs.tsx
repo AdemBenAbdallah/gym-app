@@ -21,7 +21,7 @@ const WhyChooseUs = () => {
           flex={1}
           fit="cover"
           radius={12}
-          src={`/images/why-choose-us.webp`}
+          src={"/images/why_choose_us.webp"}
           alt="Pourquoi nous choisir"
           w={300}
           h={600}

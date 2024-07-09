@@ -12,15 +12,25 @@ import {
   rem,
   useMantineTheme,
 } from "@mantine/core";
+import NextImage from "next/image";
 import React from "react";
 
-const getChild = (height: number, theme: MantineTheme, index: number) => (
+interface ImageStackProps {
+  height: number;
+  theme: MantineTheme;
+  index: number;
+}
+
+const ImageStack: React.FC<ImageStackProps> = ({ height, theme, index }) => (
   <Stack style={{ borderRadius: theme.radius.md }} h={height} bg={"black"}>
     <Image
       fit="cover"
       style={{ borderRadius: theme.radius.md }}
-      src={`/images/gym_${index}.webp`}
+      src={"/images/gym_" + index + ".webp"}
       mih={height}
+      component={NextImage}
+      width={100}
+      height={100}
       alt="image"
     />
   </Stack>
@@ -49,17 +59,17 @@ const OurPost: React.FC = () => {
       </Center>
       <Container my="md" mt={50}>
         <SimpleGrid cols={{ base: 1, xs: 4 }}>
-          {getChild(BASE_HEIGHT, theme, 2)}
+          <ImageStack height={BASE_HEIGHT} theme={theme} index={2} />
           <Stack>
-            {getChild(getSubHeight(2, px(theme.spacing.md) as number), theme, 6)}
-            {getChild(getSubHeight(2, px(theme.spacing.md) as number), theme, 4)}
+            <ImageStack height={getSubHeight(2, px(theme.spacing.md) as number)} theme={theme} index={6} />
+            <ImageStack height={getSubHeight(2, px(theme.spacing.md) as number)} theme={theme} index={4} />
           </Stack>
           <Stack>
-            {getChild(getSubHeight(3, px(theme.spacing.md) as number), theme, 3)}
-            {getChild(getSubHeight(3, px(theme.spacing.md) as number), theme, 5)}
-            {getChild(getSubHeight(3, px(theme.spacing.md) as number), theme, 1)}
+            <ImageStack height={getSubHeight(3, px(theme.spacing.md) as number)} theme={theme} index={3} />
+            <ImageStack height={getSubHeight(3, px(theme.spacing.md) as number)} theme={theme} index={5} />
+            <ImageStack height={getSubHeight(3, px(theme.spacing.md) as number)} theme={theme} index={1} />
           </Stack>
-          {getChild(BASE_HEIGHT, theme, 7)}
+          <ImageStack height={BASE_HEIGHT} theme={theme} index={7} />
         </SimpleGrid>
       </Container>
     </React.Fragment>
