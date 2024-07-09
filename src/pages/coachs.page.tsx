@@ -1,16 +1,20 @@
 import { InputWithButton } from "@/core/components/InputWithButton";
 import RenderTable, { Column } from "@/core/components/RenderTable";
+import { StatsRing } from "@/core/components/StatsRing";
 import UserAvatar from "@/core/components/UserAvatar";
 import Layout from "@/core/layouts/Layout";
 import { CoachForm } from "@/features/users/form/CoachForm";
+import deleteUser from "@/features/users/mutations/deleteUser";
 import getUsersByAdmin from "@/features/users/queries/getUsersByAdmin";
 import { calculateAge } from "@/utils/utils";
 import { BlitzPage } from "@blitzjs/next";
-import { usePaginatedQuery } from "@blitzjs/rpc";
-import { Badge, Button, Center, Flex, Group, Modal, Paper, Select, Stack } from "@mantine/core";
+import { useMutation, usePaginatedQuery } from "@blitzjs/rpc";
+import { Badge, Button, Center, Flex, Group, Modal, Select, Stack, Text } from "@mantine/core";
 import { useDebouncedState, useDisclosure } from "@mantine/hooks";
+import { modals } from "@mantine/modals";
+import { notifications } from "@mantine/notifications";
 import { GenderType } from "@prisma/client";
-import { IconGenderFemale, IconGenderMale } from "@tabler/icons-react";
+import { IconGenderFemale, IconGenderMale, IconTrash } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -19,10 +23,11 @@ type FilterGenderType = {
   label: string;
 };
 const ITEMS_PER_PAGE = 10;
-const CoachesPage: BlitzPage = () => {
+const CoachsPage: BlitzPage = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [genderFilter, setGenderFilter] = useState<FilterGenderType | null>(null);
   const [search, setSearch] = useDebouncedState("", 200);
+  const [$deleteUser, { isLoading }] = useMutation(deleteUser, {});
 
   const router = useRouter();
   const page = Number(router.query.page) || 0;
@@ -58,12 +63,35 @@ const CoachesPage: BlitzPage = () => {
         </Badge>
       ),
     },
+    {
+      header: "",
+      accessor: (user: UserType) => (
+        <IconTrash onClick={() => openDeleteModal(user.id)} style={{ cursor: "pointer" }} stroke={1} size={25} />
+      ),
+    },
   ];
+
+  const openDeleteModal = (id: string) =>
+    modals.openConfirmModal({
+      title: "Supprimer votre Coach",
+      centered: true,
+      children: <Text size="md">Êtes-vous sûr de vouloir supprimer votre Coach ?</Text>,
+      labels: { confirm: "Supprimer", cancel: "Cancel" },
+      confirmProps: { color: "red", loading: isLoading },
+      onConfirm: async () => {
+        await $deleteUser({ id });
+        notifications.show({
+          title: "Coach supprimé",
+          message: "Le Coach a bien été supprimé",
+          color: "red",
+        });
+      },
+    });
 
   return (
     <Layout title="Coaches">
       <Flex gap={20}>
-        <Paper radius={"md"} bg={"lime.1"} miw={300}></Paper>
+        <StatsRing />
         <Stack flex={8} gap={30}>
           <Group justify="space-between">
             <Group>
@@ -111,4 +139,4 @@ const CoachesPage: BlitzPage = () => {
   );
 };
 
-export default CoachesPage;
+export default CoachsPage;
