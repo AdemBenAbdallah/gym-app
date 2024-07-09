@@ -74,7 +74,7 @@ const OurPrograms = () => {
                     w={"100%"}
                     h={"60%"}
                     style={{ borderRadius: theme.radius.md }}
-                    src={"http://trainwithlcpt.com/wp-content/uploads/2019/07/service4.jpg"}
+                    src={`/images/program_1.webp`}
                   />
                   <Stack gap={5} p={12}>
                     <Title order={3}>Entraînement de force</Title>
@@ -91,7 +91,7 @@ const OurPrograms = () => {
                     w={"100%"}
                     h={"100%"}
                     style={{ borderRadius: theme.radius.md }}
-                    src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    src={`/images/program_3.webp`}
                   />
                 </Stack>
               </Grid.Col>
@@ -101,7 +101,7 @@ const OurPrograms = () => {
                     w={"100%"}
                     h={"100%"}
                     style={{ borderRadius: theme.radius.md }}
-                    src={"http://trainwithlcpt.com/wp-content/uploads/2019/05/hipcravo-1370862-unsplash.jpg"}
+                    src={`/images/program_2.webp`}
                   />
                 </Stack>
               </Grid.Col>

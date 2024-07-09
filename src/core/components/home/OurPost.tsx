@@ -19,7 +19,7 @@ const getChild = (height: number, theme: MantineTheme, index: number) => (
     <Image
       fit="cover"
       style={{ borderRadius: theme.radius.md }}
-      src={`/images/gym_${index}.jpg`}
+      src={`/images/gym_${index}.webp`}
       mih={height}
       alt="image"
     />
