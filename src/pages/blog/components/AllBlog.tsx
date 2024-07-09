@@ -2,17 +2,22 @@ import { BlogCard } from "@/core/components/BlogCard";
 import { InputWithButton } from "@/core/components/InputWithButton";
 import NotFound from "@/core/components/NotFound";
 import getBlogs from "@/features/blogs/queries/getBlogs";
+import { BlogType } from "@/features/blogs/schema";
 import { useInfiniteQuery } from "@blitzjs/rpc";
 import { Button, Group, Modal, Radio, SimpleGrid, Stack, ThemeIcon } from "@mantine/core";
 import { useDebouncedState, useDisclosure } from "@mantine/hooks";
 import { IconAdjustmentsAlt } from "@tabler/icons-react";
 import React, { useState } from "react";
-import { blogCategory } from "./AddBlog";
+import AddBlog, { blogCategory } from "./AddBlog";
 
 const AllBlog = () => {
   const [search, setSearch] = useDebouncedState("", 200);
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [opened, { open, close }] = useDisclosure(false);
+  const [openedUpdate, { open: openUpdate, close: closeUpdate }] = useDisclosure(false);
+
+  const [selectedBlog, setSelectedBlog] = useState<BlogType | null>(null);
+
   const [blogPages, { isFetchingNextPage, fetchNextPage, hasNextPage }] = useInfiniteQuery(
     getBlogs,
     (page = { take: 10, skip: 0 }) => ({
@@ -51,7 +56,7 @@ const AllBlog = () => {
           {blogPages.map((page, i) => (
             <React.Fragment key={i}>
               {page.blogs.map((blog) => (
-                <BlogCard key={blog.id} blog={blog} />
+                <BlogCard key={blog.id} blog={blog} setSelectedBlog={setSelectedBlog} updateModalOpen={openUpdate} />
               ))}
             </React.Fragment>
           ))}
@@ -67,6 +72,9 @@ const AllBlog = () => {
           </div>
         </Stack>
       )}
+      <Modal opened={openedUpdate} onClose={closeUpdate} fullScreen>
+        <AddBlog close={closeUpdate} blog={selectedBlog} />
+      </Modal>
       <Modal opened={opened} onClose={close} title="Blog Categories" centered size={"sm"}>
         <BlogCategorySelector
           blogCategories={blogCategory}

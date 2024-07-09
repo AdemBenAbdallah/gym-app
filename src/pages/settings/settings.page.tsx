@@ -1,35 +1,28 @@
 import Layout from "@/core/layouts/Layout";
+import useResponsive from "@/utils/useResponsive";
 import { BlitzPage } from "@blitzjs/next";
 import { Tabs, rem } from "@mantine/core";
-import { IconSettings, IconUserCog, IconMail } from "@tabler/icons-react";
+import { IconUserCog } from "@tabler/icons-react";
 import { ChangePassword } from "./components/ChangePassword";
 import UserEmailSettings from "./components/UserEmailSettings";
 
 const SettingsPage: BlitzPage = () => {
-  const iconStyle = { width: rem(12), height: rem(12) };
+  const iconStyle = { width: rem(20), height: rem(20) };
+  const { isMobile } = useResponsive();
 
   return (
     <Layout title="Settings">
-      <Tabs defaultValue="gallery" orientation="vertical">
+      <Tabs defaultValue="gallery" orientation={!isMobile ? "vertical" : "horizontal"}>
         <Tabs.List>
-          <Tabs.Tab
-            value="gallery"
-            leftSection={<IconUserCog style={iconStyle} />}
-          >
+          <Tabs.Tab value="gallery" leftSection={<IconUserCog style={iconStyle} />}>
             Account
           </Tabs.Tab>
-          <Tabs.Tab
-            value="messages"
-            leftSection={<IconMail style={iconStyle} />}
-          >
+          {/* <Tabs.Tab value="messages" leftSection={<IconMail style={iconStyle} />}>
             Email
           </Tabs.Tab>
-          <Tabs.Tab
-            value="settings"
-            leftSection={<IconSettings style={iconStyle} />}
-          >
+          <Tabs.Tab value="settings" leftSection={<IconSettings style={iconStyle} />}>
             Settings
-          </Tabs.Tab>
+          </Tabs.Tab> */}
         </Tabs.List>
 
         <Tabs.Panel pl={"xs"} value="gallery">

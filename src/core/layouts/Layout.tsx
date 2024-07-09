@@ -1,6 +1,6 @@
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser";
 import { ErrorBoundary, Routes } from "@blitzjs/next";
-import { Anchor, AppShell, Image, Modal, Text, Tooltip, useMantineTheme } from "@mantine/core";
+import { Anchor, AppShell, Image, Text, Tooltip, useMantineTheme } from "@mantine/core";
 import { IconUserPlus } from "@tabler/icons-react";
 import Head from "next/head";
 import Link from "next/link";
@@ -10,7 +10,6 @@ import FullPageLoader from "../components/FulllPageLoader";
 import UserHeaderMenu from "../components/Header/UserHeaderMenu";
 import UserProfileProgress from "../components/Header/UserProfileProgress";
 import { Horizontal, Vertical } from "../components/MantineLayout";
-import OnboardingWizard from "../components/OnboardingWzard";
 import { RootErrorFallback } from "../components/RootErrorFallback";
 
 type Props = { title?: string };
@@ -57,21 +56,7 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
         <AppShell.Main h={"100%"}>
           <Vertical fullH fullW>
             <ErrorBoundary resetKeys={[currentUser]} FallbackComponent={RootErrorFallback}>
-              <Suspense fallback={<FullPageLoader />}>
-                {currentUser && (
-                  <Modal
-                    closeOnClickOutside={false}
-                    withCloseButton={false}
-                    size={"xl"}
-                    centered
-                    opened={!currentUser?.onboarded}
-                    onClose={() => {}}
-                  >
-                    <OnboardingWizard />
-                  </Modal>
-                )}
-                {children}
-              </Suspense>
+              <Suspense fallback={<FullPageLoader />}>{children}</Suspense>
             </ErrorBoundary>
           </Vertical>
         </AppShell.Main>

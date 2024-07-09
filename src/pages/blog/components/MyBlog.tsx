@@ -1,12 +1,13 @@
 import { BlogCard } from "@/core/components/BlogCard";
 import { InputWithButton } from "@/core/components/InputWithButton";
+import NotFound from "@/core/components/NotFound";
 import getBlogs from "@/features/blogs/queries/getBlogs";
 import { BlogType } from "@/features/blogs/schema";
 import { useSession } from "@blitzjs/auth";
 import { useInfiniteQuery } from "@blitzjs/rpc";
 import { Button, Group, Modal, SimpleGrid, Stack, ThemeIcon } from "@mantine/core";
 import { useDebouncedState, useDisclosure } from "@mantine/hooks";
-import { IconAdjustmentsAlt } from "@tabler/icons-react";
+import { IconAdjustmentsAlt, IconPlus } from "@tabler/icons-react";
 import { Fragment, useState } from "react";
 import AddBlog, { blogCategory } from "./AddBlog";
 import { BlogCategorySelector } from "./AllBlog";
@@ -33,23 +34,39 @@ const MyBlog = () => {
       getNextPageParam: (lastPage) => lastPage.nextPage,
     },
   );
+  const hasBlogs = blogPages.some((page) => page.blogs.length > 0);
 
   return (
-    <Stack p={20}>
+    <Stack px={{ base: 0, md: 20 }} pt={20} pb={80}>
       <Group justify="space-between">
         <Group>
-          <InputWithButton defaultValue={search} onChange={(event) => setSearch(event.currentTarget.value)} w={400} />
-          <ThemeIcon
-            onClick={openFilter}
-            variant="gradient"
-            size="lg"
-            style={{ cursor: "pointer" }}
-            gradient={{ from: "lime", to: "teal", deg: 90 }}
-          >
-            <IconAdjustmentsAlt />
-          </ThemeIcon>
+          <InputWithButton
+            w={{ base: 250, md: 300 }}
+            defaultValue={search}
+            onChange={(event) => setSearch(event.currentTarget.value)}
+          />
+          <Group>
+            <ThemeIcon
+              onClick={openFilter}
+              variant="gradient"
+              size="lg"
+              style={{ cursor: "pointer" }}
+              gradient={{ from: "lime", to: "teal", deg: 90 }}
+            >
+              <IconAdjustmentsAlt />
+            </ThemeIcon>
+            <ThemeIcon
+              onClick={open}
+              variant="gradient"
+              size="lg"
+              style={{ cursor: "pointer" }}
+              gradient={{ from: "lime", to: "teal", deg: 90 }}
+            >
+              <IconPlus />
+            </ThemeIcon>
+          </Group>
         </Group>
-        <Button onClick={open} radius={"md"} c={"white"}>
+        <Button visibleFrom="sm" onClick={open} radius={"md"} c={"white"}>
           Add Blog
         </Button>
       </Group>
@@ -71,6 +88,7 @@ const MyBlog = () => {
           </div>
         </Stack>
       )}
+      {!hasBlogs && <NotFound text="Aucun blog trouvé." />}
       <Modal opened={opened} onClose={close} fullScreen>
         <AddBlog close={close} blog={selectedBlog} />
       </Modal>

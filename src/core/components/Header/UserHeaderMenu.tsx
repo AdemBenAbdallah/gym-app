@@ -8,7 +8,6 @@ import {
   IconBook,
   IconHome,
   IconLogout,
-  IconPencil,
   IconSettings,
   IconStretching,
   IconUserCircle,
@@ -64,7 +63,7 @@ const UserHeaderMenu = () => {
         {session.role === "ADMIN" && <MenuItemLink text="Utilisateurs" href={Routes.UsersPage()} Icon={IconUsers} />}
         {session.role === "ADMIN" && <MenuItemLink text="Coachs" href={Routes.CoachsPage()} Icon={IconStretching} />}
 
-        <MenuItemLink text="Modifier le profil" href={Routes.EditProfilePage()} Icon={IconPencil} />
+        {/* <MenuItemLink text="Modifier le profil" href={Routes.EditProfilePage()} Icon={IconPencil} /> */}
 
         <MenuItemLink text="Paramètres" href={Routes.SettingsPage()} Icon={IconSettings} />
 

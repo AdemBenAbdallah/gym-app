@@ -60,7 +60,7 @@ export function LoginForm(props: { toggle: () => void }) {
             </Vertical>
           </Stack>
 
-          <Flex justify="space-between" mt="xl">
+          <Flex justify="space-between" mt="xl" gap={10}>
             <Anchor
               style={{ textAlign: "start" }}
               component="button"

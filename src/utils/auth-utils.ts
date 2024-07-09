@@ -1,18 +1,14 @@
 import { InputLogin } from "@/features/auth/schemas";
 import { SecurePassword } from "@blitzjs/auth/secure-password";
-import { AuthenticationError } from "blitz";
 import db from "db";
 
-export const authenticateUser = async (
-  rawEmail: string,
-  rawPassword: string
-) => {
+export const authenticateUser = async (rawEmail: string, rawPassword: string) => {
   const { email, password } = InputLogin.parse({
     email: rawEmail,
     password: rawPassword,
   });
   const user = await db.user.findFirst({ where: { email } });
-  if (!user) throw new AuthenticationError();
+  if (!user) throw new Error("Email ou mot de passe incorrect");
 
   const result = await SecurePassword.verify(user.hashedPassword, password);
 
