@@ -22,10 +22,10 @@ export function UserCardImage({ user }: { user: UserType }) {
         style={{ border: "5px solid white" }}
       />
       <Text ta="center" fz="lg" fw={500} mt="sm">
-        Bill Headbanger
+        {user?.name}
       </Text>
       <Text ta="center" fz="sm" c="dimmed">
-        Fullstack engineer
+        {user?.email}
       </Text>
 
       <Button

@@ -1,58 +1,85 @@
-import { Box, Button, Center, FileButton, Flex, Group, Image, Stack } from "@mantine/core";
-import React, { useEffect, useRef, useState } from "react";
+import { getUploadThingUrl } from "@/utils/image-utils";
+import { ActionIcon, Center, FileInput, Image, Indicator, Loader, Text, Tooltip } from "@mantine/core";
+import { UseFormReturnType } from "@mantine/form";
+import { notifications } from "@mantine/notifications";
+import { IconImageInPicture, IconPhoto, IconX } from "@tabler/icons-react";
+import { useState } from "react";
+import { Horizontal, Vertical } from "./MantineLayout";
+import { useUploadThing } from "./Uploadthing";
 
-type ImageUploadProps = {
-  fileUploaded: File | null;
-  setFileUploaded: (fileUploaded: File | null) => void;
-  width: string;
-  height: string;
-  children?: React.ReactNode;
+type Props = {
+  form: UseFormReturnType<any>;
+  label: string;
+  name: string;
 };
 
-const ImageUpload = ({ fileUploaded, setFileUploaded, width, height, children }: ImageUploadProps) => {
-  const [isImageUploaded, setIsImageUploaded] = useState(false);
-  const resetRef = useRef<() => void>(null);
+const ImagesUpload = ({ form, label, name }: Props) => {
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (fileUploaded) setIsImageUploaded(true);
-  }, [fileUploaded]);
+  const { startUpload } = useUploadThing("imageUploader", {
+    onClientUploadComplete: (res) => {
+      setLoading(false);
+      const fileKey = res?.[0]?.key;
+      notifications.show({
+        color: "green",
+        title: "Succes",
+        message: "File uploaded!",
+      });
+      form.setFieldValue(name, fileKey);
+    },
+    onUploadError: (error) => {
+      setLoading(false);
+      notifications.show({
+        color: "red",
+        title: "Error",
+        message: error.message,
+      });
+    },
+  });
 
-  const clearFile = () => {
-    setFileUploaded(null);
-    resetRef.current?.();
-    setIsImageUploaded(false);
-  };
-
+  const existingAvatarImgKey = form.values[name];
   return (
-    <Group>
-      <Flex
-        align="center"
-        justify="center"
-        w={width}
-        h={height}
-        bg="#EDF1FD"
-        pos="relative"
-        style={{ border: "1px dashed #2C74FF", borderRadius: "0.5rem" }}
-      >
-        {children}
-        {isImageUploaded && fileUploaded && (
-          <Box pos={"absolute"} top={0} bottom={0}>
-            <Image w={"100%"} h={"100%"} src={URL.createObjectURL(fileUploaded)} alt="Uploaded file" />
-          </Box>
-        )}
-      </Flex>
-      <Center>
-        <Stack>
-          <FileButton resetRef={resetRef} onChange={setFileUploaded} accept="image/png,image/jpeg">
-            {(props) => <Button {...props}>Upload</Button>}
-          </FileButton>
-          <Button disabled={!isImageUploaded} color="red" onClick={clearFile}>
-            Reset
-          </Button>
-        </Stack>
+    <Vertical>
+      <Horizontal>
+        <Text>{label}</Text>
+        {loading && <Loader size="xs" />}
+      </Horizontal>
+      {existingAvatarImgKey && (
+        <Indicator
+          w={"fit-content"}
+          color="none"
+          label={
+            <Tooltip color="dark" label="Clear image">
+              <ActionIcon onClick={() => form.setFieldValue(name, "")} size="xs" variant="gradient">
+                <IconX size={16} color="#fff" />
+              </ActionIcon>
+            </Tooltip>
+          }
+        >
+          <Image w={"100%"} radius={"sm"} src={getUploadThingUrl(existingAvatarImgKey)} alt="avatar" />
+        </Indicator>
+      )}
+      <Center bd={"1px solid blue"} w={300} h={300}>
+        <IconImageInPicture size={25} stroke={0.8} />
       </Center>
-    </Group>
+      {!existingAvatarImgKey && (
+        <FileInput
+          maw={300}
+          disabled={loading}
+          clearable={true}
+          w={"fit-content"}
+          onChange={async (file) => {
+            if (file) {
+              setLoading(true);
+              await startUpload([file]);
+            }
+          }}
+          placeholder={label}
+          leftSection={<IconPhoto size={16} />}
+        />
+      )}
+    </Vertical>
   );
 };
 
-export default ImageUpload;
+export default ImagesUpload;

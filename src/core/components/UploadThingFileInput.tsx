@@ -25,7 +25,6 @@ const UploadThingFileInput = ({ form, label, name }: Props) => {
         title: "Succes",
         message: "File uploaded!",
       });
-      console.log(form.values, form.values.name, name, fileKey);
       form.setFieldValue(name, fileKey);
     },
     onUploadError: (error) => {
@@ -39,7 +38,6 @@ const UploadThingFileInput = ({ form, label, name }: Props) => {
   });
 
   const existingAvatarImgKey = form.values[name];
-  console.log(existingAvatarImgKey);
   return (
     <Vertical>
       <Horizontal>
