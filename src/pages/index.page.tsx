@@ -1,5 +1,4 @@
 import {
-  FeaturesCards,
   FooterLinks,
   HeroSection,
   InfinityHScroll,
@@ -9,6 +8,7 @@ import {
   WhyChooseUs,
 } from "@/core/components/home";
 import Section1 from "@/core/components/home/Section1";
+import Section2 from "@/core/components/home/Section2";
 import HomeLayout from "@/core/layouts/HomeLayout";
 import { BlitzPage } from "@blitzjs/next";
 
@@ -18,9 +18,9 @@ const Home: BlitzPage = () => {
       <HeroSection />
       <InfinityHScroll />
       <Section1 />
+      <Section2 />
       <WhyChooseUs />
       <OurPost />
-      <FeaturesCards />
       <OurBlog />
       <JoinUs />
       <FooterLinks />

@@ -17,7 +17,7 @@ const Section1 = () => {
       <Center>
         <SimpleGrid w={"70%"} cols={{ base: 1, md: 4 }} mt={{ base: 10, md: 50 }}>
           {data.map((item, index) => (
-            <Box maw={300}>
+            <Box maw={300} key={index}>
               <BackgroundImage src={"/images/services_" + `${index + 1}` + ".jpg"} radius="sm">
                 <Text p={"md"} c="white" fz={rem(30)}>
                   0{index + 1}.
