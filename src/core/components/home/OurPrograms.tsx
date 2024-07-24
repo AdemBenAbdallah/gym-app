@@ -22,7 +22,7 @@ const OurPrograms = () => {
   const SECONDARY_COL_HEIGHT = `calc(${PRIMARY_COL_HEIGHT} / 2 - var(--mantine-spacing-md) / 2)`;
   return (
     <React.Fragment>
-      <Container my="md" mb={80}>
+      <Container my="lg" mb={80}>
         <Vertical gap={50}>
           <Vertical gap={0}>
             <Text> Programmes</Text>
@@ -35,7 +35,7 @@ const OurPrograms = () => {
 
           <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
             <Stack
-              bg={"lime.6"}
+              bg={"custom"}
               h={PRIMARY_COL_HEIGHT}
               style={{ borderRadius: theme.radius.md }}
               px={"lg"}
@@ -50,15 +50,15 @@ const OurPrograms = () => {
                   radius="xl"
                 />
                 <div>
-                  <Text fw={600} fz="md">
+                  <Text c={"white"} fw={600} fz="md">
                     Jacob Warnhalter
                   </Text>
-                  <Text fz="sm" c="gray.8">
+                  <Text c="white" fz="sm">
                     Il y a 10 minutes
                   </Text>
                 </div>
               </Group>
-              <Stack gap={80}>
+              <Stack c={"white"} gap={80}>
                 <Title order={1} fz={{ base: rem(40), md: rem(60) }} lh={1}>
                   Expérience enrichissante d'entraînement{" "}
                 </Title>

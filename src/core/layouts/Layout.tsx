@@ -24,7 +24,7 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
     <>
       <Head>
         <title>{title || "Gym"}</title>
-        <link rel="icon" href="/images/logo.svg" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <AppShell header={{ height: 60 }} padding="md" h={"100%"}>
@@ -32,7 +32,7 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
           <Horizontal fullH align="center" justify="space-between" p={"md"}>
             <Anchor component={Link} underline="never" href={Routes.Home()}>
               <Text fz={"h3"} fw={500}>
-                <Image style={{ borderRadius: theme.radius.md }} src="/images/logo.svg" w={50} />
+                <Image style={{ borderRadius: theme.radius.md }} src="/favicon.ico" w={50} />
               </Text>
             </Anchor>
             <Horizontal>

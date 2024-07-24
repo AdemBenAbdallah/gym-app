@@ -46,7 +46,7 @@ const AllBlog = () => {
           variant="gradient"
           size="lg"
           style={{ cursor: "pointer" }}
-          gradient={{ from: "lime", to: "teal", deg: 90 }}
+          gradient={{ from: "custom", to: "teal", deg: 90 }}
         >
           <IconAdjustmentsAlt />
         </ThemeIcon>

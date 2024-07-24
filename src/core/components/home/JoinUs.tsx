@@ -9,7 +9,7 @@ const JoinUs = () => {
     <Center mb={70}>
       <Center
         w={"90%"}
-        bg={"lime"}
+        bg={"custom"}
         mt={rem(120)}
         c={"white"}
         px={{ base: rem(20), sm: rem(20) }}
