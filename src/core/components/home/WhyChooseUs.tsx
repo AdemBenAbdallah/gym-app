@@ -60,7 +60,7 @@ const WhyChooseUs = () => {
                 {idx < 5 ? (
                   <CountUp
                     className="counter-on-scroll"
-                    style={{ fontSize: rem(50), fontWeight: 700, lineHeight: 1.2 }}
+                    style={{ fontSize: rem(70), fontWeight: 700, lineHeight: 1.2 }}
                     end={item.value}
                     enableScrollSpy
                   />

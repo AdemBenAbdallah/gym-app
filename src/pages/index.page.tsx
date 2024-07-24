@@ -5,6 +5,7 @@ import {
   JoinUs,
   OurBlog,
   OurPost,
+  Section3,
   WhyChooseUs,
 } from "@/core/components/home";
 import Section1 from "@/core/components/home/Section1";
@@ -21,6 +22,7 @@ const Home: BlitzPage = () => {
       <Section2 />
       <WhyChooseUs />
       <OurPost />
+      <Section3 />
       <OurBlog />
       <JoinUs />
       <FooterLinks />
