@@ -6,9 +6,9 @@ import {
   JoinUs,
   OurBlog,
   OurPost,
-  OurPrograms,
   WhyChooseUs,
 } from "@/core/components/home";
+import Section1 from "@/core/components/home/Section1";
 import HomeLayout from "@/core/layouts/HomeLayout";
 import { BlitzPage } from "@blitzjs/next";
 
@@ -17,7 +17,7 @@ const Home: BlitzPage = () => {
     <HomeLayout title="Home">
       <HeroSection />
       <InfinityHScroll />
-      <OurPrograms />
+      <Section1 />
       <WhyChooseUs />
       <OurPost />
       <FeaturesCards />

@@ -1,5 +1,5 @@
-import { Horizontal, Vertical } from "@/core/components/MantineLayout";
-import { CheckIcon, ColorSwatch, Container, Flex, Image, Text, Title, rem } from "@mantine/core";
+import { Box, CheckIcon, ColorSwatch, Flex, Grid, Group, Stack, Text, Title, rem } from "@mantine/core";
+import CountUp from "react-countup";
 
 const WhyChooseUs = () => {
   const reasons = [
@@ -14,49 +14,93 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <Container size="md" mt={{ base: 100, md: 200 }}>
-      <Flex align="flex-start" gap="xl" direction={{ base: "column", md: "row" }}>
-        <Image
-          display={{ base: "none", md: "block" }}
-          flex={1}
-          fit="cover"
-          radius={12}
-          src={"/images/why_choose_us.webp"}
-          alt="Pourquoi nous choisir"
-          w={300}
-          h={600}
-        />
-        <Vertical flex={1} gap="xl">
-          <Vertical gap={5}>
-            <Vertical gap={0}>
-              <Text c="lime.6" fw={600}>
-                À propos
-              </Text>
-              <Title order={1} fz={{ base: rem(35), md: rem(40) }}>
-                Pourquoi nous choisir
-              </Title>
-            </Vertical>
-            <Text c={"gray"}>
-              Choisissez votre classe préférée et commencez maintenant. Rappelez-vous, le seul mauvais entraînement est
-              celui que vous n'avez pas fait.
-            </Text>
-          </Vertical>
-          <Vertical gap="sm">
+    <Stack bg={"gray.2"} mt={{ base: 100, md: 200 }}>
+      <Group>
+        <Stack pl={100}>
+          <Flex align="flex-start" gap="xl" direction={{ base: "column", md: "row" }}>
+            <Stack flex={1} gap="xl">
+              <Stack gap={5}>
+                <Stack gap={0}>
+                  <Text c="custom" fw={600}>
+                    À propos
+                  </Text>
+                  <Title order={1} fz={{ base: rem(35), md: rem(40) }}>
+                    Pourquoi nous choisir
+                  </Title>
+                </Stack>
+                <Text c={"gray"} maw={500}>
+                  Choisissez votre classe préférée et commencez maintenant. Rappelez-vous, le seul mauvais entraînement
+                  est celui que vous n'avez pas fait.
+                </Text>
+              </Stack>
+            </Stack>
+          </Flex>
+          <Stack gap="sm">
             {reasons.map((reason, index) => (
-              <Horizontal key={index} gap="lg" align="center">
-                <ColorSwatch component="button" color="var(--mantine-color-lime-6)" style={{ color: "#fff" }}>
+              <Group key={index} gap="lg" align="center">
+                <ColorSwatch component="button" color="var(--mantine-color-custom-6)" style={{ color: "#fff" }}>
                   <CheckIcon style={{ width: rem(12), height: rem(12) }} />
                 </ColorSwatch>
                 <Text fz={{ base: rem(15), md: rem(17) }} fw={600}>
                   {reason}
                 </Text>
-              </Horizontal>
+              </Group>
             ))}
-          </Vertical>
-        </Vertical>
-      </Flex>
-    </Container>
+          </Stack>
+        </Stack>
+        <Grid gutter={0} flex={1} bg={"custom"} w={"100%"} c={"white"}>
+          {Whydata.map((item, idx) => (
+            <Grid.Col
+              key={idx}
+              p={{ base: rem(29), sm: rem(64) }}
+              style={{ borderLeft: "1px solid #F1F4F0", borderBottom: "1px solid #F1F4F0" }}
+              span={{ base: 6 }}
+            >
+              <Box bg={"custom"} c={"black.9"} mih={200}>
+                {idx < 5 ? (
+                  <CountUp
+                    className="counter-on-scroll"
+                    style={{ fontSize: rem(50), fontWeight: 700, lineHeight: 1.2 }}
+                    end={item.value}
+                    enableScrollSpy
+                  />
+                ) : null}
+                <Text fw={300} fz={rem(20)}>
+                  {item.subtitle}
+                </Text>
+              </Box>
+            </Grid.Col>
+          ))}
+        </Grid>
+      </Group>
+    </Stack>
   );
 };
 
+const Whydata = [
+  {
+    value: 120,
+    subtitle: "Projects delivered and counting. Let's make yours next!",
+  },
+  {
+    value: 120,
+    subtitle: "Active projects underway. Ready to add yours to the list!",
+  },
+  {
+    value: 120,
+    subtitle: "Verified talents, screened and ready to tackle your project.",
+  },
+  {
+    value: 120,
+    subtitle: "Tests completed, ensuring top-notch quality for your project.",
+  },
+  {
+    value: 120,
+    subtitle: "Satisfied clients and counting. Let's make you the next one!",
+  },
+  {
+    value: 120,
+    subtitle: "",
+  },
+];
 export default WhyChooseUs;

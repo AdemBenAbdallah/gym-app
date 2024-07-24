@@ -1,17 +1,5 @@
 import { Vertical } from "@/core/components/MantineLayout";
-import {
-  Center,
-  Container,
-  Image,
-  MantineTheme,
-  SimpleGrid,
-  Stack,
-  Text,
-  Title,
-  px,
-  rem,
-  useMantineTheme,
-} from "@mantine/core";
+import { Center, Image, MantineTheme, SimpleGrid, Stack, Text, Title, px, rem, useMantineTheme } from "@mantine/core";
 import NextImage from "next/image";
 import React from "react";
 
@@ -36,7 +24,7 @@ const ImageStack: React.FC<ImageStackProps> = ({ height, theme, index }) => (
   </Stack>
 );
 
-const BASE_HEIGHT = 360;
+const BASE_HEIGHT = 560;
 const getSubHeight = (children: number, spacing: number) =>
   BASE_HEIGHT / children - spacing * ((children - 1) / children);
 
@@ -57,7 +45,7 @@ const OurPost: React.FC = () => {
           </Center>
         </Vertical>
       </Center>
-      <Container my="md" mt={50}>
+      <Stack px={100} mt={50}>
         <SimpleGrid cols={{ base: 1, xs: 4 }}>
           <ImageStack height={BASE_HEIGHT} theme={theme} index={2} />
           <Stack>
@@ -71,7 +59,7 @@ const OurPost: React.FC = () => {
           </Stack>
           <ImageStack height={BASE_HEIGHT} theme={theme} index={7} />
         </SimpleGrid>
-      </Container>
+      </Stack>
     </React.Fragment>
   );
 };
