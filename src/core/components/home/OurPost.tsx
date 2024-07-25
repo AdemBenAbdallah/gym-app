@@ -32,7 +32,7 @@ const OurPost: React.FC = () => {
   const theme = useMantineTheme();
 
   return (
-    <React.Fragment>
+    <div className="autoShow">
       <Center mt={{ base: 100, md: 150 }}>
         <Vertical gap={0}>
           <Center>
@@ -60,7 +60,7 @@ const OurPost: React.FC = () => {
           <ImageStack height={BASE_HEIGHT} theme={theme} index={7} />
         </SimpleGrid>
       </Stack>
-    </React.Fragment>
+    </div>
   );
 };
 

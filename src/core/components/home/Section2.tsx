@@ -4,7 +4,7 @@ const Section2 = () => {
   return (
     <Stack mt={200} align="center">
       <Group gap={200}>
-        <Box w={450} pos={"relative"}>
+        <Box className="slideShowRight" w={450} pos={"relative"}>
           <Image w={"100%"} src="/images/program_3.jpeg" alt="man gym " />
           <Box
             pos={"absolute"}
@@ -21,7 +21,7 @@ const Section2 = () => {
             Choose your plan and trainer
           </Box>
         </Box>
-        <Stack maw={500} gap={80}>
+        <Stack className="slideShowLeft" maw={500} gap={80}>
           <Stack>
             <Text fz={rem(14)} lh={rem(15)} tt={"uppercase"} span>
               WHY CHOOSE US{" "}

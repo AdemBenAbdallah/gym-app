@@ -10,8 +10,8 @@ const Section3 = () => {
         <Box pos={"relative"} flex={1}>
           <Box pos={"absolute"} bottom={-100} right={-100}>
             <Group w={900} h={400} gap={20} justify="end">
-              <Image w={350} src="/images/program_1.jpg" alt="man gym " />
-              <Image w={350} src="/images/program_2.jpg" alt="man gym " />
+              <Image className="autoShow" w={350} src="/images/program_1.jpg" alt="man gym " />
+              <Image className="autoShow" w={350} src="/images/program_2.jpg" alt="man gym " />
             </Group>
           </Box>
         </Box>

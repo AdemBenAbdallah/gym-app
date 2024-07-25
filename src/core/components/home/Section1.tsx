@@ -3,7 +3,7 @@ import { BackgroundImage, Box, Center, SimpleGrid, Stack, Text, rem } from "@man
 const Section1 = () => {
   return (
     <Stack bg={"bray.1"}>
-      <Center style={{ textAlign: "center" }}>
+      <Center className="autoShow" style={{ textAlign: "center" }}>
         <Stack>
           <Text fz={rem(14)} lh={rem(15)} tt={"uppercase"} span>
             WHAT WE DO
@@ -14,7 +14,7 @@ const Section1 = () => {
         </Stack>
       </Center>
 
-      <Center>
+      <Center className="autoShow">
         <SimpleGrid w={"70%"} cols={{ base: 1, md: 4 }} mt={{ base: 10, md: 50 }}>
           {data.map((item, index) => (
             <Box maw={300} key={index}>
