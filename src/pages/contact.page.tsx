@@ -3,15 +3,39 @@ import HomeLayout from "@/core/layouts/HomeLayout";
 import classes from "@/styles/module/ContactIcons.module.css";
 import clss from "@/styles/module/GetInTouch.module.css";
 import { BlitzPage } from "@blitzjs/next";
-import { Box, Button, Container, Group, Paper, rem, SimpleGrid, Stack, Text, Textarea, TextInput } from "@mantine/core";
+import {
+  AspectRatio,
+  Box,
+  Button,
+  Flex,
+  Group,
+  Paper,
+  rem,
+  SimpleGrid,
+  Stack,
+  Text,
+  Textarea,
+  TextInput,
+} from "@mantine/core";
 import { IconAt, IconMapPin, IconPhone, IconSun } from "@tabler/icons-react";
 
 const ContactPage: BlitzPage = () => {
   return (
     <HomeLayout title="Accueil">
-      <Container mt={{ base: 30, md: 200 }}>
-        <GetInTouch />
-      </Container>
+      <Flex w="100%" justify="center" align="center" direction={{ base: "column-reverse", md: "row" }}>
+        <Box w={{ base: "90%", md: "50%" }} h={{ base: "50%", md: "100%" }}>
+          <AspectRatio ratio={16 / 15}>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12953.250689214403!2d10.8227348!3d35.7431189!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x130213f0a646ac83%3A0xf308b7e0c45ee9d5!2sFit%20fight%20gym!5e0!3m2!1sen!2stn!4v1721906378408!5m2!1sen!2stn"
+              title="Google map"
+              style={{ border: 0 }}
+            />
+          </AspectRatio>
+        </Box>
+        <Box my={"auto"} w={{ base: "90%", md: "50%" }}>
+          <GetInTouch />
+        </Box>
+      </Flex>
     </HomeLayout>
   );
 };
@@ -53,7 +77,7 @@ function ContactIconsList() {
 
 function GetInTouch() {
   return (
-    <Paper shadow="md" radius="lg">
+    <Paper shadow="md" radius="lg" p={"lg"}>
       <div className={clss.wrapper}>
         <div className={clss.contacts} style={{ backgroundImage: `url(${bg.src})` }}>
           <Text fz="lg" fw={700} className={clss.title} c="#fff">

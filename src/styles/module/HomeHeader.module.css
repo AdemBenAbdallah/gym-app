@@ -2,9 +2,8 @@
   height: 60px;
   padding-left: var(--mantine-spacing-md);
   padding-right: var(--mantine-spacing-md);
-  border-bottom:
-    1px solid var(--mantine-color-gray-3),
-    var(--mantine-color-dark-4);
+  border-bottom: 1px solid;
+  border-bottom-color: var(--mantine-color-gray-3);
 }
 
 .link {
@@ -27,7 +26,7 @@
 }
 
 .link:hover {
-  background-color: var(--mantine-color-lime-1);
+  border-bottom: 2px solid var(--mantine-color-custom-1);
 }
 
 .subLink {
