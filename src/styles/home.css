@@ -185,6 +185,16 @@
   font-weight: 400;
   line-height: 1.5rem;
 }
+@media (max-width: 768px) {
+  .title {
+    font-size: 3rem;
+    line-height: 3rem;
+  }
+  .subtitle {
+    font-size: 1rem;
+    line-height: 1rem;
+  }
+}
 /* This is optional, to create the stagger effect */
 .show:nth-child(1) {
   transition-delay: 0.15s;

@@ -8,16 +8,21 @@ const Section1 = () => {
           <Text fz={rem(14)} lh={rem(15)} tt={"uppercase"} span>
             WHAT WE DO
           </Text>
-          <Text fw={700} fz={rem(57)} lh={rem(57)} maw={1000}>
+          <Text
+            fw={700}
+            fz={{ base: rem(27), md: rem(57) }}
+            lh={{ base: rem(30), md: rem(57) }}
+            maw={{ base: 500, md: 1000 }}
+          >
             Regardless of your sport of choice, our esteemed sports complex cultivates champions
           </Text>
         </Stack>
       </Center>
 
       <Center className="autoShow">
-        <SimpleGrid w={"70%"} cols={{ base: 1, md: 4 }} mt={{ base: 10, md: 50 }}>
+        <SimpleGrid w={{ base: "90%", md: "70%" }} cols={{ base: 2, md: 4 }} mt={{ base: 0, md: 50 }}>
           {data.map((item, index) => (
-            <Box maw={300} key={index}>
+            <Box maw={{ base: "100%", md: 300 }} key={index}>
               <BackgroundImage src={"/images/services_" + `${index + 1}` + ".jpg"} radius="sm">
                 <Text p={"md"} c="white" fz={rem(30)}>
                   0{index + 1}.

@@ -16,7 +16,7 @@ const WhyChooseUs = () => {
   return (
     <Stack bg={"gray.2"} mt={{ base: 100, md: 200 }}>
       <Group>
-        <Stack pl={100}>
+        <Stack pl={{ base: 30, md: 100 }} pt={{ base: 30, md: 0 }}>
           <Flex align="flex-start" gap="xl" direction={{ base: "column", md: "row" }}>
             <Stack flex={1} gap="xl">
               <Stack gap={5}>

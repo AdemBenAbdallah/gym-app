@@ -5,17 +5,21 @@ const Section3 = () => {
   const theme = useMantineTheme();
 
   return (
-    <Stack mt={200}>
-      <Group>
+    <Stack mt={{ base: 100, md: 200 }}>
+      <Group style={{ overflowX: "hidden" }}>
         <Box pos={"relative"} flex={1}>
-          <Box pos={"absolute"} bottom={-100} right={-100}>
+          <Box
+            pos={{ base: "relative", md: "absolute" }}
+            bottom={{ base: "auto", md: -100 }}
+            right={{ base: "auto", md: -100 }}
+          >
             <Group w={900} h={400} gap={20} justify="end">
               <Image className="autoShow" w={350} src="/images/program_1.jpg" alt="man gym " />
               <Image className="autoShow" w={350} src="/images/program_2.jpg" alt="man gym " />
             </Group>
           </Box>
         </Box>
-        <Stack flex={1} bg={"gray.1"} gap={50} px={200} py={150}>
+        <Stack flex={1} bg={"gray.1"} gap={50} px={{ base: 10, md: 200 }} py={150}>
           <Stack maw={500}>
             <Text fz={rem(14)} lh={rem(15)} tt={"uppercase"} span>
               MORE THAN TRAINING
