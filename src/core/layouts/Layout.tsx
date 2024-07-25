@@ -32,7 +32,7 @@ const Layout: ReactFC<Props> = ({ title, children }) => {
           <Horizontal fullH align="center" justify="space-between" p={"md"}>
             <Anchor component={Link} underline="never" href={Routes.Home()}>
               <Text fz={"h3"} fw={500}>
-                <Image style={{ borderRadius: theme.radius.md }} src="/favicon.ico" w={50} />
+                <Image style={{ borderRadius: theme.radius.md }} src="/images/logo.png" w={75} h={30} />
               </Text>
             </Anchor>
             <Horizontal>

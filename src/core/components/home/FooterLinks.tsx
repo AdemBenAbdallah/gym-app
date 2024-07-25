@@ -1,6 +1,6 @@
 import classes from "@/styles/module/FooterLinks.module.css";
 import { Routes } from "@blitzjs/next";
-import { ActionIcon, Container, Group, Image, Text, rem, useMantineTheme } from "@mantine/core";
+import { ActionIcon, Center, Container, Group, Image, Text, rem, useMantineTheme } from "@mantine/core";
 import { IconBrandInstagram, IconBrandTwitter, IconBrandYoutube } from "@tabler/icons-react";
 import Link from "next/link";
 
@@ -54,7 +54,9 @@ export function FooterLinks() {
     <footer className={classes.footer}>
       <Container className={classes.inner}>
         <div className={classes.logo}>
-          <Image style={{ borderRadius: theme.radius.md }} src="/favicon.ico" w={50} />
+          <Center bg={"white"} w={50} h={50} style={{ borderRadius: "50%" }} mb={20}>
+            <Image style={{ borderRadius: theme.radius.md }} src="/images/logo.png" w={50} />
+          </Center>
 
           <Text size="xs" c="dimmed" className={classes.description}>
             Développez rapidement un corps musclé et performant avec notre programme d'entraînement intensif.
@@ -64,7 +66,7 @@ export function FooterLinks() {
       </Container>
       <Container className={classes.afterFooter}>
         <Text c="dimmed" size="sm">
-          © {new Date().getFullYear()} gym.com. All rights reserved.
+          © {new Date().getFullYear()} fitfight.com. All rights reserved.
         </Text>
 
         <Group gap={0} className={classes.social} justify="flex-end">

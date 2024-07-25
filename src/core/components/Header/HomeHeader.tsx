@@ -17,7 +17,7 @@ export function HomeHeader() {
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
           <Link href={Routes.Home()}>
-            <Image style={{ borderRadius: theme.radius.md }} src="/favicon.ico" w={50} />
+            <Image style={{ borderRadius: theme.radius.md }} src="/images/logo.png" w={75} h={50} />
           </Link>
           <Group h="100%" gap={0} visibleFrom="sm">
             <Link href={Routes.Home()} className={classes.link}>
