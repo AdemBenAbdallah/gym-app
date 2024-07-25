@@ -4,7 +4,6 @@ import {
   InfinityHScroll,
   JoinUs,
   OurBlog,
-  OurPost,
   Section3,
   WhyChooseUs,
 } from "@/core/components/home";
@@ -21,7 +20,6 @@ const Home: BlitzPage = () => {
       <Section1 />
       <Section2 />
       <WhyChooseUs />
-      <OurPost />
       <Section3 />
       <OurBlog />
       <JoinUs />

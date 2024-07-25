@@ -2,6 +2,7 @@ import { Routes } from "@blitzjs/next";
 import { Button, Center, Group } from "@mantine/core";
 import { IconArrowUpRight } from "@tabler/icons-react";
 import Link from "next/link";
+import { useEffect } from "react";
 
 const HeroSection = () => {
   return (
@@ -16,11 +17,12 @@ const HeroSection = () => {
         </video>
         <div className="overlay"></div>
         <div className="content">
-          <h1>TRAVAILLEZ AVEC DES PROFESSIONNELS</h1>
+          {/* <h1>TRAVAILLEZ AVEC DES PROFESSIONNELS</h1>
           <h2>
             Nous sommes le plus grand réseau d'experts en fitness, santé et bien-être en Tunisie. Prêts à vous aider à
             atteindre vos objectifs de fitness et à transformer votre vie.
-          </h2>
+          </h2> */}
+          <FadeUpStagger />
           <Center>
             <Group>
               <Button fw={400} radius={"md"} component={Link} href={Routes.ContactPage()}>
@@ -44,4 +46,38 @@ const HeroSection = () => {
   );
 };
 
+export function FadeUpStagger() {
+  useEffect(() => {
+    const elements = document.querySelectorAll(".fade-up-stagger > div");
+    elements.forEach((el, index) => {
+      setTimeout(() => {
+        el.classList.add("show");
+      }, index * 150);
+    });
+  }, []);
+
+  return (
+    <div className="fade-up-stagger">
+      <div className="hidden">
+        <span className="title">TRAVAILLEZ </span>
+      </div>
+      <div className="hidden">
+        <span className="title">AVEC DES </span>
+      </div>
+      <div className="hidden">
+        <span className="title">PROFESSIONNELS</span>
+      </div>
+      <div style={{ margin: "20px 0" }} className="hidden">
+        <span className="subtitle">
+          {" "}
+          Nous sommes le plus grand réseau d'experts en fitness, santé et bien-être en Tunisie.
+        </span>
+        <br />
+        <span className="subtitle">
+          Prêts à vous aider à atteindre vos objectifs de fitness et à transformer votre vie.
+        </span>
+      </div>
+    </div>
+  );
+}
 export default HeroSection;
