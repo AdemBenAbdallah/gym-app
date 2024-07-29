@@ -26,7 +26,7 @@ const Section1 = () => {
               <BackgroundImage
                 src={"/images/services_" + `${index + 1}` + ".jpg"}
                 radius="sm"
-                mah={{ base: 250, md: "auto" }}
+                mah={{ base: 250, md: "100%" }}
               >
                 <Text p={"md"} c="white" fz={rem(30)}>
                   0{index + 1}.

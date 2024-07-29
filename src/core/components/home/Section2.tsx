@@ -2,7 +2,7 @@ import { Box, Button, Divider, Flex, Image, Stack, Text, rem } from "@mantine/co
 
 const Section2 = () => {
   return (
-    <Stack mt={{ base: 100, md: 200 }} align="center">
+    <Stack mt={{ base: 100, md: 200 }} align="center" style={{ overflowX: "hidden" }}>
       <Flex wrap={"wrap"} gap={{ base: 0, md: 200 }} justify="center">
         <Box className="slideShowRight" w={{ base: "90%", md: 450 }} pos={"relative"}>
           <Image w={"100%"} src="/images/program_3.jpeg" alt="man gym " />
