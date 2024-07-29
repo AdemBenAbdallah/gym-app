@@ -114,8 +114,13 @@
 
 /* animation on scroll */
 .autoShow {
-  animation: autoShowAnimation linear;
+  animation: autoShowAnimation both;
   animation-timeline: view(70% 5%);
+}
+
+.autoShow2 {
+  animation: autoShowAnimation both;
+  animation-timeline: view(90% 5%);
 }
 
 @keyframes autoShowAnimation {
@@ -130,12 +135,12 @@
 }
 
 .slideShowRight {
-  animation: slideShowAnimationRight linear;
+  animation: slideShowAnimationRight both;
   animation-timeline: view(90% 5%);
 }
 
 .slideShowLeft {
-  animation: slideShowAnimationLeft linear;
+  animation: slideShowAnimationLeft both;
   animation-timeline: view(90% 5%);
 }
 

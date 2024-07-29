@@ -19,11 +19,15 @@ const Section1 = () => {
         </Stack>
       </Center>
 
-      <Center className="autoShow">
+      <Center className="autoShow2">
         <SimpleGrid w={{ base: "90%", md: "70%" }} cols={{ base: 2, md: 4 }} mt={{ base: 0, md: 50 }}>
           {data.map((item, index) => (
             <Box maw={{ base: "100%", md: 300 }} key={index}>
-              <BackgroundImage src={"/images/services_" + `${index + 1}` + ".jpg"} radius="sm">
+              <BackgroundImage
+                src={"/images/services_" + `${index + 1}` + ".jpg"}
+                radius="sm"
+                mah={{ base: 250, md: "auto" }}
+              >
                 <Text p={"md"} c="white" fz={rem(30)}>
                   0{index + 1}.
                 </Text>
