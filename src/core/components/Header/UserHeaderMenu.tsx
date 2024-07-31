@@ -58,7 +58,7 @@ const UserHeaderMenu = () => {
         <Menu.Label>Application</Menu.Label>
         <MenuItemLink text="Accueil" href={Routes.Home()} Icon={IconHome} />
         <MenuItemLink text="Profil" href={Routes.Profile()} Icon={IconUserCircle} />
-        <MenuItemLink text="Blog" href={Routes.BlogPage()} Icon={IconBook} />
+        <MenuItemLink text="Articles" href={Routes.BlogPage()} Icon={IconBook} />
 
         {session.role === "ADMIN" && <MenuItemLink text="Utilisateurs" href={Routes.UsersPage()} Icon={IconUsers} />}
         {session.role === "ADMIN" && <MenuItemLink text="Coachs" href={Routes.CoachsPage()} Icon={IconStretching} />}
