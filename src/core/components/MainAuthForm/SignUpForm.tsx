@@ -41,7 +41,7 @@ export function SignUpForm(props: { toggle: () => void }) {
     <Vertical fullW fullH align="center" justify="center">
       <Paper radius="md" p={{ base: "lg", md: "xl" }} withBorder>
         <Text size="lg" fw={500} fz={{ base: rem(14), md: rem(19) }}>
-          Bienvenue sur l'application Gym
+          Bienvenue sur l'application Fit Fight
         </Text>
 
         <Divider label="Inscrivez-vous avec votre email" labelPosition="center" my="lg" />

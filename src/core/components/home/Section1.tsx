@@ -6,7 +6,7 @@ const Section1 = () => {
       <Center className="autoShow" style={{ textAlign: "center" }}>
         <Stack>
           <Text fz={rem(14)} lh={rem(15)} tt={"uppercase"} span>
-            WHAT WE DO
+            CE QUE NOUS FAISONS
           </Text>
           <Text
             fw={700}
@@ -14,7 +14,7 @@ const Section1 = () => {
             lh={{ base: rem(30), md: rem(57) }}
             maw={{ base: 500, md: 1000 }}
           >
-            Regardless of your sport of choice, our esteemed sports complex cultivates champions
+            Quel que soit votre sport de prédilection, notre complexe sportif renommé cultive des champions
           </Text>
         </Stack>
       </Center>

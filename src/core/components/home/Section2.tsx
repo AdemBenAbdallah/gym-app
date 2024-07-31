@@ -5,7 +5,7 @@ const Section2 = () => {
     <Stack mt={{ base: 100, md: 200 }} align="center" style={{ overflowX: "hidden" }}>
       <Flex wrap={"wrap"} gap={{ base: 0, md: 200 }} justify="center">
         <Box className="slideShowRight" w={{ base: "90%", md: 450 }} pos={"relative"}>
-          <Image w={"100%"} src="/images/program_3.jpeg" alt="man gym " />
+          <Image w={"100%"} src="/images/program_3.jpeg" alt="homme gym" />
           <Box
             pos={"absolute"}
             bottom={0}
@@ -18,16 +18,16 @@ const Section2 = () => {
             bg={"custom"}
             p={"xl"}
           >
-            Choose your plan and trainer
+            Choisissez votre plan et entraîneur
           </Box>
         </Box>
         <Stack className="slideShowLeft" maw={500} gap={80} p={{ base: 50, md: 0 }}>
           <Stack>
             <Text fz={rem(14)} lh={rem(15)} tt={"uppercase"} span>
-              WHY CHOOSE US{" "}
+              POURQUOI NOUS CHOISIR
             </Text>
             <Text fw={700} fz={{ base: rem(27), md: rem(57) }} lh={{ base: rem(30), md: rem(57) }} maw={1000}>
-              Our complex has the best trainers
+              Notre complexe a les meilleurs entraîneurs
             </Text>
             <Text fz={rem(17)} lh={rem(27)} c={"gray.7"}>
               At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
@@ -40,19 +40,19 @@ const Section2 = () => {
               <Text fz={rem(24)} c={"gray.5"} mr={rem(15)} span>
                 01.
               </Text>
-              Personal training
+              Entraînement personnel
             </Text>
             <Divider />
             <Text fz={rem(24)} lh={rem(24)} fw={700}>
               <Text fz={rem(24)} c={"gray.5"} mr={rem(15)} span>
                 02.
               </Text>
-              Group training
+              Entraînement en groupe
             </Text>
           </Stack>
 
           <Button radius={0} size="lg" bg={"yellow.7"}>
-            Get Started
+            Commencez maintenant
           </Button>
         </Stack>
       </Flex>

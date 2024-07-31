@@ -79,28 +79,29 @@ const WhyChooseUs = () => {
 
 const Whydata = [
   {
-    value: 120,
-    subtitle: "Projects delivered and counting. Let's make yours next!",
+    value: 30,
+    subtitle: "Qualified trainers available to guide your fitness journey.",
   },
   {
-    value: 120,
-    subtitle: "Active projects underway. Ready to add yours to the list!",
+    value: 500,
+    subtitle: "Active members improving their health and fitness.",
   },
   {
-    value: 120,
-    subtitle: "Verified talents, screened and ready to tackle your project.",
+    value: 200,
+    subtitle: "Group classes conducted per month, catering to all fitness levels.",
   },
   {
-    value: 120,
-    subtitle: "Tests completed, ensuring top-notch quality for your project.",
+    value: 1000,
+    subtitle: "Square meters of state-of-the-art training facilities.",
   },
   {
-    value: 120,
-    subtitle: "Satisfied clients and counting. Let's make you the next one!",
+    value: 150,
+    subtitle: "Pieces of equipment to ensure a comprehensive workout experience.",
   },
   {
-    value: 120,
+    value: 0,
     subtitle: "",
   },
 ];
+
 export default WhyChooseUs;
