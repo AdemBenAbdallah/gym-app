@@ -58,7 +58,7 @@ export function BlogCard({ blog, setSelectedBlog, updateModalOpen, isEdit }: Pro
 
       <Card.Section className={classes.section} mt="md">
         <Group justify="apart">
-          <Text fz="lg" fw={500}>
+          <Text fz="lg" fw={500} lineClamp={1}>
             {blog?.title}
           </Text>
           <Badge size="sm" variant="light">
