@@ -5,7 +5,7 @@ import { getUploadThingUrl } from "@/utils/image-utils";
 import { useSession } from "@blitzjs/auth";
 import { Routes } from "@blitzjs/next";
 import { useMutation } from "@blitzjs/rpc";
-import { ActionIcon, Badge, Button, Card, Group, Image, Text, useMantineTheme } from "@mantine/core";
+import { ActionIcon, Badge, Button, Card, Group, Image, Stack, Text, useMantineTheme } from "@mantine/core";
 import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
 import { IconEdit, IconTrashFilled } from "@tabler/icons-react";
@@ -57,14 +57,14 @@ export function BlogCard({ blog, setSelectedBlog, updateModalOpen, isEdit }: Pro
       </Card.Section>
 
       <Card.Section className={classes.section} mt="md">
-        <Group justify="apart">
+        <Stack justify="apart">
           <Text fz="lg" fw={500} lineClamp={1}>
             {blog?.title}
           </Text>
           <Badge size="sm" variant="light">
             {blog?.category}
           </Badge>
-        </Group>
+        </Stack>
         <Text mih={90} fz="sm" mt="xs" lineClamp={4}>
           {truncatedContent}
         </Text>{" "}
